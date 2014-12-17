@@ -8,18 +8,18 @@ food menu api - grubhub
 recipe stuff
 searching stuff ---> LOOK AT APIs first
 
-**Basic Features:
-search recipe by:
+##Basic Features:
+###search recipe by:
  -> by name of food item
  -> by ingredients
  -> optional for now: breakfast, lunch, dinner
-suggestion 
+###suggestion 
  -> by cuisine
-random food choice 
+###random food choice 
 
 Log In -> getting this we could save things that people have tried and stuff
 
-**Things to do later (optional more features):
+##Things to do later (optional more features):
 Free membership
 oauth for blogging and comments, and ranking
 Share on facebook
@@ -27,10 +27,9 @@ Twitter stuff
 ordering from directly the site
 add nutritional values
 
-
 recipe of the day home screen
 
-*CALENDAR + UPDATES
+##CALENDAR + UPDATES
 
 
 potential names...
