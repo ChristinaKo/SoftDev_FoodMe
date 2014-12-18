@@ -13,13 +13,13 @@ searching stuff ---> LOOK AT APIs first
 
 
 ##Basic Features:
-####search recipe by:
- -> by name of food item
- -> by ingredients
- -> optional for now: breakfast, lunch, dinner
-####suggestion 
- -> by cuisine
-####random food choice 
+####Search Recipe By:
+ *by name of food item
+ *by ingredients
+ *optional for now: breakfast, lunch, dinner
+####Suggestion 
+ *by cuisine
+####Random Food Choice 
 
 Log In -> getting this we could save things that people have tried and stuff
 
