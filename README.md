@@ -17,8 +17,10 @@ searching stuff ---> LOOK AT APIs first
  * by name of food item
  * by ingredients
  * optional for now: breakfast, lunch, dinner
+ 
 ####Suggestion 
  * by cuisine
+ 
 ####Random Food Choice 
 
 Log In -> getting this we could save things that people have tried and stuff
