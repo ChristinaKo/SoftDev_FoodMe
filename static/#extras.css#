@@ -1,0 +1,7 @@
+body{
+/*Remove below line to make bgimage NOT fixed*/
+background-attachment:fixed;
+background-repeat: no-repeat;
+/*Use center center in place of 300 200 to center bg image*/
+background-position: 300 200;
+}
