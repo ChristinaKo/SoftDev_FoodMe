@@ -4,17 +4,17 @@ import json
 
 plus="%2C+"
 
+
+#edamam has weird http errors- no authorization issues. TRY Nutritionix
+#urllib2.HTTPError: HTTP Error 401: Unauthorize
 #http://docs.python-requests.org/en/latest/index.html
 
-url="""
-https://api.edamam.com/api/nutrient-info?
-"""
-
-request = urllib2.urlopen(url)
+base = "http://api.edamam.com/api/nutrient-info?extractOnly&url=http:http://allrecipes.com/Recipe/Albondigas&api_id=&api_key="
+print base
+request = urllib2.urlopen(base)
 result = request.read()
 print result
 
-print "asdklfjasdklfjklasd;fjkl;asdfj\n\n\n\n\n\n\n\n\n\n\n\n"
 d = json.loads(result)
 print d
 if len(d['results']) > 0:
