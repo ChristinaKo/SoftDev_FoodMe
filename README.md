@@ -37,6 +37,7 @@ searching stuff ---> LOOK AT APIs first
  * Christina Ko- Leader of Searching Back-End Features
  * Angela Lin - Leader of Front-End Development
  * Lise Ho - Leader of Nutrition Back-End Features 
+
 ##CALENDAR + UPDATES
  * December 30th: 
     - GET Food2fork API Done
