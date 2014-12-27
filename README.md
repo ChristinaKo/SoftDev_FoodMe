@@ -36,17 +36,17 @@ searching stuff ---> LOOK AT APIs first
 ##Who:
  * Christina Ko- Leader of Searching Back-End Features
  * Angela Lin - Leader of Front-End Development
- * Lise Ho - Leader of Nutrition Back-End Features and 
+ * Lise Ho - Leader of Nutrition Back-End Features 
 ##CALENDAR + UPDATES
- *December 30th: 
+ * December 30th: 
     - GET Food2fork API Done
     - GET Nutrition API Done
     - GET Basic HTML SET UP
- *January 5th:
+ * January 5th:
     - Checkpoint- should be getting log-in stuff done
- *January 16th:
+ * January 16th:
     - Complete all back-end
- *January 19th:
+ * January 19th:
     - Debug
     - Polish up site
 
