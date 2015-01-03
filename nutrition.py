@@ -1,6 +1,11 @@
 import urllib2
 import json
 from nutritionix import Nutritionix
+###################KEY INFO HERE FOR API ACCESS##################################
+
+nx = Nutritionix (api_key = "",
+                  api_id = "",)
+################################################################################
 
 request = nx.search("cheese")
 result = request.json()
