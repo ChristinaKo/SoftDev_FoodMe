@@ -4,7 +4,8 @@ from nutritionix import Nutritionix
 ###################KEY INFO HERE FOR API ACCESS##################################
 
 nx = Nutritionix (api_key = "",
-                  api_id = "",)
+                  api_id = "")
+
 ################################################################################
 
 request = nx.search("cheese")
@@ -23,10 +24,14 @@ print base
 request = urllib2.urlopen(base)
 result = request.read()
 print result
-'''
 #d = json.loads(result)
-d = result
-print d
-if len(d) > 0:
-    print "items found"
+'''
+################################################################################
+def search(param):
+    request = nx.search("cheese")
+    result = request.json()
+    d = result
+    if len(d) > 0:
+        print "items found"
+    print d
 
