@@ -39,15 +39,17 @@ searching stuff ---> LOOK AT APIs first
  * Lise Ho - Leader of Nutrition Back-End Features 
 
 ##CALENDAR + UPDATES
- * December 30th: 
-    - GET Food2fork API Done
-    - GET Nutrition API Done
-    - GET Basic HTML SET UP
- * January 5th:
-    - Checkpoint- should be getting log-in stuff done
- * January 16th:
-    - Complete all back-end
+ * January 5th: 
+    - GET Food2fork API Working
+    - GET Nutrition API Working
+ * January 12th:
+    - Checkpoint--- Basic HTML SET UP
+    - should be getting log-in stuff done
+    - SHOULD BE INTEGRATING FRONT WITH BACK END
  * January 19th:
+    - Complete all back-end
+ * January 23rd:
+    - Checkpoint- Front-End almost done
     - Debug
     - Polish up site
 
