@@ -56,6 +56,9 @@ def brandsearch(brand):
 x= search("egg salad")
 getstats(x)
 
+
+
+
 '''
 sample output:
  u'allergen_contains_eggs': None,

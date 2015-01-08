@@ -3,26 +3,67 @@
     #id{
     }
     .nutrition_header{
-        font-size:1.2em;
-        font-weight:bold;
+       text-decoration:none;
+       font-size:1.8em;
+       margin:2px;
     }
     .servings{
     
+    }
+    #topbar{
+       padding-bottom:7px;
+       border-bottom:9px solid black;
+    }
+    #amount{
+       font-weight:bold;
+       font-size:.82em;
+       padding-bottom:4px;
+    }
+    #calbar{
+       border-top:1px solid gray;
+       border-bottom:4px solid black;
+    }
+    ._bottom_{
+     border-bottom:1px solid black;
+    }
+    .right_align{
+      text-align:right;
+      color:blue;
     }
   </style>
   <table style="border:1px solid black">
     <thead>
       <tr>
-	<td><h2 style="text-decoration:none">Nutrition Facts</h2></td>
-      </tr>
-      <tr>
-	<td class="nutrition_header">Nutrition Facts</td>
-	<td></td>
+	<td><h2 class="nutrition_header">Nutrition Facts</h2></td>
       </tr>
     </thead>
-      <tr class="servings">
-	<td>Serving Size</td>
-	<td></td>
+    <tr class="servings">
+      <td>Serving Size {sizes}</td>
     </tr>
+    <tr>
+      <td id="topbar">Serving Per Container {serverpcont} 	&nbsp;</td>
+    </tr>
+    <tr>
+      <td id="amount">Amount Per Serving</td>
+    </tr>
+    <tr>
+      <td id="calbar"><strong>Calories</strong>{calories} &nbsp;&nbsp; <strong>Calories From Fat</strong>{fatcals}</td>
+    </tr>
+    <tr>
+      <td class="_bottom_">% Daily Value*</td>
+    </tr>
+    <tr>
+      <td class="_bottom_"><strong>Total Fat</strong> {fat} {fat-dv}</td>
+    </tr>
+    <tr>
+      <td class="_bottom_">Saturated Fat {satfat}   {satfat-dv} </td>
+    </tr>
+    <tr>
+      <td class="_bottom_">Trans Fat {fat} </td>
+    </tr>
+    <tr>
+      <td class="_bottom_"><strong>Total Fat</strong> {fat} </td>
+    </tr>
+    
   </table>
 </html>
