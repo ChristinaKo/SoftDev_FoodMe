@@ -1,9 +1,27 @@
 <!DOCTYPE HTML>
 <html>
 </head>
+
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
 <link rel="stylesheet" href="/static/extras.css">
+<script>
+YUI({
+    classNamePrefix: 'pure'
+}).use('gallery-sm-menu', function (Y) {
 
+    var horizontalMenu = new Y.Menu({
+        container         : '#demo-horizontal-menu',
+        sourceNode        : '#std-menu-items',
+        orientation       : 'horizontal',
+        hideOnOutsideClick: false,
+        hideOnClick       : false
+    });
+
+    horizontalMenu.render();
+    horizontalMenu.show();
+
+});
+</script>
 <!--[if lte IE 8]>
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
 <![endif]-->
@@ -17,17 +35,40 @@
   <div id="layout" class="pure-g">
   </div>
 </div>
+<!--
+<div id="demo-horizontal-menu">
+    <ul id="std-menu-items">
+        <li class="pure-menu-selected"><a href="#">Flickr</a></li>
+        <li><a href="/">Home</a></li>
+       
 
-<br><br><br>
-<br><br><br>
-<br><br><br>
-<br><br><br>
-<br><br><br>
-<br><br><br>
-<br><br><br>
-<br><br><br>
-<br><br><br>
-\<br><br><br><br><br><br>
+	<li>
+            <a href="/morestuff">Other</a>
+            <ul>
+                <li class="pure-menu-heading">Stuff</li>
+                <li class="pure-menu-separator"></li>
+                <li><a href="#">Autos</a></li>
+                <li><a href="#">Flickr</a></li>
+                <li><a href="#">Answers</a></li>
+            </ul>
+	</li>
+
+    </ul>
+</div>
+
+-->
+
+
+<div class="pure-menu pure-menu-open pure-menu-horizontal">
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li class="pure-menu-selected"><a href="#">Flickr</a></li>
+        <li><a href="#">Messenger</a></li>
+        <li><a href="#">Sports</a></li>
+        <li><a href="#">Finance</a></li>
+    </ul>
+</div>
+
 <br><br><br>
 <br><br><br>
 <br><br><br>

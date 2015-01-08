@@ -15,3 +15,10 @@ background-position: 300 200;
     height: 50%;
     z-index: -1;
 }
+
+#menu {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
