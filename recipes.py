@@ -1,16 +1,14 @@
 import urllib2
 import json
 from bs4 import BeautifulSoup
-url = "http://food2fork.com/api/search?key=64e7c9ab4a5b566ec0aee5ea832f1ee2&q=mozzarella%20sticks"
+url = "http://food2fork.com/api/search?key=64e7c9ab4a5b566ec0aee5ea832f1ee2&q=chicken%20nuggets"
 request = urllib2.urlopen(url)
 result = request.read()
 d = json.loads(result)
-#print d
 surl= ""
-page = ""
 rurl= ""
 furl=""
-
+ingredients=[]
 for r in d['recipes']:
     for i in r['source_url']:
         rurl = rurl + i
@@ -43,14 +41,8 @@ res = urllib2.Request(furl) ##take in the source url from previous method
 x = urllib2.urlopen(res)
 html = x.read()
 html = BeautifulSoup(html)
-for i in html.find_all("span"):
-    if i['class'] == "plaincharacterwrap break":
-        print i.get_text()
+for i in html.find_all("li",itemprop="ingredients"):
+        ingredients.append(i.get_text())
+print ingredients
 
-# spliti = html.split("<ul>")
-# spliti = spliti[1].split("</ul>")
-# spliti=spliti[0].split("</li>")
-# for i in spliti:
-#     print i[26:]
-    
-# #Print  "Ingredients:<br><ul>" + spliti[0] + "</ul>"   
+# [u' 4 skinless, boneless chicken breasts', u' 2 cups corn oil', u' 1 egg, beaten', u' 1/3 cup water', u' 1/3 cup all-purpose flour', u' 1 1/2 tablespoons sesame seeds, toasted', u' 1 1/2 teaspoons salt']  --> LISE this is how it should look when it is in the array for "chicken nuggets"
