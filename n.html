@@ -46,6 +46,17 @@
     tr{
       padding:2px;
     }
+    .dots{
+    display: block;
+    list-style-type: disc;
+    margin:0px;
+    padding:2px;
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+    }
   </style>
   <table id="tb">
     <thead>
@@ -89,8 +100,22 @@
     <tr>
       <td class="topbar" colspan="1"><strong>Protein</strong> {protein} </td><td class="topbar right_align">{protein-dv}</td>
     </tr>     
-        <tr>
-      <td class="_bottom_" colspan="2"><strong>Cholesterol</strong> {cholesterol} </td>
+    <tr>
+      <td class="_bottom_" colspan="1">Vitamin A {vitA} <td class="_bottom_ "><ul class="dots"><li>Vitamin C {vitC}</li></ul> </td>
     </tr>
+    <tr>
+      <td class="_bottom_" colspan="1">Calcium {calcium} <td class="_bottom_ "><ul class="dots"><li>Iron {iron}</li></ul> </td>
+    </tr>
+	<!--
+ul css
+display: block;
+list-style-type: disc;
+	    -webkit-margin-before: 1em;
+-webkit-margin-after: 1em;
+-webkit-margin-start: 0px;
+-webkit-margin-end: 0px;
+-webkit-padding-start: 40px;
+
+-->
   </table>
 </html>
