@@ -5,3 +5,20 @@ background-repeat: no-repeat;
 /*Use center center in place of 300 200 to center bg image*/
 background-position: 300 200;
 }
+
+#banner {
+    position:absolute;
+    top: 0px;
+    left: 110px;
+    right: 110px;
+    width: 80%;
+    height: 50%;
+    z-index: -1;
+}
+
+#menu {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+}

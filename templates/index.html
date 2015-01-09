@@ -1,9 +1,27 @@
 <!DOCTYPE HTML>
 <html>
 </head>
+
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
 <link rel="stylesheet" href="/static/extras.css">
+<script>
+YUI({
+    classNamePrefix: 'pure'
+}).use('gallery-sm-menu', function (Y) {
 
+    var horizontalMenu = new Y.Menu({
+        container         : '#demo-horizontal-menu',
+        sourceNode        : '#std-menu-items',
+        orientation       : 'horizontal',
+        hideOnOutsideClick: false,
+        hideOnClick       : false
+    });
+
+    horizontalMenu.render();
+    horizontalMenu.show();
+
+});
+</script>
 <!--[if lte IE 8]>
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
 <![endif]-->
@@ -17,11 +35,82 @@
   <div id="layout" class="pure-g">
   </div>
 </div>
+<!--
+<div id="demo-horizontal-menu">
+    <ul id="std-menu-items">
+        <li class="pure-menu-selected"><a href="#">Flickr</a></li>
+        <li><a href="/">Home</a></li>
+       
+
+	<li>
+            <a href="/morestuff">Other</a>
+            <ul>
+                <li class="pure-menu-heading">Stuff</li>
+                <li class="pure-menu-separator"></li>
+                <li><a href="#">Autos</a></li>
+                <li><a href="#">Flickr</a></li>
+                <li><a href="#">Answers</a></li>
+            </ul>
+	</li>
+
+    </ul>
+</div>
+
+-->
+
+<div id="demo-horizontal-menu">
+    <ul id="std-menu-items">
+        <li class="pure-menu-selected"><a href="#">Flickr</a></li>
+        <li><a href="#">Messenger</a></li>
+        <li><a href="#">Sports</a></li>
+        <li><a href="#">Finance</a></li>
+        <li>
+            <a href="#">Other</a>
+            <ul>
+                <li class="pure-menu-heading">More from Yahoo!</li>
+                <li class="pure-menu-separator"></li>
+                <li><a href="#">Autos</a></li>
+                <li><a href="#">Flickr</a></li>
+                <li><a href="#">Answers</a></li>
+                <li>
+                    <a href="#">Even More</a>
+                    <ul>
+                        <li><a href="#">Horoscopes</a></li>
+                        <li><a href="#">Games</a></li>
+                        <li><a href="#">Jobs</a></li>
+                        <li><a href="#">OMG</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
 
 <div class="pure-g">
   <div class="pure-u-3-24"></div>
   <div class="pure-u-1-24"></div>
-  <div class="pure-u-16-24"></div>
+ 
+  <div class="pure-u-16-24">
+
+ <img id="banner" src="/static/banner.jpg" alt="Banner Image"/>
+
+</div>
   <div class="pure-u-1-24"></div>
   <div class="pure-u-3-24"></div>
 </div>
@@ -29,7 +118,7 @@
 <body>
 
 </body>
-<script src="recipe.js"></script>
+<script src="../recipe.js"></script>
 </html>
 
 

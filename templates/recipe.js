@@ -1,8 +1,8 @@
 
-var bgimages=new Array(
-    'm.jpg'
-);
+var bgimages=new Array();
+bgimages[0] = 'm.jpg';
 /*
+console.log("hello");
 //preload images
 var pathToImg=new Array()
 for (i=0;i<bgimages.length;i++){
@@ -10,7 +10,7 @@ for (i=0;i<bgimages.length;i++){
     pathToImg[i].src=bgimages[i];
 }
 
-var inc=0;
+var inc=-1;
 
 function bgSlide(){
     if (inc<bgimages.length){
@@ -24,4 +24,5 @@ function bgSlide(){
 
 if (document.all||document.getElementById)
     window.onload=new Function('setInterval("bgSlide()",30000)')
+
 */
