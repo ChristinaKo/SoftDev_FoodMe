@@ -1,6 +1,13 @@
 <html>
   <style>
-    #id{
+    #tb{
+    border-spacing:0px;
+    border:1px solid black;
+    padding:5px;
+    }
+     #dv{
+       font-weight:bold;
+    font-size:.82em;
     }
     .nutrition_header{
        text-decoration:none;
@@ -8,9 +15,13 @@
        margin:2px;
     }
     .servings{
-    
+    column-span: all; /* W3C */
+    -webkit-column-span: all; /* Safari & Chrome */
+    -moz-column-span: all; /* Firefox */
+    -ms-column-span: all; /* Internet Explorer */
+    -o-column-span: all; /* Opera */
     }
-    #topbar{
+    .topbar{
        padding-bottom:7px;
        border-bottom:9px solid black;
     }
@@ -19,7 +30,7 @@
        font-size:.82em;
        padding-bottom:4px;
     }
-    #calbar{
+    .calbar{
        border-top:1px solid gray;
        border-bottom:4px solid black;
     }
@@ -28,42 +39,58 @@
     }
     .right_align{
       text-align:right;
-      color:blue;
+    }
+    td{
+      padding:2px;
+    }
+    tr{
+      padding:2px;
     }
   </style>
-  <table style="border:1px solid black">
+  <table id="tb">
     <thead>
       <tr>
-	<td><h2 class="nutrition_header">Nutrition Facts</h2></td>
+	<td><h2 class="nutrition_header" colspan="2">Nutrition Facts</h2></td>
       </tr>
     </thead>
-    <tr class="servings">
+    <tr class="servings" colspan="2">
       <td>Serving Size {sizes}</td>
     </tr>
     <tr>
-      <td id="topbar">Serving Per Container {serverpcont} 	&nbsp;</td>
+      <td class="topbar" colspan="2">Serving Per Container {serverpcont} 	&nbsp;</td>
     </tr>
     <tr>
-      <td id="amount">Amount Per Serving</td>
+      <td id="amount" colspan="2">Amount Per Serving</td>
     </tr>
     <tr>
-      <td id="calbar"><strong>Calories</strong>{calories} &nbsp;&nbsp; <strong>Calories From Fat</strong>{fatcals}</td>
+      <td class="calbar"  colspan="1"><strong>Calories</strong>{calories} </td><td class="calbar"><strong>Calories From Fat</strong>{fatcals}</td>
     </tr>
     <tr>
-      <td class="_bottom_">% Daily Value*</td>
+      <td class="right_align _bottom_" id="dv" colspan="2">% Daily Value*</td>
     </tr>
     <tr>
-      <td class="_bottom_"><strong>Total Fat</strong> {fat} {fat-dv}</td>
+      <td class="_bottom_" colspan="1"><strong>Total Fat</strong> {fat} </td><td class="right_align _bottom_">{fat-dv}</td>
     </tr>
     <tr>
-      <td class="_bottom_">Saturated Fat {satfat}   {satfat-dv} </td>
+      <td class="_bottom_" colspan="1">Saturated Fat {satfat} </td><td class="right_align _bottom_">{satfat-dv} </td>
     </tr>
     <tr>
-      <td class="_bottom_">Trans Fat {fat} </td>
+      <td class="_bottom_" colspan="2">Trans Fat {fat} </td>
     </tr>
     <tr>
-      <td class="_bottom_"><strong>Total Fat</strong> {fat} </td>
+      <td class="_bottom_" colspan="1"><strong>Cholesterol</strong> {cholesterol}  </td><td class="right_align _bottom_">{cholesterol-dv}</td>
     </tr>
-    
+    <tr>
+      <td class="_bottom_" colspan="1"><strong>Sodium</strong> {sodium} </td><td class="right_align _bottom_">{sodium-dv}</td>
+    </tr>
+    <tr>
+      <td class="_bottom_" colspan="1"><strong>Total Carbohydrate</strong> {carb} </td><td class="right_align _bottom_">{carb-dv} </td>
+    </tr>
+    <tr>
+      <td class="topbar" colspan="1"><strong>Protein</strong> {protein} </td><td class="topbar right_align">{protein-dv}</td>
+    </tr>     
+        <tr>
+      <td class="_bottom_" colspan="2"><strong>Cholesterol</strong> {cholesterol} </td>
+    </tr>
   </table>
 </html>
