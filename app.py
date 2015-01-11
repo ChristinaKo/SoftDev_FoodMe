@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, redirect, session, url_for, session, escape, flask
+from flask import Flask, render_template, request, redirect, session, url_for, session, escape
 from functools import wraps
+import MongoWork
 
 app = Flask(__name__)
 app.secret_key = "Really secret but not really secret." #session usage
@@ -14,8 +15,6 @@ def authenticate(f):
             return redirect(url_for('index',redirect_user = True))
     return wrap
 
-
-@app.route('/')
 @app.route("/", methods=["POST","GET"])
 def index():
     error = None
@@ -41,7 +40,7 @@ def index():
     else:#request.method == "GET"
         error = None
         return render_template("index.html")
-
+'''
 @app.route("/dashboard")
 @authenticate
 def dashboard():
@@ -55,16 +54,6 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
         
-@app.route("/about", methods=["POST","GET"])
-def about():
-    if 'username' in session:
-        loggedin = True
-        username = escape(session['username'])
-        return render_template("about.html", loggedin=loggedin,username=username)
-    else:
-        loggedin = False
-    return render_template("about.html", loggedin=loggedin)
-
 @app.route("/register", methods=["POST","GET"])
 def register():
     if request.method == "POST":
@@ -98,9 +87,24 @@ def register():
     else:#GET method
         return render_template("register.html")
 
-@app.route('/about')
+#must pop off session
+@app.route("/logout")
+def logout():
+    #remove username from session
+    session.pop('username', None)
+    return redirect(url_for('index'))
+
+#can be viewed without logging in
+@app.route("/about", methods=["POST","GET"])
 def about():
-    return render_template("about.html")
+    if 'username' in session:
+        loggedin = True
+        username = escape(session['username'])
+        return render_template("about.html", loggedin=loggedin,username=username)
+    else:
+        loggedin = False
+    return render_template("about.html", loggedin=loggedin)
+'''
 
 if __name__ == '__main__':
 	app.debug = True
