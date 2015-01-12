@@ -1,9 +1,7 @@
 <!DOCTYPE HTML>
 <html>
-
 <div class="pure-skin-pretty">
 </head>
-
 
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
 <link rel="stylesheet" href="/static/extras.css">
@@ -17,6 +15,16 @@
 
 </head>
 
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class=flashes>
+  {% for message in messages %}
+  {{ message }}
+  {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+
 <div class="pure-g">
   <div id="layout" class="pure-g">
   </div>
@@ -27,22 +35,14 @@
     <img src="/static/icon.jpg" alt="FoodMe Icon"/>
  </a>
    <ul>
-        <li class="pure-menu-selected"><a href="#">Home</a></li>
-        <li><a href="/">Flickr</a></li>
+        <li class="pure-menu-selected"><a href="/">Home</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/help">Help</a></li>
+	<li><a href="/login">Sign In</a></li>
+	<li><a href="/register">Register</a></li>
     </ul>
 </div>
 
-{% block body %}
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-<div class=flashes>
-  {% for message in messages %}
-  {{ message }}
-  {% endfor %}
-</div>
-{% endif %}
-{% endwith %}
-{% endblock %}
 <br>
 <div class="error">
   {% if error %}
@@ -66,7 +66,6 @@
   <div class="pure-u-3-24"></div>
   <div class="pure-u-1-24"></div> 
   <div class="pure-u-16-24">
-    <img id="banner" src="/static/banner.jpg" alt="Banner Image"/>
   </div>
   <div class="pure-u-1-24"></div>
   <div class="pure-u-3-24"></div>
@@ -74,5 +73,3 @@
 </div>
 
 </html>
-
-

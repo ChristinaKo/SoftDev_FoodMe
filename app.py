@@ -15,6 +15,26 @@ def authenticate(f):
             return redirect(url_for('index',redirect_user = True))
     return wrap
 
+@app.route("/about", methods=["POST","GET"])
+def about():
+    if 'username' in session:
+        loggedin = True
+        username = escape(session['username'])
+        return render_template("about.html", loggedin=loggedin,username=username)
+    else:
+        loggedin = False
+    return render_template("about.html", loggedin=loggedin)
+
+@app.route("/help", methods=["POST","GET"])
+def help():
+    if 'username' in session:
+        loggedin = True
+        username = escape(session['username'])
+        return render_template("help.html", loggedin=loggedin,username=username)
+    else:
+        loggedin = False
+    return render_template("help.html", loggedin=loggedin)
+
 @app.route("/", methods=["POST","GET"])
 def index():
     error = None
@@ -94,16 +114,6 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
 
-#can be viewed without logging in
-@app.route("/about", methods=["POST","GET"])
-def about():
-    if 'username' in session:
-        loggedin = True
-        username = escape(session['username'])
-        return render_template("about.html", loggedin=loggedin,username=username)
-    else:
-        loggedin = False
-    return render_template("about.html", loggedin=loggedin)
 '''
 
 if __name__ == '__main__':
