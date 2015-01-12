@@ -16,6 +16,10 @@ background-position: 300 200;
     z-index: -1;
 }
 
+.search-bar {
+    left: 170px;
+}
+
 body {
     background-color: #ffffff;
 }
