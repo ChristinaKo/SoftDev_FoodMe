@@ -16,8 +16,8 @@ background-position: 300 200;
     z-index: -1;
 }
 
-body {
-    background-color: #ffffff;
+.search-bar {
+    left: 170px;
 }
 
 /* from PURE buttons-core.css */
