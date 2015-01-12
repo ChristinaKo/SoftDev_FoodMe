@@ -5,7 +5,7 @@ SoftDev_Final-FoodMe (temporary name)
 ___ is devoted to providing incredible recipes using ingredients as search parameters. 
 
 Food: Restaurant and Recipe suggestion website
-Potential APis: yummly, food2fork, bigoven, calorieking(nutrition), Zomato, grubhub
+Potential APis: yummly, food2fork,calorieking(nutrition), Zomato, grubhub
 food menu api - grubhub
 recipe stuff
 searching stuff ---> LOOK AT APIs first
@@ -19,10 +19,10 @@ searching stuff ---> LOOK AT APIs first
  * by cuisine
  
 ####Log In 
- * getting this we could save things that people have tried and stuff
+ * Although most of our website will be accessible without the user making an account, we want to make commenting and possibly other features (ratings?) available only if our user has an account with us, so we know who is making comments (in case of inappropriate comments or behavior)
 
 ####Random Food Choice (optional)
- * Daily Recipe of the Day 
+ * Daily Recipe of the Day on homepage
 
 ###Things to do later (optional more features):
  * Free membership
