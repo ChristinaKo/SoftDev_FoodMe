@@ -37,6 +37,16 @@ def help():
 
 @app.route("/", methods=["POST","GET"])
 def index():
+    if 'username' in session:
+        loggedin = True
+        username = escape(session['username'])
+        return render_template("index.html", loggedin=loggedin,username=username)
+    else:
+        loggedin = False
+    return render_template("index.html", loggedin=loggedin)
+
+@app.route("/login", methods=["POST","GET"])
+def login():
     error = None
     if request.method == 'POST':
         userinput = request.form['user']
@@ -46,20 +56,21 @@ def index():
             if MongoWork.find_pword(userinput) == pwdinput: ##SUCCESSFULLY LOGGED IN
                 session['username'] = userinput
                 redirect_necessary = request.args.get('redirect_user')
+                #redirecting after login
                 if redirect_necessary:
                     return redirect(url_for("user"))
                 else:
-                    return redirect(url_for('dashboard',username=userinput))
+                    return redirect(url_for('index',username=userinput))
             else:#incorrect password error
                 error = True
-                return render_template("index.html" ,error=error)
+                return render_template("login.html" ,error=error)
         else:
             #print "not in users"
             notreg = True
-            return render_template("index.html", notreg = notreg)
+            return render_template("login.html", notreg = notreg)
     else:#request.method == "GET"
         error = None
-        return render_template("index.html")
+        return render_template("login.html")
 '''
 @app.route("/dashboard")
 @authenticate
@@ -73,7 +84,7 @@ def logout():
     #remove username from session
     session.pop('username', None)
     return redirect(url_for('index'))
-        
+'''        
 @app.route("/register", methods=["POST","GET"])
 def register():
     if request.method == "POST":
@@ -107,14 +118,6 @@ def register():
     else:#GET method
         return render_template("register.html")
 
-#must pop off session
-@app.route("/logout")
-def logout():
-    #remove username from session
-    session.pop('username', None)
-    return redirect(url_for('index'))
-
-'''
 
 if __name__ == '__main__':
 	app.debug = True
