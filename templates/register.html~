@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html>
+<div class="pure-skin-pretty">
+</head>
+
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+<link rel="stylesheet" href="/static/extras.css">
+
+<!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
+<!--<![endif]-->
+
+</head>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class=flashes>
+  {% for message in messages %}
+  {{ message }}
+  {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+
+<div class="pure-g">
+  <div id="layout" class="pure-g">
+  </div>
+</div>
+
+<div class="pure-menu pure-menu-open pure-menu-horizontal pure-menu-pull-right">
+  <a class="pure-menu-heading" href="/"> 
+    <img src="/static/icon.jpg" alt="FoodMe Icon"/>
+ </a>
+   <ul>
+        <li><a href="/">Home</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/help">Help</a></li>
+	<li class="pure-menu-selected"><a href="/login">Sign In</a></li>
+	<li><a href="/register">Register</a></li>
+    </ul>
+</div>
+
+<br>
+<!DOCTYPE HTML>
+<html>
+<div class="pure-skin-pretty">
+</head>
+
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+<link rel="stylesheet" href="/static/extras.css">
+
+<!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
+<!--<![endif]-->
+
+</head>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class=flashes>
+  {% for message in messages %}
+  {{ message }}
+  {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+
+<div class="pure-g">
+  <div id="layout" class="pure-g">
+  </div>
+</div>
+
+<div class="pure-menu pure-menu-open pure-menu-horizontal pure-menu-pull-right">
+  <a class="pure-menu-heading" href="/"> 
+    <img src="/static/icon.jpg" alt="FoodMe Icon"/>
+ </a>
+   <ul>
+        <li><a href="/">Home</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/help">Help</a></li>
+	<li class="pure-menu-selected"><a href="/login">Sign In</a></li>
+	<li><a href="/register">Register</a></li>
+    </ul>
+</div>
+
+<br>
+<div class="error">
+  {% if error %}
+  Incorrect password! Please try again.<br><br>
+  {% elif notreg %}
+  Username was not recognized. Please register.<br><br>
+  {%endif%}
+</div>
+<form class="pure-form" method="POST">
+  Username: 
+  <br>  
+  <input class="form-stuff" type="text" size="30" placeholder="Username" name="user"></input>
+  <br><br>
+      Password:
+  <br>
+  <input class-"form-stuff" type="password" size="30" placeholder="Password" name="passwd"></input>
+  <br><br><button class="pure-button" name="submit" value="yes">Submit</button>
+</form>
+</html>

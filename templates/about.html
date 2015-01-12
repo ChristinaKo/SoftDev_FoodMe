@@ -1,10 +1,10 @@
-<!DOCTYPE HTML>
+<!doctype html>
 <html>
-<div class="pure-skin-pretty">
-</head>
-
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+  <div class="pure-skin-pretty">
+    
+<head>
 <link rel="stylesheet" href="/static/extras.css">
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
 
 <!--[if lte IE 8]>
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
@@ -14,16 +14,6 @@
 <!--<![endif]-->
 
 </head>
-
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-<div class=flashes>
-  {% for message in messages %}
-  {{ message }}
-  {% endfor %}
-</div>
-{% endif %}
-{% endwith %}
 
 <div class="pure-g">
   <div id="layout" class="pure-g">
@@ -35,22 +25,24 @@
     <img src="/static/icon.jpg" alt="FoodMe Icon"/>
  </a>
    <ul>
-        <li class="pure-menu-selected"><a href="/">Home</a></li>
-	<li><a href="/about">About</a></li>
+        <li><a href="/">Home</a></li>
+	<li class="pure-menu-selected"><a href="/about">About</a></li>
 	<li><a href="/help">Help</a></li>
 	<li><a href="/login">Sign In</a></li>
 	<li><a href="/register">Register</a></li>
     </ul>
 </div>
 
-<div class="pure-g">
-  <div class="pure-u-3-24"></div>
-  <div class="pure-u-1-24"></div> 
-  <div class="pure-u-16-24">
-  </div>
-  <div class="pure-u-1-24"></div>
-  <div class="pure-u-3-24"></div>
-</div>
-</div>
+
+{% if not loggedin %}
+{% else %}
+<br>
+Currently logged in as {{username}}...
+<br>
+{% endif %}
+<div class="about">ABOUT PAGE</div>
+<br><br>
+
+
 
 </html>
