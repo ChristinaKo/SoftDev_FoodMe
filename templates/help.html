@@ -15,6 +15,17 @@
 
 </head>
 
+<style>
+  .background {
+  opacity: 0.8;
+  filter: alpha(opacity=80); /* For IE8 and earlier */
+  background-image: url("/static/egg.jpg");
+  background-attachment: fixed;    
+  background-repeat: no-repeat;
+  background-size: cover;
+  }
+</style>
+
 <div class="pure-g">
   <div id="layout" class="pure-g">
   </div>
@@ -40,7 +51,8 @@
    </ul>
 </div>
 
-
+<div class="background">
+<a href="#" class="scrollup"></a>
 {% if not loggedin %}
 {% else %}
 <br>
@@ -49,6 +61,11 @@ Currently logged in as {{username}}...
 {% endif %}
 <div class="help">HELP PAGE</div>
 <br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="/static/main.js"></script>
 
 
 

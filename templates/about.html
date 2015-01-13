@@ -1,24 +1,21 @@
-<!doctype html>
+<!DOCTYPE HTMl>
 <html>
   <div class="pure-skin-pretty">
     
 <head>
 <link rel="stylesheet" href="/static/extras.css">
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
-<style>
-body {
-    opacity: 0.4;
-    filter: alpha(opacity=40); /* For IE8 and earlier */
-    background-image: url("/static/egg.jpg");
-}
-</style>
 
-<!--[if lte IE 8]>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
-<![endif]-->
-<!--[if gt IE 8]><!-->
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
-<!--<![endif]-->
+<style>
+  .background {
+  opacity: 0.8;
+  filter: alpha(opacity=80); /* For IE8 and earlier */
+  background-image: url("/static/salad.jpg");
+  background-attachment: fixed;    
+  background-repeat: no-repeat;
+  background-size: cover;
+  }
+</style>
 
 </head>
 
@@ -47,19 +44,16 @@ body {
    </ul>
 </div>
 
-<br><br><br><br><br><br>
-<br><br><br><br><br><br>
-<br><br><br><br>
-<body>
+<div class="background">
 {% if not loggedin %}
 {% else %}
 <br>
 Currently logged in as {{username}}...
 <br>
 {% endif %}
-<div class="about">ABOUT PAGE</div>
-<br><br>
-</body>
-
-
+<a href="#" class="scrollup"></a>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="/static/main.js"></script>
 </html>
