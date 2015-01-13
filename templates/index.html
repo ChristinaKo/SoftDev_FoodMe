@@ -1,41 +1,23 @@
-<!DOCTYPE HTML>
+<!DOCTYPE HTMl>
 <html>
-<div class="pure-skin-pretty">
-</head>
-
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+  <div class="pure-skin-pretty">
+    
+<head>
 <link rel="stylesheet" href="/static/extras.css">
-
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
 
 <style>
   .background {
   opacity: 0.8;
   filter: alpha(opacity=80); /* For IE8 and earlier */
-  background-image: url("/static/egg.jpg");
+  background-image: url("/static/pizza.jpg");
   background-attachment: fixed;    
   background-repeat: no-repeat;
   background-size: cover;
   }
 </style>
 
-<!--[if lte IE 8]>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
-<![endif]-->
-<!--[if gt IE 8]><!-->
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
-<!--<![endif]-->
-
 </head>
-
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-<div class=flashes>
-  {% for message in messages %}
-  {{ message }}
-  {% endfor %}
-</div>
-{% endif %}
-{% endwith %}
 
 <div class="pure-g">
   <div id="layout" class="pure-g">
@@ -58,14 +40,14 @@
 	      <img src="/static/search.png" alt="Search Icon"/></button>
 	  </form>
 	</li>	
-
+	
    </ul>
 </div>
+
 <div class="background">
 <a href="#" class="scrollup"></a>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="/static/main.js"></script>
-
 </html>
