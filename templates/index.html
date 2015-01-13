@@ -15,6 +15,17 @@
   background-repeat: no-repeat;
   background-size: cover;
   }
+
+#search-format {
+  font-size: 50px;
+}
+.main-search {
+  margin-left: auto;
+  margin-right: auto;
+  width: 600px;
+  height: 100px;
+}
+
 </style>
 
 </head>
@@ -34,19 +45,19 @@
 	<li><a href="/help">Help</a></li>
 	<li><a href="/login">Sign In</a></li>
 	<li><a href="/register">Register</a></li>
-   	<li class="search-bar"><form class="pure-form">
-	    <input type="text" class="pure-input-rounded">
-	    <button type="submit" class="pure-button">
-	      <img src="/static/search.png" alt="Search Icon"/></button>
-	  </form>
-	</li>	
-	
    </ul>
 </div>
 
 <div class="background">
-<a href="#" class="scrollup"></a>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <a href="#" class="scrollup"></a>
+  <div id="search-format">
+    <form class="pure-form">
+      <input type="text" class="pure-input-rounded main-search">
+      <button type="submit" class="pure-button">
+	<img src="/static/search_big.png" alt="Search Icon"/></button>
+    </form>
+  </div>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="/static/main.js"></script>
