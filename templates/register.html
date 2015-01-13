@@ -15,6 +15,17 @@
 
 </head>
 
+<style>
+  .background {
+  opacity: 0.8;
+  filter: alpha(opacity=80); /* For IE8 and earlier */
+  background-image: url("/static/egg.jpg");
+  background-attachment: fixed;    
+  background-repeat: no-repeat;
+  background-size: cover;
+  }
+</style>
+
 {% with messages = get_flashed_messages() %}
 {% if messages %}
 <div class=flashes>
@@ -48,8 +59,8 @@
 	</li>	
    </ul>
 </div>
-
-<div class="centered">
+<div class="background">
+  <div class="centered">
   {% if empty %}
   <div class="error"> 
     Missing fields! Please try again. <br>
@@ -89,7 +100,8 @@
       <br><br>
       <button class="pure-button" name="submit" value="yes">Submit</button>
 </form>
-<br>
-<br>
+
+  </div>
 </div>
+
 </html>
