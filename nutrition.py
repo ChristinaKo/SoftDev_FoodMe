@@ -2,36 +2,48 @@ import urllib2
 import json
 from nutritionix import Nutritionix
 ###################KEY INFO HERE FOR API ACCESS##################################
+#you need to place an API key for Nutritionix here - provide one here below
+
+
 
 ################################################################################
+
+#standard input from recipes.py
+# [u' 3 skinless, boneless chicken breasts', u' 1 cup Italian seasoned bread crumbs', u' 1/2 cup grated Parmesan cheese', u' 1 teaspoon salt', u' 1 teaspoon dried thyme', u' 1 tablespoon dried basil', u' 1/2 cup butter, melted']  --> LISE this is how it should look when it is in the array for "chicken nuggets"
+
+#words to get rid of: cup/s, teaspoon, tablesppon, numbers
+def parser(ingred):
+    i = strip(ingred)
+    x = split(i)
+    #can we assume that all recipes have digits,'.','/' in the front?
+   
+    pass
+
+
+#returns a list of first 10 item_id of the results of a search
 def search(param):
     lists=[]
     request = nx.search(param)
     result = request.json()
     print result["total_hits"]
     if result["total_hits"] >0:
-        print result["hits"]
-        print " "
-        counter = 0
-        for item in result["hits"]:
-            print "\n\nITEM:"
+        for item in result["hits"]: #is result hits top 10?
             print item
-            print "\n"
-            print item["fields"]
-            counter += 1
-            print counter
-    #       print "Item Name: "+ item["fields"]["item_name"]+"\n Brand: "+item["fields"]["brand_name"]
+            print "\n"+ str(item["fields"])
+#       print "Item Name: "+ item["fields"]["item_name"]+"\n Brand: "+item["fields"]["brand_name"]
             lists.append(item["fields"]["item_id"])
         return lists
     else:
         return None
     
+#parses through list of item_id s and looks for nutrition facts     
 def getstats(lists):
     print "item_id "
     for item_id in lists:
         print nx.item(id=item_id).json()
         getnutritionfacts(item_id)
-        
+
+#get nutritionfacts -> returns allergen stuff
 def getnutritionfacts(item_id):
     allergen= ["allergen_contains_eggs","allergen_contains_fish","allergen_contains_gluten","allergen_contains_milk","allergen_contains_peanuts","allergen_contains_shellfish","allergen_contains_tree_nuts","allergen_contains_wheat", "allergen_contains_soybeans"]
     #print allergen
@@ -53,11 +65,8 @@ def brandsearch(brand):
     if len(result)>0:
         print "BRAND: FOUND"
 
-x= search("egg salad")
-getstats(x)
-
-
-
+x= search("3 cups of egg salad") #we get tuna and peanut butter cups.... :(
+#getstats(x)
 
 '''
 sample output:
@@ -112,4 +121,14 @@ u'nf_calories_from_fat': 40,
 u'nf_serving_weight_grams': None, 
 {u'nf_ingredient_statement': None, 
 '''
-
+'''
+dictionary fields of the api:
+{   _score, _type, _id, fields{
+          item_id,
+          item_name,
+          nf_serving_size_unit
+            brand_name,
+            nf_serving_size_qty,
+          }
+    _index
+'''
