@@ -46,6 +46,8 @@ searching stuff ---> LOOK AT APIs first
     - Checkpoint--- Basic HTML SET UP * 
     - should be getting log-in stuff done *
     - SHOULD BE INTEGRATING FRONT WITH BACK END 
+ * January 15th:
+    - Finished returning a random recipe for Recipe of the Day *
  * January 19th:
     - Complete all back-end
  * January 23rd:
