@@ -4,21 +4,40 @@ from nutritionix import Nutritionix
 ###################KEY INFO HERE FOR API ACCESS##################################
 #you need to place an API key for Nutritionix here - provide one here below
 
-
+nx = Nutritionix(app_id="1634d1d7",
+                 api_key="b3692f565db4cc3cbd653b99d9fc35ac",
+                 );
 
 ################################################################################
 
-#standard input from recipes.py
-# [u' 3 skinless, boneless chicken breasts', u' 1 cup Italian seasoned bread crumbs', u' 1/2 cup grated Parmesan cheese', u' 1 teaspoon salt', u' 1 teaspoon dried thyme', u' 1 tablespoon dried basil', u' 1/2 cup butter, melted']  --> LISE this is how it should look when it is in the array for "chicken nuggets"
+def parser(ingredlist):
+    searchL = []    
+    for i in ingredlist:
+        searchL.append(parse(ingred))
+    
+#parses ingredients from a string of ingredients from food to fork
+def parse(ingred):
+    i = ingred.strip()
+    #start of parsing stuff
+    x = i.split()
 
-#words to get rid of: cup/s, teaspoon, tablesppon, numbers
-def parser(ingred):
-    i = strip(ingred)
-    x = split(i)
-    #can we assume that all recipes have digits,'.','/' in the front?
-   
-    pass
-
+    #ASSUMING that number part is the first element of this split list
+    amount = i[1]
+    x.pop(0)
+    print '\n'
+    print x
+    if check(x[0]):
+        query = " ".join(x[1:])
+    else:
+        query = " ".join(x))
+    print query
+    return query
+    #does not remove inside commas
+#checks to see no extraneous 
+def check(measurement):
+    L = ["cup", "teaspoon", "tablespoon", "quart", "pint", "pound", "lb", "ounce"
+        "cups", "teaspoons", "tablespoons", "quarts", "pints", "pounds", "lbs", "ounces", "oz"]
+    return measurement in L
 
 #returns a list of first 10 item_id of the results of a search
 def search(param):
@@ -65,7 +84,12 @@ def brandsearch(brand):
     if len(result)>0:
         print "BRAND: FOUND"
 
-x= search("3 cups of egg salad") #we get tuna and peanut butter cups.... :(
+test = [' 3 skinless, boneless chicken breasts', ' 1 cup Italian seasoned bread crumbs', ' 1/2 cup grated Parmesan cheese', ' 1 teaspoon salt', ' 1 teaspoon dried thyme', ' 1 tablespoon dried basil', ' 1/2 cup butter, melted'] 
+
+for x in test:
+    parse(x)
+
+#x= search("3 cups of egg salad") #we get tuna and peanut butter cups.... :(
 #getstats(x)
 
 '''
@@ -121,6 +145,7 @@ u'nf_calories_from_fat': 40,
 u'nf_serving_weight_grams': None, 
 {u'nf_ingredient_statement': None, 
 '''
+
 '''
 dictionary fields of the api:
 {   _score, _type, _id, fields{
