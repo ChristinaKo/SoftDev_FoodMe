@@ -5,13 +5,13 @@ from nutritionix import Nutritionix
 #you need to place an API key for Nutritionix here - provide one here below
 
 ################################################################################
-
+#parses through list of ingredients from food to fork and calls 'parse' on each element
 def parser(ingredlist):
     searchL = []    
     for i in ingredlist:
         searchL.append(parse(ingred))
     
-#parses ingredients from a string of ingredients from food to fork
+#parses ingredients from food to fork, taking out the 
 def parse(ingred):
     i = ingred.strip()
     #start of parsing stuff
@@ -29,7 +29,7 @@ def parse(ingred):
     print query
     return query
     #does not remove inside commas
-#checks to see no extraneous 
+#checks to see no extraneous measurement words that will mess up search
 def check(measurement):
     L = ["cup", "teaspoon", "tablespoon", "quart", "pint", "pound", "lb", "ounce",
         "cups", "teaspoons", "tablespoons", "quarts", "pints", "pounds", "lbs", "ounces", "oz"]
