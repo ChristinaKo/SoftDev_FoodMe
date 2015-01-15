@@ -40,12 +40,12 @@ searching stuff ---> LOOK AT APIs first
 
 ##CALENDAR + UPDATES
  * January 5th: 
-    - GET Food2fork API Working
-    - GET Nutrition API Working
+    - GET Food2fork API Working *
+    - GET Nutrition API Working *
  * January 12th:
-    - Checkpoint--- Basic HTML SET UP
-    - should be getting log-in stuff done
-    - SHOULD BE INTEGRATING FRONT WITH BACK END
+    - Checkpoint--- Basic HTML SET UP * 
+    - should be getting log-in stuff done *
+    - SHOULD BE INTEGRATING FRONT WITH BACK END 
  * January 19th:
     - Complete all back-end
  * January 23rd:
