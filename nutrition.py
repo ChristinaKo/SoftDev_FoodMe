@@ -4,9 +4,6 @@ from nutritionix import Nutritionix
 ###################KEY INFO HERE FOR API ACCESS##################################
 #you need to place an API key for Nutritionix here - provide one here below
 
-nx = Nutritionix(app_id="1634d1d7",
-                 api_key="b3692f565db4cc3cbd653b99d9fc35ac",
-                 );
 
 ################################################################################
 
