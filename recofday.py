@@ -7,11 +7,11 @@ def rand():
     randletter = random.choice("abcdefghijklmnopqrstuvwxyz")
     randnum = random.randint(0,100)
     url = url%(randletter, randnum)
-request = urllib2.urlopen(url)
-result = request.read()
-d = json.loads(result)
-if d['count'] == 0:
-    rand()
-else:
-    print d['recipes'][random.randint(0,d['count'])]
+    request = urllib2.urlopen(url)
+    result = request.read()
+    d = json.loads(result)
+    if d['count'] == 0:
+        rand()
+    else:
+        print d['recipes'][random.randint(0,d['count'])]
 
