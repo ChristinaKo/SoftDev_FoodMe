@@ -10,12 +10,12 @@ rurl= ""
 furl=""
 ingredients=[]
 recipe=[]
+##THis is to find Recipes with all recipes url.
 for r in d['recipes']:
     if r['publisher']== "All Recipes":
         surl= r['source_url']
         furl= r['f2f_url']
         break
-    
 res = urllib2.Request(surl) ##take in the source url from previous method
 x = urllib2.urlopen(res)
 html = x.read()
@@ -24,9 +24,7 @@ for i in  html.find_all("span"):
     if i.get('class') == ['plaincharacterwrap', 'break']:
         recipe.append(i.get_text())
 print recipe
-
 ##ingredients
-
 res = urllib2.Request(furl) ##take in the source url from previous method
 x = urllib2.urlopen(res)
 html = x.read()
@@ -34,5 +32,4 @@ html = BeautifulSoup(html)
 for i in html.find_all("li",itemprop="ingredients"):
     ingredients.append(i.get_text())
 print ingredients
-
 # [u' 3 skinless, boneless chicken breasts', u' 1 cup Italian seasoned bread crumbs', u' 1/2 cup grated Parmesan cheese', u' 1 teaspoon salt', u' 1 teaspoon dried thyme', u' 1 tablespoon dried basil', u' 1/2 cup butter, melted']  --> LISE this is how it should look when it is in the array for "chicken nuggets"
