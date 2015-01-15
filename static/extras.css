@@ -17,9 +17,19 @@ background-position: 300 200;
 }
 
 .search-bar {
-    left: 60%;
+    left: 70%;
 }
 
+@media all and (max-width: 670px) {
+    ul {
+	height: auto;
+	width: auto;
+    }
+    ul > li {  float: none;
+	       width: 100%;
+	    }
+    }
+    
 /* from PURE buttons-core.css */
 .pure-skin-pretty .pure-button {
     /* Structure */
