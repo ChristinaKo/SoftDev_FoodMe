@@ -13,6 +13,10 @@ def rand():
     if d['count'] == 0:
         return rand()
     else:
-        return d['recipes'][random.randint(0,d['count'])]
+        ran = random.randint(0,d['count'])
+        if (d['recipes'][ran]['publisher']== "All Recipes"):
+            return d['recipes'][ran]
+        else:
+            return rand()
 print rand()
 
