@@ -1,10 +1,10 @@
 <html>
   <style>
     #tb{
-    border-spacing:0px;
-    border:1px solid black;
-    padding:5px;
-    width:450px;
+      border-spacing:0px;
+      border:1px solid black;
+      padding:5px;
+      width:450px;
     }
      #dv{
        font-weight:bold;
@@ -16,30 +16,30 @@
        margin:2px;
     }
     .servings{
-    column-span: all; /* W3C */
-    -webkit-column-span: all; /* Safari & Chrome */
-    -moz-column-span: all; /* Firefox */
-    -ms-column-span: all; /* Internet Explorer */
-    -o-column-span: all; /* Opera */
+      column-span: all; /* W3C */
+      -webkit-column-span: all; /* Safari & Chrome */
+      -moz-column-span: all; /* Firefox */
+      -ms-column-span: all; /* Internet Explorer */
+      -o-column-span: all; /* Opera */
     }
     .topbar{
-       padding-bottom:7px;
-       border-bottom:9px solid black;
+      padding-bottom:7px;
+      border-bottom:9px solid black;
     }
     #amount{
-       font-weight:bold;
-       font-size:.82em;
-       padding-bottom:4px;
+      font-weight:bold;
+      font-size:.82em;
+      padding-bottom:4px;
     }
     .calbar{
-       border-top:1px solid gray;
-       border-bottom:4px solid black;
+      border-top:1px solid gray;
+      border-bottom:4px solid black;
     }
     ._bottom_{
-     border-bottom:1px solid black;
+      border-bottom:1px solid black;
     }
     ._graybottom_{
-     border-bottom:1px solid gray;
+      border-bottom:1px solid gray;
     }
     .right_align{
       text-align:right;
@@ -51,19 +51,21 @@
       padding:2px;
     }
     .dots{
-    display: block;
-    list-style-type: disc;
-    margin:0px;
-    padding:2px;
-    -webkit-margin-before: 0em;
-    -webkit-margin-after: 0em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
-    -webkit-padding-start: 0px;
+      display: block;
+      list-style-type: disc;
+      margin:0px;
+      padding:2px;
+      -webkit-margin-before: 0em;
+      -webkit-margin-after: 0em;
+      -webkit-margin-start: 0px;
+      -webkit-margin-end: 0px;
+      -webkit-padding-start: 0px;
     }
     
     .smallinfo{
       font-size:.82em;
+    width:100%;
+     border-spacing:0px;
     }
   </style>
   <table id="tb">
@@ -91,15 +93,17 @@
 	<td class="right_align _bottom_" id="dv" colspan="2">% Daily Value*</td>
       </tr>
       <tr>
-	<td class="_bottom_" colspan="1"><strong>Total Fat</strong> {fat}</td>
+	<DL>
+	<td class="_bottom_" colspan="1"><strong><DT>Total Fat</strong> {fat}</td>
 	<td class="right_align _bottom_">{fat-dv}</td>
       </tr>
       <tr>
-	<td class="_bottom_" colspan="1">Saturated Fat {satfat}</td>
+	<td class="_bottom_" colspan="1"><DD>Saturated Fat {satfat}</td>
 	<td class="right_align _bottom_">{satfat-dv}</td>
       </tr>
       <tr>
-	<td class="_bottom_" colspan="2">Trans Fat {fat} </td>
+	<td class="_bottom_" colspan="2"><DD>Trans Fat {fat} </td>
+      </DL>
       </tr>
       <tr>
 	<td class="_bottom_" colspan="1"><strong>Cholesterol</strong> {cholesterol}  </td>
@@ -137,13 +141,13 @@
 	<td class="smallinfo" colspan="2"><p>*Percent Daily Values are based on a 2,000 calorie diet. Your daily values may be higher or lower depending on your calorie needs:</p></td>
       </tr>
       <tr>
-	<td colspan="3">
-	  <table border="3" class="smallinfo">
-	    <tr class="_bottom_">
-	      <td colspan="2"></td>
-	      <td>Calories:</td>
-	      <td>2,000</td>
-	      <td>2,500</td>
+	<td colspan="2">
+	  <table class="smallinfo">
+	    <tr>
+	      <td class="_bottom_" colspan="1"></td>
+	      <td class="_bottom_">Calories:</td>
+	      <td class="_bottom_">2,000</td>
+	      <td class="_bottom_">2,500</td>
 	    </tr>
 	    <tr>
 	      <td>Total Fat</td>
