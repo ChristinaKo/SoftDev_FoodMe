@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, url_for, session, escape
 from functools import wraps
 import MongoWork
+import re
 
 app = Flask(__name__)
 app.secret_key = "Really secret but not really secret." #session usage

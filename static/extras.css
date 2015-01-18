@@ -6,13 +6,16 @@ background-repeat: no-repeat;
 background-position: 300 200;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 .texts {
     color: black;
     font-size: 30px;
     font-family: "Times New Roman", Times, serif;
     margin-left: auto;
     margin-right: auto;
-
 }
 .rounded {
     -moz-border-radius: 15px;
@@ -21,6 +24,11 @@ background-position: 300 200;
 }
 
 .rectangle{
+    padding-top: 5%;
+    padding-bottom: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
+    display: block;
     margin-left: auto;
     margin-right: auto;
     position: relative;
@@ -32,33 +40,6 @@ background-position: 300 200;
     -moz-opacity:0.8;
 }
 
-.rectangle:before{
-    content: "";
-    display: block;
-    padding-top: 50%;
-}
-/*
-.rectangle-c {
-    position:relative;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    color: white;
-}
-*/
-.rectangle-c div {
-   display: table;
-   width: 100%;
-   height: 100%;
-}
-
-.rectangle-c span {
-    display: table-cell;
-    text-align: center;
-    color: white
-}
-
 .center {
     margin-left: auto;
     margin-right: auto;
@@ -68,8 +49,9 @@ background-position: 300 200;
     text-align: center;
 }
 
+
 .search-bar {
-    left: 70%;
+    float: right;
 }
 /*
 @media all and (max-width: 670px) {
@@ -927,7 +909,6 @@ margin: 7px 2px;
     border-bottom: solid 1px #cdf2c9;
 }
 
-
 /* SELECTED MENU ITEM */
 .pure-skin-pretty .pure-menu li.pure-menu-selected a {
     background-color: #E1091F;
@@ -955,7 +936,10 @@ margin: 7px 2px;
     }
 
 }
+
 /* end from menu-responsive.css ******************/
+
+/* Nice up-arrow button! */
 
 .scrollup {
     width: 50px;
