@@ -5,35 +5,8 @@ from nutritionix import Nutritionix
 #you need to place an API key for Nutritionix here - provide one here below
 
 ################################################################################
-#parses through list of ingredients from food to fork and calls 'parse' on each element
-def parser(ingredlist):
-    searchL = []    
-    for i in ingredlist:
-        searchL.append(parse(ingred))
-    
-#parses ingredients from food to fork, taking out the 
-def parse(ingred):
-    i = ingred.strip()
-    #start of parsing stuff
-    x = i.split()
 
-    #ASSUMING that number part is the first element of this split list
-    amount = i[1]
-    x.pop(0)
-    print '\n'
-    print x
-    if check(x[0]):
-        query = " ".join(x[1:])
-    else:
-        query = " ".join(x)
-    print query
-    return query
-    #does not remove inside commas
-#checks to see no extraneous measurement words that will mess up search
-def check(measurement):
-    L = ["cup", "teaspoon", "tablespoon", "quart", "pint", "pound", "lb", "ounce",
-        "cups", "teaspoons", "tablespoons", "quarts", "pints", "pounds", "lbs", "ounces", "oz"]
-    return measurement in L
+###########################API CALL FUNCTIONS#########################################
 
 #returns a list of first 10 item_id of the results of a search
 def search(param):
@@ -50,6 +23,7 @@ def search(param):
         return lists
     else:
         return None
+
     
 #parses through list of item_id s and looks for nutrition facts     
 def getstats(lists):
@@ -80,6 +54,40 @@ def brandsearch(brand):
     if len(result)>0:
         print "BRAND: FOUND"
 
+##############################Nutrition Calculations
+#parses through list of ingredients from food to fork and calls 'parse' on each element
+def parser(ingredlist):
+    searchL = []    
+    amounts = []
+    for i in ingredlist:
+        ingred = i.strip() 
+    #start of parsing stuff
+        x = ingred.split()
+#ASSUMING that amount is the first element of this split list
+        searchL.append(parse(ingred))
+        amounts.append(ingred[0])
+    
+#parses amount and measurement words
+def parse(splitlist):
+    #ASSUMING that amount is the first element of this split list
+    splitlist.pop(0) #first element is amount 
+    if check(splitlist[0]): #check to see if word after is a measurement word, if so, remove
+        query = " ".join([1:])
+    else:
+        query = " ".join(x)
+    return query
+   
+#checks to see no extraneous measurement words that will mess up search
+def check(measurement):
+    L = ["cup", "teaspoon", "tablespoon", "quart", "pint", "pound", "lb", "ounce",
+        "cups", "teaspoons", "tablespoons", "quarts", "pints", "pounds", "lbs", "ounces", "oz"]
+    return measurement in L
+
+
+
+
+
+############Testing Section
 test = [' 3 skinless, boneless chicken breasts', ' 1 cup Italian seasoned bread crumbs', ' 1/2 cup grated Parmesan cheese', ' 1 teaspoon salt', ' 1 teaspoon dried thyme', ' 1 tablespoon dried basil', ' 1/2 cup butter, melted'] 
 
 for x in test:
@@ -92,6 +100,8 @@ y = search("3 eggs with salad")
 print x==y
 #x= search("3 cups of egg salad") #we get tuna and peanut butter cups.... :(
 #getstats(x)
+
+
 
 '''
 sample output:
@@ -120,9 +130,6 @@ u'nf_serving_weight_grams': None,
  u'nf_calories': 60,
     nf_calories_from_fat': 40,
 
-
-
-  
  u'nf_cholesterol': 15,
  u'nf_dietary_fiber': 0,
  u'nf_iron_dv': 0,
