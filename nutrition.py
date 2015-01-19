@@ -24,8 +24,7 @@ def search(param):
     else:
         return None
 
-    
-#parses through list of item_id s and looks for nutrition facts     
+#parses through list of item_ids and looks for nutrition facts     
 def getstats(lists):
     print "item_id "
     for item_id in lists:
@@ -35,7 +34,6 @@ def getstats(lists):
 #get nutritionfacts -> returns allergen stuff
 def getnutritionfacts(item_id):
     allergen= ["allergen_contains_eggs","allergen_contains_fish","allergen_contains_gluten","allergen_contains_milk","allergen_contains_peanuts","allergen_contains_shellfish","allergen_contains_tree_nuts","allergen_contains_wheat", "allergen_contains_soybeans"]
-    #print allergen
     nutrifacts= nx.item(id=item_id).json()
     LT = []
     for n in allergen:
@@ -45,7 +43,7 @@ def getnutritionfacts(item_id):
             print "error"
     print nutrifacts
     print LT
-
+#given a brand name, will search ingredients of that brand
 def brandsearch(brand):
     print brand
     request= nx.brand().search(query=brand)
