@@ -20,7 +20,7 @@
   .background {
   opacity: 0.8;
   filter: alpha(opacity=80); /* For IE8 and earlier */
-  background-image: url("/static/taco.jpg");
+  background-image: url("/static/pasta.jpg");
   background-attachment: fixed;    
   background-repeat: no-repeat;
   background-size: cover;
@@ -74,6 +74,10 @@
   <div class="error"> 
     Sorry! Username "{{usr}}" is already taken. Please try again. <br>
   </div>
+  {% elif special_char %}
+  <div class="error"> 
+    Sorry! Your username may NOT include these special characters: ^[~!@#$%^&*()_+{}":;']+$"<br>
+   </div>
   {% else %}
   Hello, new users! Please fill out this form for your new account:<br>
   {%endif%}
