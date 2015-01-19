@@ -14,6 +14,7 @@
   background-attachment: fixed;    
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: 300 200;
   }
 </style>
 
@@ -29,18 +30,34 @@
     <img src="/static/icon.jpg" alt="FoodMe Icon"/>
  </a>
    <ul>
-        <li><a href="/">Home</a></li>
-	<li class="pure-menu-selected"><a href="/about">About</a></li>
-	<li><a href="/help">Help</a></li>
-	<li><a href="/login">Sign In</a></li>
-	<li><a href="/register">Register</a></li>
-   	<li class="search-bar"><form class="pure-form">
-	    <input type="text" class="pure-input-rounded">
-	    <button type="submit" class="pure-button">
-	      <img src="/static/search.png" alt="Search Icon"/></button>
-	  </form>
-	</li>	
-	
+     
+     {% if not loggedin %}
+     <li><a href="/">Home</a></li>
+     <li class="pure-menu-selected"><a href="/about">About</a></li>
+     <li><a href="/help">Help</a></li>
+     <li><a href="/login">Sign In</a></li>
+     <li><a href="/register">Register</a></li>
+     <li class="search-bar"><form class="pure-form">
+	 <input type="text" class="pure-input-rounded">
+	 <button type="submit" class="pure-button">
+	   <img src="/static/search.png" alt="Search Icon"/></button>
+       </form>
+     </li>	
+     
+
+     {% else %}
+     
+     <li><a href="/">Home</a></li>
+     <li class="pure-menu-selected"><a href="/about">About</a></li>
+     <li><a href="/help">Help</a></li>
+     <li class="search-bar"><form class="pure-form">
+	 <input type="text" class="pure-input-rounded">
+	 <button type="submit" class="pure-button">
+	   <img src="/static/search.png" alt="Search Icon"/></button>
+       </form>
+     </li>	
+     <li><a href="/logout">Logout</a></li>
+     {% endif %}
    </ul>
 </div>
 

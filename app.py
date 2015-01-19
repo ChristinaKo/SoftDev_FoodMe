@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, url_for, session, escape
 from functools import wraps
 import MongoWork
+import re
 
 app = Flask(__name__)
 app.secret_key = "Really secret but not really secret." #session usage
@@ -77,14 +78,15 @@ def login():
 def dashboard():
     username = escape(session['username'])
     return render_template("dashboard.html",username=username)
+'''
 
 #must pop off session
 @app.route("/logout")
 def logout():
     #remove username from session
     session.pop('username', None)
-    return redirect(url_for('index'))
-'''        
+    return redirect(url_for("index"))
+
 @app.route("/register", methods=["POST","GET"])
 def register():
     if request.method == "POST":
@@ -102,8 +104,11 @@ def register():
             #print mongo_input
             #print MongoWork.check_user_in_db(usr)
             if MongoWork.check_user_in_db(usr):
-                user_taken=True
+                user_taken = True
                 return render_template("register.html",user_taken=user_taken, usr=usr)
+            elif re.match('''^[~!@#$%^&*()_+{}":;']+$''', usr): #has special characters!
+                special_char = True
+                return render_template("register.html", special_char=special_char)
             else:####SUCCESS!
                 MongoWork.new_user(mongo_input) #put user into our mongodb
                 registered = True
