@@ -20,9 +20,14 @@
 
 </head>
 
-<div class="pure-g">
-  <div id="layout" class="pure-g">
-  </div>
+<div class="search-bar">
+  
+       <form class="pure-form">
+	 <input type="text" class="pure-input-rounded">
+	 <button type="submit" class="pure-button">
+	   <img src="/static/search.png" alt="Search Icon"/></button>
+       </form>
+
 </div>
 
 <div class="pure-menu pure-menu-open pure-menu-horizontal pure-menu-pull-right">
@@ -37,25 +42,12 @@
      <li><a href="/help">Help</a></li>
      <li><a href="/login">Sign In</a></li>
      <li><a href="/register">Register</a></li>
-     <li class="search-bar"><form class="pure-form">
-	 <input type="text" class="pure-input-rounded">
-	 <button type="submit" class="pure-button">
-	   <img src="/static/search.png" alt="Search Icon"/></button>
-       </form>
-     </li>	
-     
-
+ 
      {% else %}
      
      <li><a href="/">Home</a></li>
      <li class="pure-menu-selected"><a href="/about">About</a></li>
-     <li><a href="/help">Help</a></li>
-     <li class="search-bar"><form class="pure-form">
-	 <input type="text" class="pure-input-rounded">
-	 <button type="submit" class="pure-button">
-	   <img src="/static/search.png" alt="Search Icon"/></button>
-       </form>
-     </li>	
+     <li><a href="/help">Help</a></li>	
      <li><a href="/logout">Logout</a></li>
      {% endif %}
    </ul>
@@ -69,6 +61,7 @@ Currently logged in as {{username}}...
 <br>
 {% endif %}
 <a href="#" class="scrollup"></a>
+hi
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

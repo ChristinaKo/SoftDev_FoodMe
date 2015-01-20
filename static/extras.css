@@ -50,6 +50,7 @@
 }
 
 .search-bar {
+    padding-top: 2%;
     float: right;
 }
 
@@ -711,6 +712,7 @@ Forms Core
     zoom: 1;
     margin: 0;
     vertical-align: middle;
+  
 }
 .pure-skin-pretty .pure-menu.pure-menu-horizontal > ul {
     display: inline-block;
@@ -720,7 +722,9 @@ Forms Core
     /* height: 2.4em; removed for Skin Builder */
 }
 
-.pure-skin-pretty .pure-menu li a { padding: 0.35em 1.4em; }
+.pure-skin-pretty .pure-menu li a {
+    padding: 0.35em 1.4em;
+}
 
 .pure-skin-pretty .pure-menu-can-have-children > .pure-menu-label:after {
     content: '\25B8';
@@ -850,8 +854,6 @@ Forms Core
 /* end from PURE menu-paginator.css ******************************/
 /* from PURE menu.css *******************************************/
 /* MAIN MENU STYLING */
-/*csslint adjoining-classes:false*/
-/*TODO: Remove this lint rule override after a refactor of this code.*/ 
 
 .pure-skin-pretty .pure-menu.pure-menu-open,
 .pure-skin-pretty .pure-menu.pure-menu-horizontal li .pure-menu-children {
