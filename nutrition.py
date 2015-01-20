@@ -3,8 +3,6 @@ import json
 from nutritionix import Nutritionix
 ###################KEY INFO HERE FOR API ACCESS##################################
 #you need to place an API key for Nutritionix here - provide one here below
-nx = Nutritionix (api_key = "1f5463bda2c8668651d40bbb8b5ea1bf",
-                  app_id = "1634d1d7")
 
 ################################################################################
 
