@@ -42,7 +42,8 @@ def getnutritionfacts(item_id):
             print "error"
     return LT
     #print nutrifacts
-    #given a brand name, will search ingredients of that brand
+
+#given a brand name, will search ingredients of that brand
 def brandsearch(brand):
     print brand
     request= nx.brand().search(query=brand)
