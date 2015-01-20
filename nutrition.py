@@ -8,7 +8,7 @@ from nutritionix import Nutritionix
 ################################################################################
 
 ###############################API CALL FUNCTIONS#########################################
-[
+
 
 #'''''''''''''''''''''''''''''''''''''''''SEARCHING''''''''''''''''''''''''''''''''''''''''''''''''''''#
 #returns one result of a search of params (using amounts and measurements as qualifiers)
@@ -16,13 +16,14 @@ from nutritionix import Nutritionix
 def search(param, amount, measurement):
     lists=[] # list of one element id
     request = nx.search(param,limit=100, offset=0,search_type="usda")
-   #request = nx.search(param)
+    #request = nx.search(param)
     result = request.json()
     if result["total_hits"] >0:
         for item in result["hits"]: #is result hits top 10
             if  item["fields"]["brand_name"]=="USDA" and (item["fields"]["nf_serving_size_unit"] == measurement or compare(item["fields"]["item_name"], measurement)):
                 lists.append(item["fields"]["item_id"])
-                return lists
+
+                return lists   # list of one element
     return None
 
 #compares the item-name to find measurement words
