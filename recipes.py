@@ -5,18 +5,24 @@ url = "http://food2fork.com/api/search?key=64e7c9ab4a5b566ec0aee5ea832f1ee2&q=ch
 request = urllib2.urlopen(url)
 result = request.read()
 d = json.loads(result)
-surl= ""
+surl= []
 rurl= ""
-furl=""
+irl= ""
+furl=[]
+title = []
 ingredients=[]
 recipe=[]
 ##THis is to find Recipes with all recipes url.
 for r in d['recipes']:
     if r['publisher']== "All Recipes":
-        surl= r['source_url']
-        furl= r['f2f_url']
-        break
-res = urllib2.Request(surl) ##take in the source url from previous method
+        title.append(r['title'])  # name of the recipe
+        surl.append(r['source_url']) # allrecipe url
+        furl.append(r['f2f_url']) # food2fork url
+
+##surl is now a list with all of the recipes with allrecipes url
+##furl is now a list with all of the f2f urls
+
+res = urllib2.Request(rurl) ##rurl is surl[1] or whatever link is chosen 
 x = urllib2.urlopen(res)
 html = x.read()
 html =BeautifulSoup(html)
@@ -25,7 +31,7 @@ for i in  html.find_all("span"):
         recipe.append(i.get_text())
 print recipe
 ##ingredients
-res = urllib2.Request(furl) ##take in the source url from previous method
+res = urllib2.Request(iurl)#corresponding f2f url so if rurl = surl[1] then iurl=furl[1]
 x = urllib2.urlopen(res)
 html = x.read()
 html = BeautifulSoup(html)
