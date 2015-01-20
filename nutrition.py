@@ -3,6 +3,8 @@ import json
 from nutritionix import Nutritionix
 ###################KEY INFO HERE FOR API ACCESS##################################
 #you need to place an API key for Nutritionix here - provide one here below
+nx = Nutritionix (api_key = "1f5463bda2c8668651d40bbb8b5ea1bf",
+                  app_id = "1634d1d7")
 
 ################################################################################
 
@@ -11,14 +13,12 @@ from nutritionix import Nutritionix
 #returns a list of first 10 item_id of the results of a search
 def search(param):
     lists=[]
-    request = nx.search(param)
+    request = nx.search(q = param,limit=100, offset=0,search_type="usda")
     result = request.json()
+    print result
     print result["total_hits"]
     if result["total_hits"] >0:
         for item in result["hits"]: #is result hits top 10?
-            print item
-            print "\n"+ str(item["fields"])
-#       print "Item Name: "+ item["fields"]["item_name"]+"\n Brand: "+item["fields"]["brand_name"]
             lists.append(item["fields"]["item_id"])
         return lists
     else:
@@ -26,24 +26,23 @@ def search(param):
 
 #parses through list of item_ids and looks for nutrition facts     
 def getstats(lists):
-    print "item_id "
     for item_id in lists:
         print nx.item(id=item_id).json()
-        getnutritionfacts(item_id)
+        return getnutritionfacts(item_id)
 
 #get nutritionfacts -> returns allergen stuff
 def getnutritionfacts(item_id):
     allergen= ["allergen_contains_eggs","allergen_contains_fish","allergen_contains_gluten","allergen_contains_milk","allergen_contains_peanuts","allergen_contains_shellfish","allergen_contains_tree_nuts","allergen_contains_wheat", "allergen_contains_soybeans"]
     nutrifacts= nx.item(id=item_id).json()
-    LT = []
+    LT = [] #List of allergens
     for n in allergen:
         if nutrifacts[n] != "None":
             LT.append(n[18:])
         else:
             print "error"
-    print nutrifacts
-    print LT
-#given a brand name, will search ingredients of that brand
+    return LT
+    #print nutrifacts
+    #given a brand name, will search ingredients of that brand
 def brandsearch(brand):
     print brand
     request= nx.brand().search(query=brand)
@@ -52,7 +51,7 @@ def brandsearch(brand):
     if len(result)>0:
         print "BRAND: FOUND"
 
-##############################Nutrition Calculations
+##############################Nutrition Calculations  ##########################
 #parses through list of ingredients from food to fork and calls 'parse' on each element
 def parser(ingredlist):
     searchL = []    
@@ -62,17 +61,18 @@ def parser(ingredlist):
     #start of parsing stuff
         x = ingred.split()
 #ASSUMING that amount is the first element of this split list
-        searchL.append(parse(ingred))
-        amounts.append(ingred[0])
+        print x
+        searchL.append(parse(x))
+        amounts.append(x[0])
     
 #parses amount and measurement words
 def parse(splitlist):
     #ASSUMING that amount is the first element of this split list
     splitlist.pop(0) #first element is amount 
     if check(splitlist[0]): #check to see if word after is a measurement word, if so, remove
-        query = " ".join([1:])
+        query = " ".join(splitlist[1:])
     else:
-        query = " ".join(x)
+        query = " ".join(splitlist)
     return query
    
 #checks to see no extraneous measurement words that will mess up search
@@ -82,20 +82,15 @@ def check(measurement):
     return measurement in L
 
 
-
-
-
 ############Testing Section
 test = [' 3 skinless, boneless chicken breasts', ' 1 cup Italian seasoned bread crumbs', ' 1/2 cup grated Parmesan cheese', ' 1 teaspoon salt', ' 1 teaspoon dried thyme', ' 1 tablespoon dried basil', ' 1/2 cup butter, melted'] 
 
-for x in test:
-    parse(x)
+
 
 
 #commas dont affect number of results, but NEED TO QUALITY CHECK SEARCH RESULTS WITH COMMA
 x = search("3 eggs, with salad")
-y = search("3 eggs with salad")
-print x==y
+#getstats(x)
 #x= search("3 cups of egg salad") #we get tuna and peanut butter cups.... :(
 #getstats(x)
 
