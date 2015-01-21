@@ -50,9 +50,8 @@ def search(param, amount, measurement):
                 print lists
                 return lists   # list of one element
             
-
 #parses through list of item_ids and looks for nutrition facts     
-def getAstats(lists):
+def getAstats(item_id):
     allergen= ["allergen_contains_eggs","allergen_contains_fish","allergen_contains_gluten","allergen_contains_milk","allergen_contains_peanuts","allergen_contains_shellfish","allergen_contains_tree_nuts","allergen_contains_wheat", "allergen_contains_soybeans"]
     nutrifacts= nx.item(id=item_id).json()
     LT = [] #List of allergens
@@ -63,7 +62,7 @@ def getAstats(lists):
     fact = {}
     for f in NF:
         fact[f] = nutrifacts[f]
-    return [NF, LT]
+    return [fact, LT]
     
       
 
@@ -77,6 +76,13 @@ def brandsearch(brand):
         print "BRAND: FOUND"
 
 #''''''''''''''''''''''''''''''''''''''''''' Nutrition Calculations ''''''''''''''''''''''''''''''''''''#
+def clean (L):
+    dump =["of"]
+    for x in L:
+        if x in dump:
+            L.remove(x)
+    return " ".join(L)
+    
 #parses through list of ingredients from food to fork and finds all nutrition facts
 def parser(ingredlist):
     searchL = []
@@ -90,16 +96,19 @@ def parser(ingredlist):
         x = ingred.split()
         print i
 #ASSUMING that amount is the first element of this split list
-        f2famount=x[0]
+        f2famount=float(x[0])
         x.pop(0) #popping the amount 
         if check(x[0]):
             measurement=x[0]
-            searchL=" ".join(x[1:])
+            x.pop(0)
+            searchL= clean(x)
         else:
             measurement=0
-            searchL=" ".join(x)
+            searchL=clean(x)
+            
     #amount, measurement, searchL
     #search using the search params
+        print searchL, f2famount, measurement
         results = search(searchL, f2famount, measurement)
         print results
         resultid = results[0]
@@ -112,7 +121,7 @@ def parser(ingredlist):
         #combine
         nutri = scale(stats[0], scalefactor, nutri)
         allergen = stats[1]
-
+    print "checker"
     print [nutri, allergen]
     return searchL
     #record correct amount
@@ -122,7 +131,11 @@ def scale (dic, factor, orig):
     ans ={}
     x = dic.keys()
     for key in x:
-        ans[key] = x[key]*factor
+        try:
+            ans[key] = dic[key]*factor
+        except:
+            pass
+    #None 
         if len(orig) > 0: #if something in orig
             try:
                 ans[key] = orig[key] + ans[key]
