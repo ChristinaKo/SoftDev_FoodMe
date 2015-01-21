@@ -109,8 +109,7 @@ def getAstats(item_id):
     return [fact, LT]
 
 #''''''''''''''''''''''''''''''''''''''''''' Main Function  ''''''''''''''''''''''''''''''''''''#
-
-################################Parses and then searches#########################
+################################Parses and then searches########################
 #parses through list of ingredients from food to fork and finds all nutrition facts
 def parser(ingredlist):
     searchL = []
