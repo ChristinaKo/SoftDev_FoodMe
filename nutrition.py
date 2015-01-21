@@ -8,8 +8,6 @@ nx = Nutritionix (api_key = "1f5463bda2c8668651d40bbb8b5ea1bf",
                   app_id = "1634d1d7")
 
 ################################################################################
-
-###############################API CALL FUNCTIONS########################################
 #compares the item-name to find measurement words
 def compare(item, measureu):
     temp = item["fields"]["item_name"].split()
@@ -29,7 +27,37 @@ def amountfind (item, measureu):
     print "from nutritionix database"
     return float(item["fields"]["serving_size_qty"])
         
+##Scales nutrition facts and combines with the passed original info
+def scale (dic, factor, orig):
+    ans ={}
+    x = dic.keys()
+    for key in x:
+        try:
+            ans[key] = dic[key]*factor
+        except:
+            pass
+    #None 
+        if len(orig) > 0: #if something in orig
+            try:
+                ans[key] = orig[key] + ans[key]
+            except:
+                pass            
+    return ans
+            
+#checks to see no extraneous measurement words that will mess up search
+def check(measurement):
+    L = ["cup", "teaspoon", "tablespoon", "quart", "pint", "pound", "lb", "ounce",
+        "cups", "teaspoons", "tablespoons", "quarts", "pints", "pounds", "lbs", "ounces", "oz"]
+    return measurement in L
 
+def clean (L):
+    dump =["of"]
+    for x in L:
+        if x in dump:
+            L.remove(x)
+    return " ".join(L)
+
+###############################API CALL FUNCTION#######################################
 #'''''''''''''''''''''''''''''''''''''''''SEARCHING''''''''''''''''''''''''''''''''''''''''''''''''''''#
 
 #returns one result of a search of params (using amounts and measurements as qualifiers)
@@ -47,7 +75,7 @@ def search(param, amount, measurement):
                 lists.append(amountfind(item,measurement))
                 return lists   # list of one element
             
-#parses through list of item_ids and looks for nutrition facts     
+#parses through list of item_ids and searches for nutrition facts     
 def getAstats(item_id):
     allergen= ["allergen_contains_eggs","allergen_contains_fish","allergen_contains_gluten","allergen_contains_milk","allergen_contains_peanuts","allergen_contains_shellfish","allergen_contains_tree_nuts","allergen_contains_wheat", "allergen_contains_soybeans"]
     nutrifacts= nx.item(id=item_id).json()
@@ -60,26 +88,13 @@ def getAstats(item_id):
     for f in NF:
         fact[f] = nutrifacts[f]
     return [fact, LT]
-    
-print getAstats("513fceb475b8dbbc21000fa8")
 
-#given a brand name, will search ingredients of that brand
-def brandsearch(brand):
-    print brand
-    request= nx.brand().search(query=brand)
-    result = request.json()
-    print result
-    if len(result)>0:
-        print "BRAND: FOUND"
 
-#''''''''''''''''''''''''''''''''''''''''''' Nutrition Calculations ''''''''''''''''''''''''''''''''''''#
-def clean (L):
-    dump =["of"]
-    for x in L:
-        if x in dump:
-            L.remove(x)
-    return " ".join(L)
+
+#''''''''''''''''''''''''''''''''''''''''''' Main Function  ''''''''''''''''''''''''''''''''''''#
+
     
+################################Parses and then searches#########################
 #parses through list of ingredients from food to fork and finds all nutrition facts
 def parser(ingredlist):
     searchL = []
@@ -113,51 +128,18 @@ def parser(ingredlist):
     #get nutri/allergen facts
         stats = getAstats(resultid)  #list of nutri facts, allergens
         #combine
-        print stats[0]
+        #print stats[0]
         nutri = scale(stats[0], scalefactor, nutri)
         allergens = list(set(stats[1]+allergens)) #double-check this to see if it removes duplicates
-    print "checker"
     print [nutri, allergens]
     return searchL
-    #record correct amount
-        
-##Scales nutrition facts and combines with the passed original info
-def scale (dic, factor, orig):
-    ans ={}
-    x = dic.keys()
-    for key in x:
-        try:
-            ans[key] = dic[key]*factor
-        except:
-            pass
-    #None 
-        if len(orig) > 0: #if something in orig
-            try:
-                ans[key] = orig[key] + ans[key]
-            except:
-                pass            
-    return ans
-         
-#parses measurement words
-def parse(splitlist):
-    if check(splitlist[0]): #check to see if word after is a measurement word, if so, remove
-        query = " ".join(splitlist[1:])
-    else:
-        query = " ".join(splitlist)
-    return query
-   
-#checks to see no extraneous measurement words that will mess up search
-def check(measurement):
-    L = ["cup", "teaspoon", "tablespoon", "quart", "pint", "pound", "lb", "ounce",
-        "cups", "teaspoons", "tablespoons", "quarts", "pints", "pounds", "lbs", "ounces", "oz"]
-    return measurement in L
+
+
 
 
 ############Testing Section
 test = [' 3 skinless, boneless chicken breasts', ' 1 cup Italian seasoned bread crumbs', ' 1/2 cup grated Parmesan cheese', ' 1 teaspoon salt', ' 1 teaspoon dried thyme', ' 1 tablespoon dried basil', ' 1/2 cup butter, melted'] 
 
-#commas dont affect number of results, but NEED TO QUALITY CHECK SEARCH RESULTS WITH COMMA
-#AMOUNTS/NUMBERS AFFECT RESULTS
 #x = search("apple juice",1,"cup")
 #getNstats(x)
 
