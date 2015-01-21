@@ -38,7 +38,6 @@ def scale (dic, factor, orig):
             ans[key] = dic[key]*factor
         except: #if not num / == None, then skip
             pass
-     
         if len(orig) > 0: #if something in orig
             try:
                 ans[key] = orig[key] + ans[key]
@@ -115,14 +114,17 @@ def parser(ingredlist):
     searchL = []
     allergens = []
     nutri= {}
-    
     #setting up for searching
     for i in ingredlist:
         ingred = i.strip() 
     #start of parsing stuff
         x = ingred.split()
        #ASSUMING that amount is the first element of this split list
-        f2famount=float(1.0*x[0])
+        try:
+            f2famount=float(1.0*x[0])
+        except:
+            if x[0]=="a":
+                f2famount = float(1.0)
         x.pop(0) #popping the amount 
         if check(x[0]):
             measurement=x[0]
