@@ -38,6 +38,12 @@ searching stuff ---> LOOK AT APIs first
  * Angela Lin - Leader of Front-End Development
  * Lise Ho - Leader of Nutrition Back-End Features 
 
+## Instructions to Install
+ * Nutritionix API
+    - pip install nutritionix 
+    - Insert nx = Nutritionix (api_key = "your_api_key_here", app_id = "your_app_id")
+ * pip install beautifulsoup4
+
 ##CALENDAR + UPDATES
  * January 5th: 
     - GET Food2fork API Working *
