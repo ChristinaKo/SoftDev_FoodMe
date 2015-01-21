@@ -23,7 +23,6 @@ def amountfind (item, measureu):
     if measureu in temp:
         try:
             print "from USDA NAME"
-            print temp[temp.index(measureu)-1]
             return float(temp[temp.index(measureu)-1])
         except:
             print "ARRAY ERROR"
@@ -36,7 +35,7 @@ def amountfind (item, measureu):
 #returns one result of a search of params (using amounts and measurements as qualifiers)
 #checks measurement and amounts
 def search(param, amount, measurement):
-    print param
+   # print param
     lists=[] # list of one element id
     request = nx.search(param,limit=100, offset=0,search_type="usda")
     result = request.json()
@@ -46,8 +45,6 @@ def search(param, amount, measurement):
                 lists.append(item["fields"]["item_id"])
                 lists.append(measurement)
                 lists.append(amountfind(item,measurement))
-                print "here"
-                print lists
                 return lists   # list of one element
             
 #parses through list of item_ids and looks for nutrition facts     
@@ -56,7 +53,7 @@ def getAstats(item_id):
     nutrifacts= nx.item(id=item_id).json()
     LT = [] #List of allergens
     for n in allergen:
-        if nutrifacts[n] != "None":
+        if nutrifacts[n] != None:
             LT.append(n[18:])
     NF = ['nf_calories','nf_calories_from_fat','nf_total_fat','nf_saturated_fat','nf_trans_fatty_acid','nf_cholesterol','nf_sodium','nf_total_carbohydrate','nf_dietary_fiber','nf_sugars','nf_protein','nf_vitamin_a_dv','nf_vitamin_c_dv','nf_calcium_dv','nf_iron_dv']
     fact = {}
@@ -64,7 +61,7 @@ def getAstats(item_id):
         fact[f] = nutrifacts[f]
     return [fact, LT]
     
-      
+print getAstats("513fceb475b8dbbc21000fa8")
 
 #given a brand name, will search ingredients of that brand
 def brandsearch(brand):
@@ -94,8 +91,7 @@ def parser(ingredlist):
         ingred = i.strip() 
     #start of parsing stuff
         x = ingred.split()
-        print i
-#ASSUMING that amount is the first element of this split list
+       #ASSUMING that amount is the first element of this split list
         f2famount=float(x[0])
         x.pop(0) #popping the amount 
         if check(x[0]):
@@ -110,23 +106,22 @@ def parser(ingredlist):
     #search using the search params
         print searchL, f2famount, measurement
         results = search(searchL, f2famount, measurement)
-        print results
-        resultid = results[0]
-        print resultid
-        measurement = results[1]
-        amount = results[2]
+        resultid = results[0] #Nutritionix id of the search element
+        measurement = results[1] #measurement used by the id which has been checked with measurement used in the passed recipe
+        amount = results[2] #amount from Nutritionix database
         scalefactor = 1.0*amount/f2famount 
     #get nutri/allergen facts
-        stats = getAstats(resultid) #list of nutri facts, allergens
+        stats = getAstats(resultid)  #list of nutri facts, allergens
         #combine
+        print stats[0]
         nutri = scale(stats[0], scalefactor, nutri)
-        allergen = stats[1]
+        allergens = list(set(stats[1]+allergens)) #double-check this to see if it removes duplicates
     print "checker"
-    print [nutri, allergen]
+    print [nutri, allergens]
     return searchL
     #record correct amount
         
-
+##Scales nutrition facts and combines with the passed original info
 def scale (dic, factor, orig):
     ans ={}
     x = dic.keys()
@@ -142,7 +137,7 @@ def scale (dic, factor, orig):
             except:
                 pass            
     return ans
-        
+         
 #parses measurement words
 def parse(splitlist):
     if check(splitlist[0]): #check to see if word after is a measurement word, if so, remove
