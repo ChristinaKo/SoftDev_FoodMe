@@ -126,7 +126,7 @@ def parser(ingredlist):
     #start of parsing stuff
         x = ingred.split()
        #ASSUMING that amount is the first element of this split list
-        f2famount=float(x[0])
+        f2famount=float(1.0*x[0])
         x.pop(0) #popping the amount 
         if check(x[0]):
             measurement=x[0]
