@@ -4,10 +4,10 @@ from nutritionix import Nutritionix
 
 ###################KEY INFO HERE FOR API ACCESS##################################
 #you need to place an API key for Nutritionix here - provide one here below
-nx = Nutritionix (api_key = "1f5463bda2c8668651d40bbb8b5ea1bf",
-                  app_id = "1634d1d7")
-
 ################################################################################
+
+####### Helper Functions #######
+
 #compares the item-name to find measurement words
 def compare(item, measureu):
     temp = item["fields"]["item_name"].split()
@@ -119,7 +119,6 @@ def parser(ingredlist):
             
     #amount, measurement, searchL
     #search using the search params
-        print searchL, f2famount, measurement
         results = search(searchL, f2famount, measurement)
         resultid = results[0] #Nutritionix id of the search element
         measurement = results[1] #measurement used by the id which has been checked with measurement used in the passed recipe
