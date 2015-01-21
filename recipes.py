@@ -22,7 +22,7 @@ def getrecipes():
      return recipes       
 print getrecipes
     
-
+#returning the recipe
 def retrecipe(iurl):
     res = urllib2.Request(rurl) ##rurl is surl[1] or whatever link is chosen 
     x = u
@@ -33,7 +33,6 @@ def retrecipe(iurl):
         if i.get('class') == ['plaincharacterwrap', 'break']:
             recipe.append(i.get_text())
     return recipe
-            ############print recipe
 ##ingredients
 def reting(iurl):
     res = urllib2.Request(iurl)#corresponding f2f url so if rurl = surl[1] then iurl=furl[1]
@@ -42,7 +41,8 @@ def reting(iurl):
     html = BeautifulSoup(html)
     for i in html.find_all("li",itemprop="ingredients"):
         ingredients.append(i.get_text())
-    return ingredients    
+    return ingredients   
+print retrecipe(recipes[0][1]) 
 print reting(recipes[0][2])
 print nutrition.parser(ingredients)
 # [u' 3 skinless, boneless chicken breasts', u' 1 cup Italian seasoned bread crumbs', u' 1/2 cup grated Parmesan cheese', u' 1 teaspoon salt', u' 1 teaspoon dried thyme', u' 1 tablespoon dried basil', u' 1/2 cup butter, melted']  --> LISE this is how it should look when it is in the array for "chicken nuggets"
