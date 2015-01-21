@@ -162,7 +162,7 @@ test = [' 3 skinless, boneless chicken breasts', ' 1 cup Italian seasoned bread 
 
 #print parser(["1 cup of apple juice"])
 
-print getAstats(search("Italian seasoned bread crumbs", 1.0, "cup"))
+#print getAstats(search("Italian seasoned bread crumbs", 1.0, "cup"))
 #print getAstats("54bfe04a435431322afde8c3")
 #skinless, boneless chicken breasts", 3, "serving")
 
