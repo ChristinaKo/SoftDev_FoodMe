@@ -1,25 +1,72 @@
-body{
-/*Remove below line to make bgimage NOT fixed*/
-background-attachment:fixed;
-background-repeat: no-repeat;
-/*Use center center in place of 300 200 to center bg image*/
-background-position: 300 200;
+.bold {
+    font-weight: bold;
 }
 
-#banner {
-    position:absolute;
-    top: 0px;
-    left: 110px;
-    right: 110px;
-    width: 80%;
-    height: 50%;
-    z-index: -1;
+.error {
+    color: red;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.texts {
+    color: black;
+    font-size: 30px;
+    font-family: "Times New Roman", Times, serif;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.rounded {
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px; 
+    border-radius: 15px;
+}
+
+.rectangle{
+    padding-top: 5%;
+    padding-bottom: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    width: 45%;
+    overflow: hidden;
+    background: white;
+    opacity: 0.8;
+    filter: alpha(opacity=80); 
+    -moz-opacity:0.8;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.center-text {
+    text-align: center;
 }
 
 .search-bar {
-    left: 70%;
+    float: right;
 }
 
+/* Nice up-arrow button! */
+
+.scrollup {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    bottom: 50px;
+    right: 100px;
+    display: none;
+    text-indent: -9999px;
+    background: url('uparrow.png') no-repeat;
+}
+
+/*
 @media all and (max-width: 670px) {
     ul {
 	height: auto;
@@ -29,7 +76,8 @@ background-position: 300 200;
 	       width: 100%;
 	    }
     }
-    
+*/
+
 /* from PURE buttons-core.css */
 .pure-skin-pretty .pure-button {
     /* Structure */
@@ -741,11 +789,10 @@ Forms Core
 
 /* Submenus should be horizontal separator again */
 .pure-skin-pretty .pure-menu-horizontal li li.pure-menu-separator {
-height: 1px;
-width: auto;
-margin: 7px 2px;
+    height: 1px;
+    width: auto;
+    margin: 7px 2px;
 }
-
 
 /* end from yuicss/menu-core.css *******************************************/
 /* from yuicss menu-paginator.css */
@@ -818,7 +865,6 @@ margin: 7px 2px;
     border: none;
 }
 
-
 /* LINK STYLES */
 
 .pure-skin-pretty .pure-menu a {
@@ -845,6 +891,7 @@ margin: 7px 2px;
 .pure-skin-pretty .pure-menu li a:hover,
 .pure-skin-pretty .pure-menu li a:focus {
     background: #b6edb1;
+    border-radius: 15px;
 }
 
 /* DISABLED STATES */
@@ -874,11 +921,11 @@ margin: 7px 2px;
     border-bottom: solid 1px #cdf2c9;
 }
 
-
 /* SELECTED MENU ITEM */
 .pure-skin-pretty .pure-menu li.pure-menu-selected a {
     background-color: #E1091F;
     color: #fffafb;
+    border-radius: 10px;
 }
 
 /* FIXED MENU */
@@ -902,15 +949,5 @@ margin: 7px 2px;
     }
 
 }
-/* end from menu-responsive.css ******************/
 
-.scrollup {
-    width: 50px;
-    height: 50px;
-    position: fixed;
-    bottom: 50px;
-    right: 100px;
-    display: none;
-    text-indent: -9999px;
-    background: url('uparrow.png') no-repeat;
-}
+/* end from menu-responsive.css ******************/

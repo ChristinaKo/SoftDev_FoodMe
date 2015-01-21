@@ -1,10 +1,11 @@
 <!DOCTYPE HTML>
 <html>
 <div class="pure-skin-pretty">
+
 </head>
 
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
 <link rel="stylesheet" href="/static/extras.css">
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
 
 <!--[if lte IE 8]>
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
@@ -19,7 +20,7 @@
   .background {
   opacity: 0.8;
   filter: alpha(opacity=80); /* For IE8 and earlier */
-  background-image: url("/static/taco.jpg");
+  background-image: url("/static/pasta.jpg");
   background-attachment: fixed;    
   background-repeat: no-repeat;
   background-size: cover;
@@ -35,11 +36,6 @@
 </div>
 {% endif %}
 {% endwith %}
-
-<div class="pure-g">
-  <div id="layout" class="pure-g">
-  </div>
-</div>
 
 <div class="pure-menu pure-menu-open pure-menu-horizontal pure-menu-pull-right">
   <a class="pure-menu-heading" href="/"> 
@@ -59,8 +55,13 @@
 	</li>	
    </ul>
 </div>
+
 <div class="background">
-  <div class="centered">
+  
+  <a href="#" class="scrollup"></a>
+
+  <br><br>
+  <div class="bold texts center rectangle rounded">
   {% if empty %}
   <div class="error"> 
     Missing fields! Please try again. <br>
@@ -73,6 +74,10 @@
   <div class="error"> 
     Sorry! Username "{{usr}}" is already taken. Please try again. <br>
   </div>
+  {% elif special_char %}
+  <div class="error"> 
+    Sorry! Your username may NOT include these special characters: ^[~!@#$%^&*()_+{}":;']+$"<br>
+   </div>
   {% else %}
   Hello, new users! Please fill out this form for your new account:<br>
   {%endif%}
@@ -81,27 +86,36 @@
 <form class="pure-form" method="POST">
   Username: 
   <br>  
-  <input class="form-stufftwo" type="text" size="30" placeholder="Username" name="username"></input>
+  <input class="texts" type="text" size="30" placeholder="Username" name="username"></input>
   <br><br>
   Password:
-      <br>
-      <input class="form-stufftwo" type="password" size="30" placeholder="Password" name="passwd"></input>
-      <br><br>
-      Re-type Password:
-      <br>
-      <input class="form-stufftwo" type="password" size="30" placeholder="Retype Password" name="repasswd"></input>
-      <br><br>
-      First Name:
-      <br>
-      <input class="form-stufftwo" type="text" size="30" placeholder="First Name" name="fname"></input>
-      <br><br>
-      Last Name:<br>
-      <input class="form-stufftwo" type="text" size="30" placeholder="Last Name" name="lname"></input>
-      <br><br>
-      <button class="pure-button" name="submit" value="yes">Submit</button>
+  <br>
+  <input class="texts" type="password" size="30" placeholder="Password" name="passwd"></input>
+  <br><br>
+  Re-type Password:
+  <br>
+  <input class="texts" type="password" size="30" placeholder="Retype Password" name="repasswd"></input>
+  <br><br>
+  First Name:
+  <br>
+  <input class="texts" type="text" size="30" placeholder="First Name" name="fname"></input>
+  <br><br>
+  Last Name:<br>
+  <input class="texts" type="text" size="30" placeholder="Last Name" name="lname"></input>
+  <br><br>
+  <button class="pure-button" name="submit" value="yes">Submit</button>
 </form>
 
   </div>
+
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br>
+
 </div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="/static/main.js"></script>
 
 </html>

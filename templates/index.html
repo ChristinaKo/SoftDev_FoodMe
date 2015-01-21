@@ -16,66 +16,132 @@
   background-size: cover;
   }
 
-  #search-format {
-  font-size: 50px;
-  }
-  
-  .main-search {
-  position: fixed;
+
+@media (max-width: 941px) {
+
+  .search-format {
+  width: 70%;
+  margin-right: 15%;
   margin-top: 10%;
   margin-left: 15%;
+  }
+
+
+  .main-search {
+  padding-left: 5%;
+  float: left;
+  margin-right: auto;
+  font-size: 30px;
+  font-family: "Times New Roman", Times, serif;
+  }
+
+  .search-input {
+  position: static;
+  font-size: 30px;
+  font-family: "Times New Roman", Times, serif;
+ }
+
+  input#main-button {
+  
+  background:url(/static/main-search.png);
+  background-repeat: no-repeat;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
+  background-color: #b6edb1;
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+  }
+
+}
+
+@media (min-width: 941px){
+
+  .search-format {
+  width: 800px;
   margin-right: 15%;
-  width: 50%;
-  height: 10%;
-  }
-<!--
-  .main-button {
-  position: fixed;
-  margin-left: 65%;
-  margin-right: 10%;
   margin-top: 10%;
-  width: 50%;
-  height: 10%;
-
+  margin-left: 15%;
   }
 
--->
+
+  .main-search {
+  padding-left: 10%;
+  float: left;
+  margin-right: auto;
+  font-size: 50px;
+  font-family: "Times New Roman", Times, serif;
+  }
+
+  .search-input {
+  position: static;
+  font-size: 50px;
+  font-family: "Times New Roman", Times, serif;
+ }
+
+  input#main-button {
+  
+  background:url(/static/main-search.png);
+  background-repeat: no-repeat;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
+  background-color: #b6edb1;
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+  }
+
+}
+
 </style>
 </head>
-
-<div class="pure-g">
-  <div id="layout" class="pure-g">
-  </div>
-</div>
 
 <div class="pure-menu pure-menu-open pure-menu-horizontal pure-menu-pull-right">
   <a class="pure-menu-heading" href="/"> 
     <img src="/static/icon.jpg" alt="FoodMe Icon"/>
  </a>
    <ul>
-        <li class="pure-menu-selected"><a href="/">Home</a></li>
-	<li><a href="/about">About</a></li>
-	<li><a href="/help">Help</a></li>
-	<li><a href="/login">Sign In</a></li>
-	<li><a href="/register">Register</a></li>
+     {% if not loggedin %}
+
+     <li class="pure-menu-selected"><a href="/">Home</a></li>
+     <li><a href="/about">About</a></li>
+     <li><a href="/help">Help</a></li>
+     <li><a href="/login">Sign In</a></li>
+     <li><a href="/register">Register</a></li>
+     
+     {% else %}
+     
+     <li class="pure-menu-selected"><a href="/">Home</a></li>
+     <li><a href="/about">About</a></li>
+     <li><a href="/help">Help</a></li>		
+     <li><a href="/logout">Logout</a></li>
+    
+     {% endif %}
+     
    </ul>
 </div>
+
 <div class="background">
-<br>
+  <br>
   <a href="#" class="scrollup"></a>
-  <div id="search-format">
+  <div class="search-format">
     <form class="pure-form">
       <div class="main-search">
-	<input type="text" class="pure-input-rounded" placeholder="Search for...">
+	<input type="text" class="search-input pure-input-rounded" placeholder="Search for...">
       </div>
-      <div class="main-button">
-      <button type="submit" class="pure-button main-button">
-	<img src="/static/search_big.png" alt="Search Icon"/></button>
-      </div>
+      <input type="submit" class="pure-button" id="main-button" name="submit" value="">
     </form>
   </div>
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="/static/main.js"></script>
+
 </html>
