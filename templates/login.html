@@ -38,10 +38,16 @@
 {% endif %}
 {% endwith %}
 
-<div class="pure-g">
-  <div id="layout" class="pure-g">
-  </div>
+<div class="search-bar">
+  
+       <form class="pure-form">
+	 <input type="text" class="pure-input-rounded">
+	 <button type="submit" class="pure-button">
+	   <img src="/static/search.png" alt="Search Icon"/></button>
+       </form>
+
 </div>
+
 
 <div class="pure-menu pure-menu-open pure-menu-horizontal pure-menu-pull-right">
   <a class="pure-menu-heading" href="/"> 
@@ -53,27 +59,23 @@
 	<li><a href="/help">Help</a></li>
 	<li class="pure-menu-selected"><a href="/login">Sign In</a></li>
 	<li><a href="/register">Register</a></li>
-	<li class="search-bar"><form class="pure-form">
-	    <input type="text" class="pure-input-rounded">
-	    <button type="submit" class="pure-button">
-	      <img src="/static/search.png" alt="Search Icon"/></button>
-	  </form>
-	</li>	
+	
   </ul>
 </div>
 
 <div class="background">
   
   <br>
-  <div class="error">
-    {% if error %}
-    Incorrect password! Please try again.<br><br>
-    {% elif notreg %}
-    Username was not recognized. Please register.<br><br>
-    {%endif%}
-  </div>
+
     <div class="rectangle rounded">
       <span><div>
+	  <div class="error">
+	    {% if error %}
+	    Incorrect password! Please try again.<br><br>
+	    {% elif notreg %}
+	    Username was not recognized. Please register.<br><br>
+	    {%endif%}
+	  </div>
 	    <form class="pure-form texts center" method="POST">
 	      <div class="bold">Username:</div>
 	      <br> 

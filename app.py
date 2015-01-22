@@ -80,6 +80,16 @@ def dashboard():
     return render_template("dashboard.html",username=username)
 '''
 
+@app.route("/favorite", methods=["POST","GET"])
+def favorite():
+    if 'username' in session:
+        loggedin = True
+        username = escape(session['username'])
+        return render_template("favorite.html", loggedin=loggedin,username=username)
+    else:
+        loggedin = False
+    return render_template("favorite.html", loggedin=loggedin)
+
 #must pop off session
 @app.route("/logout")
 def logout():
