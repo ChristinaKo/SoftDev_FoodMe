@@ -2,7 +2,8 @@ import urllib2
 import json
 from bs4 import BeautifulSoup
 import nutrition
-url = "http://food2fork.com/api/search?key=64e7c9ab4a5b566ec0aee5ea832f1ee2&q=chicken%20nuggets"
+url = "http://food2fork.com/api/search?key=64e7c9ab4a5b566ec0aee5ea832f1ee2&q=%s"
+url= url%(value)
 request = urllib2.urlopen(url)
 result = request.read()
 d = json.loads(result)
