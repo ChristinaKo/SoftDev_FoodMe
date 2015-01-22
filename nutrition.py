@@ -1,5 +1,7 @@
 import urllib2
 import json
+from fractions import Fraction
+from decimal import Decimal
 from nutritionix import Nutritionix
 
 ###################KEY INFO HERE FOR API ACCESS##################################
@@ -57,7 +59,18 @@ def clean (L):
         if x in dump:
             L.remove(x)
     return " ".join(L)
-
+def fractioncheck(x):
+    if x.find("/") == -1:
+        return x
+    else:
+        z = x.split('/')
+        print x
+        return float(z[0])/float(z[1])
+        
+print fractioncheck("1/2")
+print fractioncheck("12312")
+        
+        
 ###############################API CALL FUNCTION#######################################
 #'''''''''''''''''''''''''''''''''''''''''SEARCHING''''''''''''''''''''''''''''''''''''''''''''''''''''#
 
@@ -120,11 +133,12 @@ def parser(ingredlist):
     #start of parsing stuff
         x = ingred.split()
        #ASSUMING that amount is the first element of this split list
-        try:
-            f2famount=float(1.0*x[0])
-        except:
-            if x[0]=="a":
-                f2famount = float(1.0)
+        print x[0]
+        if x[0] == "a":
+            f2famount = float(1.0)
+        else:
+            f2famount= float(fractioncheck(x[0]))
+            
         x.pop(0) #popping the amount 
         if check(x[0]):
             measurement=x[0]
@@ -158,7 +172,7 @@ def parser(ingredlist):
 ############Testing Section
 test = [' 3 skinless, boneless chicken breasts', ' 1 cup Italian seasoned bread crumbs', ' 1/2 cup grated Parmesan cheese', ' 1 teaspoon salt', ' 1 teaspoon dried thyme', ' 1 tablespoon dried basil', ' 1/2 cup butter, melted'] 
 
-#print parser(["1 cup of apple juice"])
+print parser(["1 cup of apple juice"])
 
 #print getAstats(search("Italian seasoned bread crumbs", 1.0, "cup"))
 #print getAstats("54bfe04a435431322afde8c3")
