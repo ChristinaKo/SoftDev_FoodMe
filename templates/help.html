@@ -43,23 +43,25 @@
   <ul>
     <!-- MAKE NOT HOVER -->
     <li><a href="/"> 
-    <img src="/static/icon.jpg" alt="FoodMe Icon"/>
-      </a></li>
+	<img src="/static/icon.jpg" alt="FoodMe Icon"/>
+    </a></li>
+    
     {% if not loggedin %}
-
-     <li><a href="/">Home</a></li>
-     <li><a href="/about">About</a></li>
-     <li class="pure-menu-selected"><a href="/help">Help</a></li>
-     <li><a href="/login">Sign In</a></li>
-     <li><a href="/register">Register</a></li>
-   	
-     
-     {% else %}
-     
-     <li><a href="/">Home</a></li>
-     <li><a href="/about">About</a></li>
-     <li class="pure-menu-selected"><a href="/help">Help</a></li>	
-     {% endif %}
+    
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li class="pure-menu-selected"><a href="/help">Help</a></li>
+    <li><a href="/login">Sign In</a></li>
+    <li><a href="/register">Register</a></li>	
+    
+    {% else %}
+    
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li class="pure-menu-selected"><a href="/help">Help</a></li>
+    <li><a href="/favorite">Favorites</a></li>
+   
+    {% endif %}
    </ul>
 </div>
 
@@ -72,6 +74,15 @@ Currently logged in as {{username}}...
 <br>
 {% endif %}
 <div class="texts">HELP PAGE</div>
+
+
+<div class="rectangle rounded texts">
+
+   <div class="bold">How do I use it?</div>
+   <div class="bold">Do I have to create an account?</div>
+   <div class="bold">WHAT:</div>
+   <div class="bold">WHAT:</div>  
+</div>
 <br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 

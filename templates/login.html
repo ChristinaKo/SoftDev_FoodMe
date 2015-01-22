@@ -66,15 +66,16 @@
 <div class="background">
   
   <br>
-  <div class="error">
-    {% if error %}
-    Incorrect password! Please try again.<br><br>
-    {% elif notreg %}
-    Username was not recognized. Please register.<br><br>
-    {%endif%}
-  </div>
+
     <div class="rectangle rounded">
       <span><div>
+	  <div class="error">
+	    {% if error %}
+	    Incorrect password! Please try again.<br><br>
+	    {% elif notreg %}
+	    Username was not recognized. Please register.<br><br>
+	    {%endif%}
+	  </div>
 	    <form class="pure-form texts center" method="POST">
 	      <div class="bold">Username:</div>
 	      <br> 
