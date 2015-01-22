@@ -12,21 +12,19 @@ ingredients=[]
 recipe=[] #actual recipe
 recipes=[] #list of many different recipes
 ##THis is to find Recipes with all recipes url.
-def getrecipes():
-    for r in d['recipes']:
-        if r['publisher']== "All Recipes":
-            recipes.append([r['title'],r['source_url'],r['f2f_url']])
+#def getrecipes():
+for r in d['recipes']:
+    if r['publisher']== "All Recipes":
+        recipes.append([r['title'],r['source_url'],r['f2f_url']])
             # title = name of the recipe
             # source_url = allrecipes url
             # f2f_url = food 2 fork url
-     return recipes       
-print getrecipes
-    
+   # return recipes       
+                
 #returning the recipe
-def retrecipe(iurl):
+def retrecipe(rurl):
     res = urllib2.Request(rurl) ##rurl is surl[1] or whatever link is chosen 
-    x = u
-    rllib2.urlopen(res)
+    x = urllib2.urlopen(res)
     html = x.read()
     html =BeautifulSoup(html)
     for i in  html.find_all("span"):
