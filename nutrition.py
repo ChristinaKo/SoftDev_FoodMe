@@ -66,10 +66,9 @@ def fractioncheck(x):
         z = x.split('/')
         print x
         return float(z[0])/float(z[1])
-        
-print fractioncheck("1/2")
-print fractioncheck("12312")
-        
+      
+#print fractioncheck("1/2")
+#print fractioncheck("12312")
         
 ###############################API CALL FUNCTION#######################################
 #'''''''''''''''''''''''''''''''''''''''''SEARCHING''''''''''''''''''''''''''''''''''''''''''''''''''''#
@@ -167,17 +166,14 @@ def parser(ingredlist):
     return searchL
 
 
-
-
 ############Testing Section
 test = [' 3 skinless, boneless chicken breasts', ' 1 cup Italian seasoned bread crumbs', ' 1/2 cup grated Parmesan cheese', ' 1 teaspoon salt', ' 1 teaspoon dried thyme', ' 1 tablespoon dried basil', ' 1/2 cup butter, melted'] 
 
-print parser(["1 cup of apple juice"])
+#print parser(["1 cup of apple juice"])
 
 #print getAstats(search("Italian seasoned bread crumbs", 1.0, "cup"))
 #print getAstats("54bfe04a435431322afde8c3")
 #skinless, boneless chicken breasts", 3, "serving")
-
 
 '''
 sample output:
