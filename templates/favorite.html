@@ -20,6 +20,14 @@
 
 </head>
 
+{% if loggedin %}
+<div class="profile">&nbsp;&nbsp;&nbsp;
+  <a href="/profile"><img src="/static/user.jpg" alt="Search Icon"/></a>
+&nbsp;&nbsp;
+</div>
+
+{% endif %}
+
 <div class="search-bar">
   
        <form class="pure-form">
@@ -37,8 +45,9 @@
    <ul>
      
      {% if not loggedin %}
+     
      <li><a href="/">Home</a></li>
-     <li class="pure-menu-selected"><a href="/about">About</a></li>
+     <li><a href="/about">About</a></li>
      <li><a href="/help">Help</a></li>
      <li><a href="/login">Sign In</a></li>
      <li><a href="/register">Register</a></li>
@@ -46,17 +55,19 @@
      {% else %}
      
      <li><a href="/">Home</a></li>
-     <li class="pure-menu-selected"><a href="/about">About</a></li>
+     <li><a href="/about">About</a></li>
      <li><a href="/help">Help</a></li>
-     <li><a href="/favorite">Favorites</a></li>	
+     <li class="pure-menu-selected"><a href="/favorite">Favorites</a></li>	
      <li><a href="/logout">Logout</a></li>
      {% endif %}
    </ul>
 </div>
 
 <div class="background">
+  <br><br><br><br>
   {% if not loggedin %}
   not logged in
+  put error message, ask user to login, redirect and whatnot
 {% else %}
 <br>
 Currently logged in as {{username}}...

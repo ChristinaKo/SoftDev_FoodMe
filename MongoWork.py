@@ -28,8 +28,11 @@ def new_user(dictinput):#MUST CHECK IF USER IN DB
     #for user in users.find():
         #print user
 
-def drop_users():
-    db.drop_collection('names') #drops collection each time --> this should not be necessary in the future but...
+#def drop_users():
+#    db.drop_collection('names')
 
 def update_password(usr,newpwd):
     users.update({'uname':usr},{'$set':{'password':newpwd}}, upsert=False, multi=False)
+
+#def update_favorites(usr,newelement):
+#    users.update({'uname':usr},...
