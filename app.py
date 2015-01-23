@@ -38,20 +38,19 @@ def help():
 
 @app.route("/", methods=["POST","GET"])
 def index():
-    if request.method == "GET":
-        if 'username' in session:
-            loggedin = True
-            username = escape(session['username'])
-            return render_template("index.html", loggedin=loggedin,username=username)
-        else:
-            loggedin = False
-        return render_template("index.html", loggedin=loggedin)
+    if 'username' in session:
+        loggedin = True
+        username = escape(session['username'])
+        return render_template("index.html", loggedin=loggedin,username=username)
     else:
-        searchValue = request.form['searched']
-        p = ""
-        rec = recipes.getrecipes(getSearchVal(searchValue))
-        return p
-
+        loggedin = False
+    return render_template("index.html", loggedin=loggedin)
+##redirrect with tag = searched value  return redirect(url_for("/recipes/<tag>", tag = request.form['searched']
+@app.route("/recipes/<tag>")
+def recipes(tag):
+    reclist = getrecipes(recipes.getSearchVal(tag))
+    return render_template("recipes.html", reclist = reclist)
+    
 @app.route("/login", methods=["POST","GET"])
 def login():
     error = None
