@@ -46,6 +46,16 @@ def index():
         loggedin = False
     return render_template("index.html", loggedin=loggedin)
 
+@app.route("/profile", methods=["POST","GET"])
+def profile():
+    if 'username' in session:
+        loggedin = True
+        username = escape(session['username'])
+        return render_template("profile.html", loggedin=loggedin,username=username)
+    else:
+        loggedin = False
+    return render_template("profile.html", loggedin=loggedin)
+
 @app.route("/login", methods=["POST","GET"])
 def login():
     error = None

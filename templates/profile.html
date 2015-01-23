@@ -43,7 +43,7 @@
     <img src="/static/icon.jpg" alt="FoodMe Icon"/>
  </a>
    <ul>
-     
+    <!--MUST FLASH ERROR MESSAGE IF ACCESSING PROFILE WHILE NOT LOGGED IN--> 
      {% if not loggedin %}
      
      <li><a href="/">Home</a></li>
@@ -55,7 +55,7 @@
      {% else %}
      
      <li><a href="/">Home</a></li>
-     <li class="pure-menu-selected"><a href="/about">About</a></li>
+     <li><a href="/about">About</a></li>
      <li><a href="/help">Help</a></li>
      <li><a href="/favorite">Favorites</a></li>	
      <li><a href="/logout">Logout</a></li>
@@ -64,6 +64,7 @@
 </div>
 
 <div class="background">
+  <br><br><br><br>
   {% if not loggedin %}
   not logged in
   put error message, ask user to login, redirect and whatnot
@@ -75,14 +76,37 @@ Currently logged in as {{username}}...
 
 
 <div class="rectangle rounded texts">
-  <div class="bold big-text">Your favorite recipes:</div>
+  <div class="bold big-text">{{username}}'s Profile:</div>
+  Username: {{u}}
   <br>
-  STUFF HERE
+  First name: {{fname}}
+  <br>
+  Last Name: {{lname}}
+  <br>
+   <form class="pure-form" method="POST">
+      <br>
+      <hr><hr>
+      <b>Change password:</b><br><br>
+      Current Password:
+      <br>
+      <input type="password" size="30" placeholder="Current Password" name="curpas">
+      <br><br>
+      New Password:
+      <br>
+      <input  type="password" size="30" placeholder="Password" name="newpas"></input>
+      <br><br>
+      Re-type New Password:
+      <br>
+      <input class="form-stufftwo" type="password" size="30" placeholder="Retype Password" name="newrepas"></input>
+      <br><br>
+      <button class="pure-button" name="submit" value="upd">Update Password</button>
+   </form>
+   
   
 </div>
 
 <a href="#" class="scrollup"></a>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="/static/main.js"></script>
