@@ -36,10 +36,8 @@ def scale (dic, factor, orig):
     for key in x:
         if dic[key] != None:
             ans[key] = dic[key]*factor
-            print "{0:0.1f}".format(ans[key])
+            # print "{0:0.1f}".format(ans[key])
         else: #if not num / == None, then skip
-            print dic[key]
-            print "SKIPPPPPPPPPPPED"
             pass
         if len(orig) > 0: #if something in orig
             try:
@@ -66,7 +64,6 @@ def fractioncheck(x):
         return x
     else:
         z = x.split('/')
-        print x
         return float(z[0])/float(z[1])
       
 #print fractioncheck("1/2")
@@ -84,7 +81,8 @@ def search(param, amount, measurement):
     result = request.json()
     if result["total_hits"] >0:
         for item in result["hits"]: #is result hits top 10
-            #item["fields"]["brand_name"]=="USDA" and  <- some ingredients dont have usda at least if worded differently 
+            #item["fields"]["brand_name"]=="USDA" and  <- some ingredients dont have usda at least if worded differently
+            print item["fields"]["item_id"]
             if (item["fields"]["nf_serving_size_unit"] == measurement or compare(item, measurement)):
                 lists.append(item["fields"]["item_id"])
                 lists.append(measurement)
@@ -132,7 +130,6 @@ def parser(ingredlist):
     #start of parsing stuff
         x = ingred.split()
        #ASSUMING that amount is the first element of this split list
-        print x[0]
         if x[0] == "a":
             f2famount = float(1.0)
         else:
@@ -150,6 +147,7 @@ def parser(ingredlist):
         results = search(searchL, f2famount, measurement)
         #print results
         resultid = results[0] #Nutritionix id of the search element
+        print resultid
         measurement = results[1] #measurement used by the id which has been checked with measurement used in the passed recipe
         amount = results[2] #amount from Nutritionix database
         scalefactor = 1.0*amount/f2famount 
@@ -161,8 +159,6 @@ def parser(ingredlist):
         allergens = list(set(stats[1]+allergens)) #double-check this to see if it removes duplicates
     print [nutri, allergens]
     return searchL
-
-
 
 
 ############Testing Section
