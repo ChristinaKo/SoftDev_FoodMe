@@ -98,6 +98,14 @@
 </style>
 </head>
 
+{% if loggedin %}
+<div class="profile">&nbsp;&nbsp;&nbsp;
+  <a href="/profile"><img src="/static/user.jpg" alt="Search Icon"/></a>
+&nbsp;&nbsp;
+</div>
+
+{% endif %}
+
 <div class="pure-menu pure-menu-open pure-menu-horizontal pure-menu-pull-right">
   <a class="pure-menu-heading" href="/"> 
     <img src="/static/icon.jpg" alt="FoodMe Icon"/>
