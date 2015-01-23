@@ -1,10 +1,8 @@
 import urllib2
 import json
-from fractions import Fraction
-from decimal import Decimal
 from nutritionix import Nutritionix
 
-###################KEY INFO HERE FOR API ACCESS##################################
+###################KEY INFO HERE FOR API ACCESS#################################
 #you need to place an API key for Nutritionix here - provide one here below
 nx = Nutritionix (api_key = "c61a0fa95a3d990372245f601358afe3",
                   app_id = "1634d1d7")
@@ -27,7 +25,7 @@ def amountfind (item, measureu):
             print "from USDA NAME"
             return float(temp[temp.index(measureu)-1])
         except:
-            print "ARRAY ERROR"
+            print "Amountfind - ARRAY ERROR"
     print "from nutritionix database"
     return float(item["fields"]["nf_serving_size_qty"])
         
@@ -36,9 +34,12 @@ def scale (dic, factor, orig):
     ans = {}
     x = dic.keys()
     for key in x:
-        try:
+        if dic[key] != None:
             ans[key] = dic[key]*factor
-        except: #if not num / == None, then skip
+            print "{0:0.1f}".format(ans[key])
+        else: #if not num / == None, then skip
+            print dic[key]
+            print "SKIPPPPPPPPPPPED"
             pass
         if len(orig) > 0: #if something in orig
             try:
@@ -59,6 +60,7 @@ def clean (L):
         if x in dump:
             L.remove(x)
     return " ".join(L)
+
 def fractioncheck(x):
     if x.find("/") == -1:
         return x
@@ -98,10 +100,8 @@ def search(param, amount, measurement):
 #parses through list of item_ids and searches for nutrition facts     
 def getAstats(item_id):
     allergen= ["allergen_contains_eggs","allergen_contains_fish","allergen_contains_gluten","allergen_contains_milk","allergen_contains_peanuts","allergen_contains_shellfish","allergen_contains_tree_nuts","allergen_contains_wheat", "allergen_contains_soybeans"]
-    print item_id[0]
     nutrifacts= nx.item(id=item_id).json()
     LT = [] #List of allergens
-    print nutrifacts
     for n in allergen:
         try:
             if nutrifacts[n] != None:
@@ -146,9 +146,6 @@ def parser(ingredlist):
         else:
             measurement="serving"
             searchL=clean(x)
-        print searchL
-        print measurement
-        print f2famount
     #search using the search params
         results = search(searchL, f2famount, measurement)
         #print results
@@ -164,6 +161,8 @@ def parser(ingredlist):
         allergens = list(set(stats[1]+allergens)) #double-check this to see if it removes duplicates
     print [nutri, allergens]
     return searchL
+
+
 
 
 ############Testing Section
