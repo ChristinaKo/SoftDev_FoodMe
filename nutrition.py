@@ -1,6 +1,11 @@
+from flask import Flask, render_template, request
 import urllib2
 import json
 from nutritionix import Nutritionix
+
+##################### Flask Header ############################
+app = Flask(__name__)
+app.secret_key = "SEcRet KeY"
 
 ###################KEY INFO HERE FOR API ACCESS#################################
 #you need to place an API key for Nutritionix here - provide one here below
@@ -9,7 +14,6 @@ nx = Nutritionix (api_key = "c61a0fa95a3d990372245f601358afe3",
 ################################################################################
 
 ####### Helper Functions #######
-
 #compares the item-name to find measurement words
 def compare(item, measureu):
     temp = item["fields"]["item_name"].split()
@@ -137,15 +141,15 @@ def parser(ingredlist):
             
         x.pop(0) #popping the amount 
         if check(x[0]):
-            measurement=x[0]
+            measurement = x[0]
             x.pop(0)
-            searchL= clean(x)
+            searchL = clean(x)
         else:
             measurement="serving"
-            searchL=clean(x)
+            searchL = clean(x)
     #search using the search params
         results = search(searchL, f2famount, measurement)
-        #print results
+        print results
         resultid = results[0] #Nutritionix id of the search element
         print resultid
         measurement = results[1] #measurement used by the id which has been checked with measurement used in the passed recipe
@@ -157,8 +161,56 @@ def parser(ingredlist):
         #print stats[0]
         nutri = scale(stats[0], scalefactor, nutri)
         allergens = list(set(stats[1]+allergens)) #double-check this to see if it removes duplicates
-    print [nutri, allergens]
-    return searchL
+    return [nutri, allergens]
+    #return searchL #we dont need to return the search Lists
+
+############################FLASK COMMANDS################################
+# this should go into the search engine part..... im using another html file just ot test this out
+
+##############NOT COMPLETED --- just a template to be completed later###########
+@app.route("/", methods = ["GET", "POST"])
+@app.route("/search", methods = ["GET", "POST"])
+def search():
+    if request.method == "POST":
+        pass
+    pass
+
+
+@app.route("/nutrition", methods = ["GET"])
+def run():
+    
+    pass
+    nutrifacts = parser(source)  #
+
+    return render_template("n.html",
+                           sizes = sizes,
+                           serverpcont = servercont,
+                           amountpserv = amountpserv,
+                           calories = calories,
+                           fatcals = fatcals,
+                           fat = fat, 
+                           fat-dv = fat, 
+                           satfat = satfat, 
+                           satfat-dv = satfat-dv,
+                           transfat = transfat,
+                           cholesterol = cholesterol,
+                           cholesterol-dv = cholesterol-dv,
+                           sodium = sodium,
+                           sodium-dv = sodium-dv,
+                           carb = carb, 
+                           carb-dv = carb-dv,
+                           df = df, 
+                           sugar = sugar,
+                           protein = protein,
+                           protein-dv = protein-dv,
+                           vitA = vitA,
+                           vitC = vitC,
+                           calcium = calcium,
+                           iron= iron,
+                           )
+
+
+##########################################################################
 
 
 ############Testing Section
