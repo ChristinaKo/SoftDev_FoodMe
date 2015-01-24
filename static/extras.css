@@ -54,6 +54,11 @@
     text-align: center;
 }
 
+.help {
+    padding-top: 1.25%;
+    float: right;
+}
+
 .profile {
     padding-top: 1.25%;
     float: right;

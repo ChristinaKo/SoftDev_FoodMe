@@ -1,4 +1,4 @@
-<!DOCTYPE HTMl>
+<!doctype html>
 <html>
   <div class="pure-skin-pretty">
     
@@ -6,20 +6,28 @@
 <link rel="stylesheet" href="/static/extras.css">
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
 
-<style>
-  .background {
-  opacity: 0.8;
-  filter: alpha(opacity=80); /* For IE8 and earlier */
-  background-image: url("/static/taco.jpg");
-  background-attachment: fixed;    
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 300 200;
-  }
-</style>
+<!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
+<!--<![endif]-->
 
 </head>
 
+<style>
+  .background {
+  
+  opacity: 0.8;
+  filter: alpha(opacity=80); /* For IE8 and earlier */
+  background-image: url("/static/egg.jpg");
+  background-attachment: fixed;    
+  background-repeat: no-repeat;
+  background-size: cover;
+  }
+
+  
+</style>
 <div class="help">&nbsp;
   <a href="/help"><img src="/static/help.png" alt="Help Icon"/></a>
 &nbsp;&nbsp;
@@ -32,8 +40,8 @@
 </div>
 
 {% endif %}
-
 <div class="search-bar">
+  
        <form class="pure-form">
 	 <input type="text" class="pure-input-rounded">
 	 <button type="submit" class="pure-button">
@@ -43,52 +51,54 @@
 </div>
 
 <div class="pure-menu pure-menu-open pure-menu-horizontal pure-menu-pull-right">
+ 
   <a class="pure-menu-heading" href="/"> 
     <img src="/static/icon.jpg" alt="FoodMe Icon"/>
- </a>
-   <ul>
+  </a>
+  <ul>
+    {% if not loggedin %}
+    
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li class="pure-menu-selected"><a href="/random">Random</a></li>
+    <li><a href="/login">Sign In</a></li>
+    <li><a href="/register">Register</a></li>	
      
-     {% if not loggedin %}
-     
-     <li><a href="/">Home</a></li>
-     <li><a href="/about">About</a></li>
-     <li><a href="/random">Random</a></li>
-     <li><a href="/login">Sign In</a></li>
-     <li><a href="/register">Register</a></li>
- 
-     {% else %}
-     
-     <li><a href="/">Home</a></li>
-     <li><a href="/about">About</a></li>
-     <li><a href="/random">Random</a></li>
-     <li class="pure-menu-selected"><a href="/favorite">Favorites</a></li>	
-     <li><a href="/logout">Logout</a></li>
-     {% endif %}
+    {% else %}
+    
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+<!--JAVASCRIPT TO RANDOMIZE EVERY 10 MINS -->
+    <li class="pure-menu-selected"><a href="/random">Random</a></li>
+    <li><a href="/favorite">Favorites</a></li>	
+    <li><a href="/logout">Logout</a></li>
+   
+   
+    {% endif %}
    </ul>
 </div>
 
 <div class="background">
   <br><br><br><br>
-  {% if not loggedin %}
-  not logged in
-  put error message, ask user to login, redirect and whatnot
+
+<a href="#" class="scrollup"></a>
+{% if not loggedin %}
 {% else %}
 <br>
 Currently logged in as {{username}}...
 <br>
 {% endif %}
-
-
 <div class="rectangle rounded texts">
-  <div class="bold big-text">Your favorite recipes:</div>
-  <br>
-  STUFF HERE
+   <div class="bold">Random</div>
   
 </div>
-
-<a href="#" class="scrollup"></a>
+<br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="/static/main.js"></script>
+
+
+
 </html>

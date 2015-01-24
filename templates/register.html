@@ -37,8 +37,12 @@
 {% endif %}
 {% endwith %}
 
-<div class="search-bar">
-  
+<div class="help">&nbsp;
+  <a href="/help"><img src="/static/help.png" alt="Help Icon"/></a>
+  &nbsp;&nbsp;
+</div>
+
+<div class="search-bar">  
        <form class="pure-form">
 	 <input type="text" class="pure-input-rounded">
 	 <button type="submit" class="pure-button">
@@ -54,7 +58,7 @@
    <ul>
         <li><a href="/">Home</a></li>
 	<li><a href="/about">About</a></li>
-	<li><a href="/help">Help</a></li>
+	<li><a href="/random">Random</a></li>
 	<li><a href="/login">Sign In</a></li>
 	<li class="pure-menu-selected"><a href="/register">Register</a></li>
 
@@ -65,7 +69,7 @@
   
   <a href="#" class="scrollup"></a>
 
-  <br><br>
+  <br><br><br><br>
   <div class="bold texts center rectangle rounded">
   {% if empty %}
   <div class="error"> 

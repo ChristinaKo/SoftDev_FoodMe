@@ -100,6 +100,16 @@ def favorite():
         loggedin = False
     return render_template("favorite.html", loggedin=loggedin)
 
+@app.route("/random", methods=["POST","GET"])
+def random():
+    if 'username' in session:
+        loggedin = True
+        username = escape(session['username'])
+        return render_template("random.html", loggedin=loggedin,username=username)
+    else:
+        loggedin = False
+    return render_template("random.html", loggedin=loggedin)
+
 #must pop off session
 @app.route("/logout")
 def logout():
@@ -116,7 +126,7 @@ def register():
         firstname = request.form['fname']
         lastname = request.form['lname']
         if passw == repassw and usr!='' and passw!='' and firstname!='' and lastname!='':#checks if everything is filled out
-            #retVals = ' %s , %s, %s, %s , %s ' % (usr, passw, repassw, firstname, lastname)
+        #retVals = ' %s , %s, %s, %s , %s ' % (usr, passw, repassw, firstname, lastname)
             mongo_input = { 'uname':usr,
                             'password':passw, 
                             'firstname':firstname,
