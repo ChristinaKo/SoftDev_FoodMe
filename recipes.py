@@ -21,12 +21,12 @@ def getSearchVal(tag):
 def getrecipes(db):
     for r in db['recipes']:
         if r['publisher']== "All Recipes":
-            recipes.append([r['title'],r['source_url'],r['f2f_url']], r['image_url'])
+            recipes.append([r['title'],r['source_url'],r['f2f_url'], r['image_url']])
             # title = name of the recipe
             # source_url = allrecipes url
             # f2f_url = food 2 fork url
             # image_url = url of the image of the recipe 
-            return recipes       
+    return recipes       
                 
 #returning the recipe
 def retrecipe(rurl):
