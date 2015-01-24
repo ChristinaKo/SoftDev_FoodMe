@@ -55,7 +55,7 @@
   <a class="pure-menu-heading" href="/"> 
     <img src="/static/icon.jpg" alt="FoodMe Icon"/>
  </a>
-   <ul>
+   <ul class="times-new">
         <li><a href="/">Home</a></li>
 	<li><a href="/about">About</a></li>
 	<li><a href="/random">Random</a></li>
@@ -79,6 +79,11 @@
   <div class="error"> 
     Passwords did not match! Please try again. <br>
   </div>
+  {% elif bad_pword %}
+  <div class="error"> 
+    Your password must be at least SIX characters long and have an uppercase letter, lowercase letter, and a number!<br>
+  </div>
+
   {% elif user_taken %}
   <div class="error"> 
     Sorry! Username "{{usr}}" is already taken. Please try again. <br>
@@ -87,6 +92,7 @@
   <div class="error"> 
     Sorry! Your username may NOT include these special characters: ^[~!@#$%^&*()_+{}":;']+$"<br>
    </div>
+
   {% else %}
   Hello, new users! Please fill out this form for your new account:<br>
   {%endif%}
