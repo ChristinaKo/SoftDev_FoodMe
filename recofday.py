@@ -17,6 +17,6 @@ def rand():
         if (d['recipes'][ran]['publisher']== "All Recipes"):
             return d['recipes'][ran]
         else:
-            return rand()['source_url']
+            return rand()
 print rand()
 
