@@ -16,8 +16,9 @@ nx = Nutritionix (api_key = "c61a0fa95a3d990372245f601358afe3",
 ####### Helper Functions #######
 #compares the item-name to find measurement words
 def compare(item, measureu):
+    plural = measureu + "s"
     temp = item["fields"]["item_name"].split()
-    if measureu in temp:
+    if measureu in temp or plural in temp:
         return True
     return False
 
@@ -26,11 +27,9 @@ def amountfind (item, measureu):
     temp = item["fields"]["item_name"].split()
     if measureu in temp:
         try:
-            print "from USDA NAME"
             return float(temp[temp.index(measureu)-1])
         except:
             print "Amountfind - ARRAY ERROR"
-    print "from nutritionix database"
     return float(item["fields"]["nf_serving_size_qty"])
         
 ##Scales nutrition facts and combines with the passed original info
@@ -80,23 +79,30 @@ def fractioncheck(x):
 #checks measurement and amounts
 def search(param, amount, measurement):
     print param
+    print measurement
+   
     lists=[] # list of one element id
     request = nx.search(param,limit=100, offset=0, search_type="usda")
     result = request.json()
     if result["total_hits"] >0:
+        print result["hits"]
+    
         for item in result["hits"]: #is result hits top 10
             #item["fields"]["brand_name"]=="USDA" and  <- some ingredients dont have usda at least if worded differently
-            print item["fields"]["item_id"]
-            if (item["fields"]["nf_serving_size_unit"] == measurement or compare(item, measurement)):
+            print item["fields"]
+            if (item["fields"]["nf_serving_size_unit"] == measurement or item["fields"]["nf_serving_size_unit"] == measurement+"s" or compare(item, measurement)):
                 lists.append(item["fields"]["item_id"])
                 lists.append(measurement)
                 lists.append(amountfind(item,measurement))
+                print "DONE"
                 return lists   # list of one element
-    item = result["hits"][1]
-    lists.append(item["fields"]["item_id"])
-    lists.append(measurement)
-    lists.append(amountfind(item,measurement))
-    return lists
+            
+        item = result["hits"][0]
+        print result["hits"][0]
+        lists.append(item["fields"]["item_id"])
+        lists.append(measurement)
+        lists.append(amountfind(item,measurement))
+        return lists
             
             
 #parses through list of item_ids and searches for nutrition facts     
@@ -165,12 +171,12 @@ def parser(ingredlist):
     #return searchL #we dont need to return the search Lists
 
 ############################FLASK COMMANDS################################
-# this should go into the search engine part..... im using another html file just ot test this out
+# this should go into the search engine part..... im using another html file just just test this out
 
 ##############NOT COMPLETED --- just a template to be completed later###########
 @app.route("/", methods = ["GET", "POST"])
 @app.route("/search", methods = ["GET", "POST"])
-def search():
+def searches():
     if request.method == "POST":
         pass
     pass
@@ -178,10 +184,8 @@ def search():
 
 @app.route("/nutrition", methods = ["GET"])
 def run():
-    
-    pass
     nutrifacts = parser(source)  #
-
+'''
     return render_template("n.html",
                            sizes = sizes,
                            serverpcont = servercont,
@@ -208,7 +212,7 @@ def run():
                            calcium = calcium,
                            iron= iron,
                            )
-
+'''
 
 ##########################################################################
 
