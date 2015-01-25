@@ -7,11 +7,11 @@ rurl = ""
 iurl = ""
 ingredients=[]
 recipe=[] #actual recipe
-recipes=[] #list of many different recipes
 
-def getSearchVal(tag):
-    url = "http://food2fork.com/api/search?key=64e7c9ab4a5b566ec0aee5ea832f1ee2&q=%s"
-    url = url%(tag)
+
+def getSearchVal(tag,num):
+    url = "http://food2fork.com/api/search?key=73fabb20981c227717084598dff04287&q=%s&page=%s"
+    url = url%(tag,num)
     request = urllib2.urlopen(url)
     result = request.read()
     d = json.loads(result)
@@ -19,6 +19,7 @@ def getSearchVal(tag):
 
 ##THis is to find Recipes with all recipes url.
 def getrecipes(db):
+    recipes=[] #list of many different recipes
     for r in db['recipes']:
         if r['publisher']== "All Recipes":
             recipes.append([r['title'],r['source_url'],r['f2f_url'], r['image_url']])

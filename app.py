@@ -40,7 +40,7 @@ def help():
 def index():
     if request.method == "POST":
         if request.form['searched']!= "":
-            return redirect(url_for("recipe", tag = request.form['searched']))
+            return redirect(url_for("recipeList", tag = request.form['searched']))
     if 'username' in session:
         loggedin = True
         username = escape(session['username'])
@@ -60,9 +60,19 @@ def profile():
     return render_template("profile.html", loggedin=loggedin)
 
 @app.route("/recipes/<tag>")
-def recipe(tag):
-    reclist = recipes.getrecipes(recipes.getSearchVal(tag))
+def recipeList(tag):
+    num = 0
+    reclist = []
+    while num <=10:
+        db = recipes.getSearchVal(tag,num)
+        if db['count'] !=  0:
+            reclist = reclist + recipes.getrecipes(db)
+            num =  num + 1
+
+        else:
+            break
     return render_template("recipes.html", reclist = reclist)    
+
 @app.route("/login", methods=["POST","GET"])
 def login():
     error = None
