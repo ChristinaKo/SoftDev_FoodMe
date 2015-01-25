@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
 
 <style>
+
   .background {
   opacity: 0.8;
   filter: alpha(opacity=80); /* For IE8 and earlier */
@@ -16,6 +17,16 @@
   background-size: cover;
   background-position: 300 200;
   }
+
+  #list-image {
+  line-height: 1.5em;
+  list-style-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/4621/treehouse-marker.png);
+  }
+
+  .toggle-e {
+  display: none;
+  }
+
 </style>
 
 </head>
@@ -82,12 +93,14 @@ Currently logged in as {{username}}...
 <div class="rectangle rounded texts">
   <div class="bold big-text">Your favorite recipes:</div>
   <br>
+  <ul id="list-image">
   <li class="trigger">test one</li>
   <div class="toggle-e">stuff one</div>
   <li class="trigger">test two</li>
   <div class="toggle-e">stuff two</div>
   <li class="trigger">test three</li>
 <div class="toggle-e">stuff three</div>
+  </ul>
 </div>
 
 <a href="#" class="scrollup"></a>
