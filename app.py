@@ -73,9 +73,6 @@ def recipeList(tag):
             break
     return render_template("recipes.html", reclist = reclist)    
 
-@app.route("/recipes/<tag>/<title>")
-def recipe():
-            print "<html> Hi </html"
 @app.route("/login", methods=["POST","GET"])
 def login():
     error = None
