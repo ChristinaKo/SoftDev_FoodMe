@@ -39,15 +39,15 @@ def help():
 @app.route("/", methods=["POST","GET"])
 def index():
     if request.method == "POST":
-        return redirect(url_for("recipe", tag = request.form['searched']))
+        if request.form['searched']!= "":
+            return redirect(url_for("recipe", tag = request.form['searched']))
+    if 'username' in session:
+        loggedin = True
+        username = escape(session['username'])
+        return render_template("index.html", loggedin=loggedin,username=username)
     else:
-        if 'username' in session:
-            loggedin = True
-            username = escape(session['username'])
-            return render_template("index.html", loggedin=loggedin,username=username)
-        else:
-            loggedin = False
-        return render_template("index.html", loggedin=loggedin)
+        loggedin = False
+    return render_template("index.html", loggedin=loggedin)
 
 @app.route("/profile", methods=["POST","GET"])
 def profile():
