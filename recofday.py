@@ -2,6 +2,9 @@ import urllib2
 import json
 import random
 from bs4 import BeautifulSoup
+
+#Angela's key:935a5bc621fcb061d17b50ef48278d1d
+
 url = "http://food2fork.com/api/search?key=935a5bc621fcb061d17b50ef48278d1d&q=%s&page=%s"
 def rand():
     randletter = random.choice("abcdefghijklmnopqrstuvwxyz")
@@ -18,5 +21,4 @@ def rand():
             return d['recipes'][ran]
         else:
             return rand()
-print rand()
-
+#print rand()
