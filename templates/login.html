@@ -5,6 +5,7 @@
 
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
 <link rel="stylesheet" href="/static/extras.css">
+<link rel="stylesheet" href="/static/dropit/dropit.css" type="text/css">
 
 <style>
 
@@ -19,13 +20,6 @@
 
 </style>
 
-<!--[if lte IE 8]>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
-<![endif]-->
-<!--[if gt IE 8]><!-->
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
-<!--<![endif]-->
-
 </head>
 
 {% with messages = get_flashed_messages() %}
@@ -38,8 +32,12 @@
 {% endif %}
 {% endwith %}
 
-<div class="search-bar">
-  
+<div class="help">&nbsp;
+  <a href="/help"><img id="help-img" src="/static/help.png" alt="Help Icon"/></a>
+&nbsp;&nbsp;
+</div>
+
+<div class="search-bar">  
        <form class="pure-form">
 	 <input type="text" class="pure-input-rounded">
 	 <button type="submit" class="pure-button">
@@ -53,10 +51,10 @@
   <a class="pure-menu-heading" href="/"> 
     <img src="/static/icon.jpg" alt="FoodMe Icon"/>
   </a>
-  <ul>
+  <ul class="times-new">
         <li><a href="/">Home</a></li>
 	<li><a href="/about">About</a></li>
-	<li><a href="/help">Help</a></li>
+	<li><a href="/random">Random</a></li>
 	<li class="pure-menu-selected"><a href="/login">Sign In</a></li>
 	<li><a href="/register">Register</a></li>
 	
@@ -64,8 +62,7 @@
 </div>
 
 <div class="background">
-  
-  <br>
+    <br><br><br><br>
 
     <div class="rectangle rounded">
       <span><div>
@@ -97,4 +94,6 @@
 </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="/static/main.js"></script>
+
+<script src="/static/dropit/dropit.js"></script>
 </html>

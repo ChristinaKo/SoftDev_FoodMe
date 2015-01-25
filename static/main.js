@@ -15,4 +15,11 @@ $(document).ready(function () {
         return false;
     });
 
+    $('.menu').dropit();
+
+    $('.trigger').click(function (){
+	$(".trigger").not(this).next(".toggle-e").slideUp("slow");
+    $(this).next(".toggle-e").slideToggle("slow");
+
+    })    
 });

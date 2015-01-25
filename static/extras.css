@@ -14,6 +14,11 @@
     font-size: 40px;
 }
 
+.times-new {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 18px;
+}
+
 .texts {
     color: black;
     font-size: 30px;
@@ -54,8 +59,18 @@
     text-align: center;
 }
 
+.help {
+    padding-top: 1.5%;
+    float: right;
+}
+
+#help-img {
+    opacity: 0.6;
+    filter: alpha(opacity=60); /* For IE8 and earlier */
+}
 .profile {
     padding-top: 1.25%;
+    padding-left: 1%;
     float: right;
 }
 
@@ -76,18 +91,6 @@
     text-indent: -9999px;
     background: url('uparrow.png') no-repeat;
 }
-
-/*
-@media all and (max-width: 670px) {
-    ul {
-	height: auto;
-	width: auto;
-    }
-    ul > li {  float: none;
-	       width: 100%;
-	    }
-    }
-*/
 
 /* from PURE buttons-core.css */
 .pure-skin-pretty .pure-button {
@@ -704,7 +707,9 @@ Forms Core
 }
 
 .pure-skin-pretty .pure-menu li {
+/*
     position: relative;
+*/
 }
 
 .pure-skin-pretty .pure-menu a, .pure-skin-pretty .pure-menu .pure-menu-heading {
@@ -719,17 +724,19 @@ Forms Core
 .pure-skin-pretty .pure-menu.pure-menu-horizontal > .pure-menu-heading {
     display: inline-block;
     *display: inline;
+/*
     zoom: 1;
     margin: 0;
     vertical-align: middle;
-  
+    */
 }
 .pure-skin-pretty .pure-menu.pure-menu-horizontal > ul {
     display: inline-block;
     *display: inline;
+    /*
     zoom: 1;
     vertical-align: middle;
-    /* height: 2.4em; removed for Skin Builder */
+    */
 }
 
 .pure-skin-pretty .pure-menu li a {

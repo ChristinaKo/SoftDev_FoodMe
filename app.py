@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, url_for, session, escape
 from functools import wraps
-import MongoWork
+import MongoWork, recofday
 import re
 import recipes
 app = Flask(__name__)
@@ -107,6 +107,16 @@ def favorite():
         loggedin = False
     return render_template("favorite.html", loggedin=loggedin)
 
+@app.route("/random", methods=["POST","GET"])
+def random():
+    if 'username' in session:
+        loggedin = True
+        username = escape(session['username'])
+        return render_template("random.html", loggedin=loggedin,username=username, rand=recofday.rand())
+    else:
+        loggedin = False
+    return render_template("random.html", loggedin=loggedin, rand=recofday.rand())
+
 #must pop off session
 @app.route("/logout")
 def logout():
@@ -123,7 +133,7 @@ def register():
         firstname = request.form['fname']
         lastname = request.form['lname']
         if passw == repassw and usr!='' and passw!='' and firstname!='' and lastname!='':#checks if everything is filled out
-            #retVals = ' %s , %s, %s, %s , %s ' % (usr, passw, repassw, firstname, lastname)
+        #retVals = ' %s , %s, %s, %s , %s ' % (usr, passw, repassw, firstname, lastname)
             mongo_input = { 'uname':usr,
                             'password':passw, 
                             'firstname':firstname,
@@ -136,6 +146,9 @@ def register():
             elif re.match('''^[~!@#$%^&*()_+{}":;']+$''', usr): #has special characters!
                 special_char = True
                 return render_template("register.html", special_char=special_char)
+            elif not check_pword(passw):
+                bad_pword = True
+                return render_template("register.html", bad_pword = bad_pword)
             else:####SUCCESS!
                 MongoWork.new_user(mongo_input) #put user into our mongodb
                 registered = True
@@ -150,6 +163,29 @@ def register():
     else:#GET method
         return render_template("register.html")
 
+#helper fxn to search for uppercase letter
+def findUpper(word):
+    for a in word:
+        if ord(a) >= ord('A') and ord(a) <= ord('Z'):
+            return True
+    return False
+
+#helper fxn to search for lowercase letter
+def findLower(word):
+    for a in word:
+        if ord(a) >= ord('a') and ord(a) <= ord('z'):
+            return True
+    return False
+
+#helper fxn to search for number
+def findNumber(s):
+    for a in s:
+        if ord(a) >= ord('0') and ord(a) <= ord('9'):
+            return True
+    return False
+
+def check_pword(pword):
+    return findUpper(pword) and findLower(pword) and findNumber(pword) and len(pword) >= 6
 
 if __name__ == '__main__':
 	app.debug = True
