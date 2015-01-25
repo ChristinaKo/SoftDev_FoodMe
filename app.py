@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, session, url_for, s
 from functools import wraps
 import MongoWork
 import re
-
+import recipes
 app = Flask(__name__)
 app.secret_key = "Really secret but not really secret." #session usage
 
@@ -38,13 +38,16 @@ def help():
 
 @app.route("/", methods=["POST","GET"])
 def index():
-    if 'username' in session:
-        loggedin = True
-        username = escape(session['username'])
-        return render_template("index.html", loggedin=loggedin,username=username)
+    if request.method == "POST":
+        return redirect(url_for("recipe", tag = request.form['searched']))
     else:
-        loggedin = False
-    return render_template("index.html", loggedin=loggedin)
+        if 'username' in session:
+            loggedin = True
+            username = escape(session['username'])
+            return render_template("index.html", loggedin=loggedin,username=username)
+        else:
+            loggedin = False
+        return render_template("index.html", loggedin=loggedin)
 
 @app.route("/profile", methods=["POST","GET"])
 def profile():
@@ -56,6 +59,10 @@ def profile():
         loggedin = False
     return render_template("profile.html", loggedin=loggedin)
 
+@app.route("/recipes/<tag>")
+def recipe(tag):
+    reclist = recipes.getrecipes(recipes.getSearchVal(tag))
+    return render_template("recipes.html", reclist = reclist)    
 @app.route("/login", methods=["POST","GET"])
 def login():
     error = None
