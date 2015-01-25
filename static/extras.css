@@ -59,15 +59,17 @@
     text-align: center;
 }
 
+#help-img {
+    opacity: 0.6;
+    filter: alpha(opacity=60); /* For IE8 and earlier */
+}
+
+
 .help {
     padding-top: 1.5%;
     float: right;
 }
 
-#help-img {
-    opacity: 0.6;
-    filter: alpha(opacity=60); /* For IE8 and earlier */
-}
 .profile {
     padding-top: 1.25%;
     padding-left: 1%;

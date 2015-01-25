@@ -37,7 +37,6 @@
 &nbsp;&nbsp;
 </div>
 
-{% if loggedin %}
 <div class="profile">
   <ul class="menu">
     <li>
@@ -49,11 +48,10 @@
     </li>
   </ul>
 </div>
-{% endif %}
 
 <div class="search-bar">
        <form class="pure-form">
-	 <input type="text" class="pure-input-rounded">
+	 <input type="text" class="pure-input-rounded" placeholder="Search for recipes or keywords...">
 	 <button type="submit" class="pure-button">
 	   <img src="/static/search.png" alt="Search Icon"/></button>
        </form>
@@ -64,38 +62,16 @@
   <a class="pure-menu-heading" href="/"> 
     <img src="/static/icon.jpg" alt="FoodMe Icon"/>
  </a>
-   <ul class="times-new">
-     
-     {% if not loggedin %}
-     
-     <li><a href="/">Home</a></li>
-     <li><a href="/about">About</a></li>
-     <li><a href="/random">Random</a></li>
-     <li><a href="/login">Sign In</a></li>
-     <li><a href="/register">Register</a></li>
- 
-     {% else %}
-     
+   <ul class="times-new">     
      <li><a href="/">Home</a></li>
      <li><a href="/about">About</a></li>
      <li><a href="/random">Random</a></li>
      <li class="pure-menu-selected"><a href="/favorite">Favorites</a></li>	
-     {% endif %}
    </ul>
 </div>
 
 <div class="background">
-  <br><br><br><br>
-  {% if not loggedin %}
-  not logged in
-  put error message, ask user to login, redirect and whatnot
-{% else %}
-<br>
-Currently logged in as {{username}}...
-<br>
-{% endif %}
-
-
+<br><br><br><br>
 <div class="rectangle rounded texts">
   <div class="bold big-text">Your favorite recipes:</div>
   <br>
