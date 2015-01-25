@@ -63,7 +63,7 @@ def profile():
 def recipeList(tag):
     num = 0
     reclist = []
-    while num <=10:
+    while num <=5:
         db = recipes.getSearchVal(tag,num)
         if db['count'] !=  0:
             reclist = reclist + recipes.getrecipes(db)
@@ -73,6 +73,9 @@ def recipeList(tag):
             break
     return render_template("recipes.html", reclist = reclist)    
 
+@app.route("/recipes/<tag>/<title>")
+def recipe():
+            print "<html> Hi </html"
 @app.route("/login", methods=["POST","GET"])
 def login():
     error = None
