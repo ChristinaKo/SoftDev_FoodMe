@@ -51,7 +51,7 @@
 
 <div class="search-bar">
        <form class="pure-form">
-	 <input type="text" class="pure-input-rounded" placeholder="Search for recipes or keywords...">
+	 <input type="text" class="pure-input-rounded" placeholder="Search recipes or keywords...">
 	 <button type="submit" class="pure-button">
 	   <img src="/static/search.png" alt="Search Icon"/></button>
        </form>
@@ -76,6 +76,11 @@
   <div class="bold big-text">Your favorite recipes:</div>
   <br>
   <ul id="list-image">
+    {% for key, value in rand.iteritems() %}
+    <dt>{{ key }}</dt>
+    <dd>{{ value }}</dd>
+    {% endfor %}
+
   <li class="trigger">test one</li>
   <div class="toggle-e">stuff one</div>
   <li class="trigger">test two</li>

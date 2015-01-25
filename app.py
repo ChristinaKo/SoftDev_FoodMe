@@ -107,7 +107,7 @@ def login():
 @app.route("/favorite", methods=["POST","GET"])
 @authenticate
 def favorite():
-    return render_template("favorite.html")
+    return render_template("favorite.html",rand=recofday.rand())
 
 @app.route("/random", methods=["POST","GET"])
 def random():
