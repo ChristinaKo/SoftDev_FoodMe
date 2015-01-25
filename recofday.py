@@ -11,24 +11,12 @@ def rand():
     request = urllib2.urlopen(nurl)
     result = request.read()
     d = json.loads(result)
-    while d['count'] == 0:#if equals zero, recalculate
-        randletter = random.choice("abcdefghijklmnopqrstuvwxyz")
-        randnum = random.randint(0,100)
-        nurl = url%(randletter, randnum)
-        request = urllib2.urlopen(nurl)
-        result = request.read()
-        d = json.loads(result)
-    ran = random.randint(0,d['count'])
-    allr = False
-    for a in d['recipes']:
-        if 'All Recipes' in a.values():
-            allr = True
-    if allr:
-        while d['recipes'][ran]['publisher'] != 'All Recipes':
-            ran = random.randint(0,d['count'])
-        return d['recipes'][ran]
-    else:
+    if d['count'] == 0:
         return rand()
-    
-print rand()
-
+    else:
+        ran = random.randint(0,d['count'])
+        if (d['recipes'][ran]['publisher']== "All Recipes"):
+            return d['recipes'][ran]
+        else:
+            return rand()
+#print rand()

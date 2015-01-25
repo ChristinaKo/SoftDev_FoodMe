@@ -5,13 +5,7 @@
 <head>
 <link rel="stylesheet" href="/static/extras.css">
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
-
-<!--[if lte IE 8]>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
-<![endif]-->
-<!--[if gt IE 8]><!-->
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
-<!--<![endif]-->
+<link rel="stylesheet" href="/static/dropit/dropit.css" type="text/css">
 
 </head>
 
@@ -34,12 +28,19 @@
 </div>
 
 {% if loggedin %}
-<div class="profile">&nbsp;&nbsp;&nbsp;
-  <a href="/profile"><img src="/static/user.jpg" alt="Search Icon"/></a>
-&nbsp;&nbsp;
+<div class="profile">
+  <ul class="menu">
+    <li>
+      <a href="/profile"><img src="/static/user.jpg" alt="Search Icon"/></a>
+      <ul>
+	<li><a href="/profile">Your Profile</a></li>
+        <li><a href="/logout">Logout</a></li>
+      </ul>
+    </li>
+  </ul>
 </div>
-
 {% endif %}
+
 <div class="search-bar">
   
        <form class="pure-form">
@@ -70,9 +71,7 @@
     <li><a href="/about">About</a></li>
     <li><a href="/random">Random</a></li>
     <li><a href="/favorite">Favorites</a></li>	
-    <li><a href="/logout">Logout</a></li>
-   
-   
+  
     {% endif %}
    </ul>
 </div>
@@ -98,6 +97,7 @@ Currently logged in as {{username}}...
 </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="/static/main.js"></script>
+<script src="/static/dropit/dropit.js"></script>
 
 
 

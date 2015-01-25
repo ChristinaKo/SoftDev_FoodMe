@@ -5,13 +5,14 @@
 <head>
 <link rel="stylesheet" href="/static/extras.css">
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+<link rel="stylesheet" href="/static/dropit/dropit.css" type="text/css">
 
 <style>
 
   .background {
   opacity: 0.8;
   filter: alpha(opacity=80); /* For IE8 and earlier */
-  background-image: url("/static/taco.jpg");
+  background-image: url("/static/pancake.jpg");
   background-attachment: fixed;    
   background-repeat: no-repeat;
   background-size: cover;
@@ -20,7 +21,7 @@
 
   #list-image {
   line-height: 1.5em;
-  list-style-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/4621/treehouse-marker.png);
+  list-style-image: url("/static/star.png");
   }
 
   .toggle-e {
@@ -32,16 +33,22 @@
 </head>
 
 <div class="help">&nbsp;
-  <a href="/help"><img ="help-img" src="/static/help.png" alt="Help Icon"/></a>
+  <a href="/help"><img id="help-img" src="/static/help.png" alt="Help Icon"/></a>
 &nbsp;&nbsp;
 </div>
 
 {% if loggedin %}
-<div class="profile">&nbsp;&nbsp;&nbsp;
-  <a href="/profile"><img src="/static/user.jpg" alt="Search Icon"/></a>
-&nbsp;&nbsp;
+<div class="profile">
+  <ul class="menu">
+    <li>
+      <a href="#"><img src="/static/user.jpg" alt="Search Icon"/></a>
+      <ul>
+        <li><a href="/profile">Your Profile</a></li>
+        <li><a href="/logout">Logout</a></li>
+      </ul>
+    </li>
+  </ul>
 </div>
-
 {% endif %}
 
 <div class="search-bar">
@@ -73,7 +80,6 @@
      <li><a href="/about">About</a></li>
      <li><a href="/random">Random</a></li>
      <li class="pure-menu-selected"><a href="/favorite">Favorites</a></li>	
-     <li><a href="/logout">Logout</a></li>
      {% endif %}
    </ul>
 </div>
@@ -104,8 +110,10 @@ Currently logged in as {{username}}...
 </div>
 
 <a href="#" class="scrollup"></a>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="/static/main.js"></script>
+<script src="/static/dropit/dropit.js"></script>
+
 </html>
