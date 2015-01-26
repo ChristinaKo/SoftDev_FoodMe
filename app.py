@@ -31,7 +31,7 @@ def about():
 
 @app.route("/help", methods=["POST","GET"])
 def help():
-     if request.method == 'POST':
+    if request.method == 'POST':
         if request.form['searched']!= "":
             return redirect(url_for("recipeList", tag = request.form['searched']))
     if 'username' in session:
@@ -40,7 +40,8 @@ def help():
         return render_template("help.html", loggedin=loggedin,username=username)
     else:
         loggedin = False
-    return render_template("help.html", loggedin=loggedin)
+        return render_template("help.html", loggedin=loggedin)
+    
 
 @app.route("/", methods=["POST","GET"])
 def index():
@@ -143,7 +144,7 @@ def login():
 @app.route("/favorite", methods=["POST","GET"])
 @authenticate
 def favorite():
-     if request.method == 'POST':
+    if request.method == 'POST':
         if request.form['searched']!= "":
             return redirect(url_for("recipeList", tag = request.form['searched']))
     return render_template("favorite.html",rand=recofday.rand())
