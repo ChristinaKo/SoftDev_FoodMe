@@ -18,6 +18,9 @@ def authenticate(f):
 
 @app.route("/about", methods=["POST","GET"])
 def about():
+    if request.method == "POST":
+        if request.form['searched']!= "":
+            return redirect(url_for("recipeList", tag = request.form['searched']))
     if 'username' in session:
         loggedin = True
         username = escape(session['username'])
