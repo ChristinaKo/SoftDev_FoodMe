@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import urllib2
 import json
+import math
 from nutritionix import Nutritionix
 
 ##################### Flask Header ############################
@@ -189,20 +190,20 @@ def run():
                            calories = nformat(n,"nf_calories"),
                            fatcals = nformat(n,"nf_calories_from_fat"),
                            fat = nformat(n,"nf_total_fat"), 
-                           #fat-dv = fat-dv, 
+                           fatdv = nformat(n,"nf_fat_dv"), 
                            satfat = nformat(n,"nf_saturated_fat"), 
-                           #satfat-dv = satfat-dv,
-                           #transfat = transfat,
+                           satfatdv = nformat(n,"satfat_dv"),
+                           transfat = nformat(n,"transfat"),
                            cholesterol = nformat(n,"nf_cholesterol"),
-                           #cholesterol-dv = cholesterol-dv,
-                           sodium =n ["nf_sodium"),
-                           #sodium-dv = sodium-dv,
+                           cholesteroldv = nformat(n,"cholesterol_dv"),
+                           sodium = nformat(n,"nf_sodium"),
+                           sodiumdv = nformat(n,"sodium_dv"),
                            carb = nformat(n,"nf_total_carbohydrate"), 
-                          # carb-dv = carb-dv,
+                           carbdv = nformat(n,"Carb-dv"),
                            df = nformat(n,"nf_dietary_fiber"), 
-                           sugar = ["nf_sugars"),
+                           sugar = nformat(n,"nf_sugars"),
                            protein = nformat(n,"nf_protein"),
-                           #protein-dv = protein-dv,
+                           proteindv = nformat(n,"protein_dv"),
                            vitA = nformat(n,"nf_vitamin_a_dv"),
                            vitC = nformat(n,"nf_vitamin_a_dv"),
                            calcium = nformat(n,"nf_calcium_dv"),
@@ -211,8 +212,10 @@ def run():
                            )
 
 
-'''[{'nf_saturated_fat': 0.06, 'nf_sodium': 9.92, 'nf_dietary_fiber': 0.5, 'nf_vitamin_c_dv': 4.0, 'nf_calories_from_fat': 2.9, 'nf_cholesterol': 0.0, 'nf_sugars': 23.86, 'nf_protein': 0.25, 'nf_total_fat': 0.32, 'nf_iron_dv': 2.0, 'nf_total_carbohydrate': 28.02, 'nf_calories': 114.08, 'nf_calcium_dv': 2.0, 'nf_vitamin_a_dv': 0.0}, []]
-'''
+def nformat(dic, s):
+    if s in dic.keys():
+        return math.floor(dic[s])
+    return 0
 ##########################################################################
 
 ############Testing Section
