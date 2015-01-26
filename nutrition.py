@@ -81,7 +81,6 @@ def fractioncheck(x):
 def search(param, amount, measurement):
     print param
     print measurement
-   
     lists=[] # list of one element id
     request = nx.search(param,limit=100, offset=0, search_type="usda")
     result = request.json()
@@ -115,13 +114,15 @@ def getAstats(item_id):
         except:
             print n + "  ___   key DNE in this set"
 
-    NF = ['nf_calories','nf_calories_from_fat','nf_total_fat','nf_saturated_fat','nf_trans_fatty_acid','nf_cholesterol','nf_sodium','nf_total_carbohydrate','nf_dietary_fiber','nf_sugars','nf_protein','nf_vitamin_a_dv','nf_vitamin_c_dv','nf_calcium_dv','nf_iron_dv']
+    NF = ["nf_calories","nf_calories_from_fat","nf_total_fat","nf_saturated_fat","nf_trans_fatty_acid","nf_cholesterol","nf_sodium","nf_total_carbohydrate","nf_dietary_fiber","nf_sugars","nf_protein","nf_vitamin_a_dv","nf_vitamin_c_dv","nf_calcium_dv","nf_iron_dv"]
     fact = {}
     for f in NF:
         try:
             fact[f] = nutrifacts[f]
         except:
             print "key error: " + f
+        if f=="nf_sodium":
+            print fact[f]
             
     return [fact, LT]
 
@@ -143,9 +144,7 @@ def parser(ingredlist):
             f2famount = float(1.0)
         else:
             f2famount= float(fractioncheck(x[0]))
-        print x
         x.pop(0) #popping the amount 
-        print x
         if check(x[0]):
             measurement = x[0]
             x.pop(0)
@@ -155,9 +154,7 @@ def parser(ingredlist):
             searchL = clean(x)
     #search using the search params
         results = search(searchL, f2famount, measurement)
-        print results
         resultid = results[0] #Nutritionix id of the search element
-        print resultid
         measurement = results[1] #measurement used by the id which has been checked with measurement used in the passed recipe
         amount = results[2] #amount from Nutritionix database
         scalefactor = 1.0*amount/f2famount 
@@ -181,29 +178,26 @@ def run():
     n = nutrifact[0]
     allergen= nutrifact[1]
     measurement = nutrifact[2]
-    #amount = nutrifact[3]
-    
     return render_template("n.html",
-                           #sizes = sizes,
-                           #serverpcont = servercont,
-                           #amountpserv = amountpserv,
+                           sizes = "1 meal",
+                           serverpcont = "1" ,
                            calories = nformat(n,"nf_calories"),
                            fatcals = nformat(n,"nf_calories_from_fat"),
                            fat = nformat(n,"nf_total_fat"), 
-                           fatdv = nformat(n,"nf_fat_dv"), 
+                           fatdv = nformat(n,"nf_total_fat",65), 
                            satfat = nformat(n,"nf_saturated_fat"), 
-                           satfatdv = nformat(n,"satfat_dv"),
-                           transfat = nformat(n,"transfat"),
+                           satfatdv = nformat(n,"nf_saturated_fat",20),
+                           transfat = nformat(n,"nf_trans_fatty_acid"),
                            cholesterol = nformat(n,"nf_cholesterol"),
-                           cholesteroldv = nformat(n,"cholesterol_dv"),
+                           cholesteroldv = nformat(n,"nf_cholesterol",300),
                            sodium = nformat(n,"nf_sodium"),
-                           sodiumdv = nformat(n,"sodium_dv"),
+                           sodiumdv = nformat(n,"nf_sodium",2400),
                            carb = nformat(n,"nf_total_carbohydrate"), 
-                           carbdv = nformat(n,"Carb-dv"),
+                           carbdv = nformat(n,"nf_total_carbohydrate",300), 
                            df = nformat(n,"nf_dietary_fiber"), 
                            sugar = nformat(n,"nf_sugars"),
                            protein = nformat(n,"nf_protein"),
-                           proteindv = nformat(n,"protein_dv"),
+                           proteindv = nformat(n,"nf_protein",50),
                            vitA = nformat(n,"nf_vitamin_a_dv"),
                            vitC = nformat(n,"nf_vitamin_a_dv"),
                            calcium = nformat(n,"nf_calcium_dv"),
@@ -211,86 +205,15 @@ def run():
                            allergens = allergen
                            )
 
-
-def nformat(dic, s):
+def nformat(dic, s, dv = None):
+    if dv == None:
+        dv = 1
     if s in dic.keys():
-        return math.floor(dic[s])
+        return int(dic[s]/dv)
     return 0
 ##########################################################################
 
 ############Testing Section
-#print parser(["2 cups of apple juice"])
-#print parser (["1 cup of apple juice"])
 if __name__ == "__main__":
     app.debug=True
     app.run()
-
-#####Some test output just for reference sake ### 
-'''
-sample output:
- u'allergen_contains_eggs': None,
- u'allergen_contains_fish': None,
- u'allergen_contains_gluten': None,
- u'allergen_contains_milk': None,
- u'allergen_contains_peanuts': None,
- u'allergen_contains_shellfish': None,
- u'allergen_contains_tree_nuts': None,
- u'allergen_contains_wheat': None,
- u'allergen_contains_soybeans': None, 
-
- u'brand_id': u'513fbc1283aa2dc80c000055',
- u'item_description': u'',
- u'item_id': u'529e7dd2f9655f6d35001d85',
- u'item_name': u'Cheese',
-u'leg_loc_id': 116,
-
- u'nf_serving_size_qty': 1,
- u'nf_serving_size_unit': u'serving',
- u'nf_servings_per_container': None,
-
-u'nf_serving_weight_grams': None, 
-
-u'nf_calories': 60,
-    nf_calories_from_fat': 40,
-u'nf_total_fat': 4.5,
-     u'nf_saturated_fat': 3,
-     u'nf_trans_fatty_acid': None,
-u'nf_cholesterol': 15,
-u'nf_sodium': 90,
-u'nf_total_carbohydrate': 1,
-     u'nf_dietary_fiber': 0,
-     u'nf_sugars': 0,
-u'nf_protein': 4,
-
-u'nf_vitamin_a_dv': 4,
- u'nf_vitamin_c_dv': 0,
-  u'nf_calcium_dv': 10,
- u'nf_iron_dv': 0,
-
-
-u'nf_monounsaturated_fat': None,
-u'nf_polyunsaturated_fat': None,
- 
-u'nf_refuse_pct': None,
-
- 
- u'nf_water_grams': None,
- u'old_api_id': None,
- u'updated_at': u'2012-04-18T04:05:59.000Z',
- u'usda_fields': None,
- u'brand_name': u'Desert Moon Grille', 
-u'
-{u'nf_ingredient_statement': None, 
-'''
-
-'''
-dictionary fields of the api:
-{   _score, _type, _id, fields{
-          item_id,
-          item_name,
-          nf_serving_size_unit
-            brand_name,
-            nf_serving_size_qty,
-          }
-    _index
-'''

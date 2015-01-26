@@ -1,73 +1,5 @@
 <html>
-  <style>
-    #tb{
-      border-spacing:0px;
-      border:1px solid black;
-      padding:5px;
-      width:450px;
-    }
-     #dv{
-       font-weight:bold;
-       font-size:.82em;
-    }
-    .nutrition_header{
-       text-decoration:none;
-       font-size:1.7em;
-       margin:2px;
-    }
-    .servings{
-      column-span: all; /* W3C */
-      -webkit-column-span: all; /* Safari & Chrome */
-      -moz-column-span: all; /* Firefox */
-      -ms-column-span: all; /* Internet Explorer */
-      -o-column-span: all; /* Opera */
-    }
-    .topbar{
-      padding-bottom:7px;
-      border-bottom:9px solid black;
-    }
-    #amount{
-      font-weight:bold;
-      font-size:.82em;
-      padding-bottom:4px;
-    }
-    .calbar{
-      border-top:1px solid gray;
-      border-bottom:4px solid black;
-    }
-    ._bottom_{
-      border-bottom:1px solid black;
-    }
-    ._graybottom_{
-      border-bottom:1px solid gray;
-    }
-    .right_align{
-      text-align:right;
-    }
-    td{
-      padding:2px;
-    }
-    tr{
-      padding:2px;
-    }
-    .dots{
-      display: block;
-      list-style-type: disc;
-      margin:0px;
-      padding:2px;
-      -webkit-margin-before: 0em;
-      -webkit-margin-after: 0em;
-      -webkit-margin-start: 0px;
-      -webkit-margin-end: 0px;
-      -webkit-padding-start: 0px;
-    }
-    
-    .smallinfo{
-      font-size:.82em;
-    width:100%;
-     border-spacing:0px;
-    }
-  </style>
+  <link rel="stylesheet" href="../static/nutritable.css" type="text/css">
   <table id="tb">
     <thead>
       <tr>
@@ -76,70 +8,67 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="servings" colspan="2">
-	<td>Serving Size {{sizes}}</td>
+      <tr>
+	<td class="topbar" colspan="2">Serving Size {{sizes}} &nbsp;</td>
       </tr>
       <tr>
-	<td class="topbar" colspan="2">Serving Per Container {{serverpcont}} &nbsp;</td>
+	<td id="amount" colspan="2">Amount Per Serving</td>
       </tr>
       <tr>
-	<td id="amount" colspan="2">Amount Per Serving {{amountpserv}}</td>
-      </tr>
-      <tr>
-	<td class="calbar"  colspan="1"><strong>Calories</strong>{{calories}}</td>
-	<td class="calbar"><strong>Calories From Fat</strong>{{fatcals}}</td>
+	<td class="calbar"  colspan="1"><strong>Calories</strong> {{calories}}</td>
+	<td class="calbar"><strong>Calories From Fat</strong> {{fatcals}}</td>
       </tr>
       <tr>
 	<td class="right_align _bottom_" id="dv" colspan="2">% Daily Value*</td>
       </tr>
       <tr>
 	<DL>
-	<td class="_bottom_" colspan="1"><strong><DT>Total Fat</strong> {{fat}}</td>
-	<td class="right_align _bottom_">{{fatdv}}</td>
+	<td class="_bottom_" colspan="1"><strong><DT>Total Fat</strong> {{fat}}g</td>
+	<td class="right_align _bottom_">{{fatdv}}%</td>
       </tr>
       <tr>
-	<td class="_bottom_" colspan="1"><DD>Saturated Fat {{satfat}}</td>
-	<td class="right_align _bottom_">{{satfatdv}}</td>
+	<td class="_bottom_" colspan="1"><DD>Saturated Fat {{satfat}}g</td>
+	<td class="right_align _bottom_">{{satfatdv}}%</td>
       </tr>
       <tr>
-	<td class="_bottom_" colspan="2"><DD>Trans Fat {{transfat}} </td>
+	<td class="_bottom_" colspan="2"><DD>Trans Fat {{transfat}}g </td>
       </DL>
       </tr>
       <tr>
-	<td class="_bottom_" colspan="1"><strong>Cholesterol</strong> {{cholesterol}}  </td>
-	<td class="right_align _bottom_">{{cholesteroldv}}</td>
+	<td class="_bottom_" colspan="1"><strong>Cholesterol</strong> {{cholesterol}}mg</td>
+	<td class="right_align _bottom_">{{cholesteroldv}}%</td>
       </tr>
       <tr>
-	<td class="_bottom_" colspan="1"><strong>Sodium</strong> {{sodium}} </td>
-	<td class="right_align _bottom_">{{sodiumdv}}</td>
+	<td class="_bottom_" colspan="1"><strong>Sodium</strong> {{sodium}}mg</td>
+	<td class="right_align _bottom_">{{sodiumdv}}%</td>
       </tr>
       <tr>
-	<td class="_bottom_" colspan="1"><strong>Total Carbohydrate</strong> {{carb}} </td>
-	<td class="right_align _bottom_">{{carbdv}} </td>
+	<td class="_bottom_" colspan="1"><strong>Total Carbohydrate</strong> {{carb}}g</td>
+	<td class="right_align _bottom_">{{carbdv}}% </td>
       </tr>
       <tr>
-	<td class="_bottom_" colspan="2"<td class="_bottom_" colspan="1"><DD>Dietary Fiber {{df}}</DD></td>
+	<td class="_bottom_" colspan="2"<td class="_bottom_" colspan="1"><DD>Dietary Fiber {{df}}g</DD></td>
 	</tr>
       <tr>
 	<td class="_bottom_" colspan="2"><DD>Sugar {{sugar}}</DD></td>
       </tr>
       <tr>
-	<td class="topbar" colspan="1"><strong>Protein</strong> {{protein}} </td>
-	<td class="topbar right_align">{{proteindv}}</td>
+	<td class="topbar" colspan="1"><strong>Protein</strong> {{protein}}g</td>
+	<td class="topbar right_align"> {{proteindv}}%</td>
       </tr>
       <tr>
-	<td class="_bottom_" colspan="1">Vitamin A {{vitA}} 
+	<td class="_bottom_" colspan="1">Vitamin A <span style="float:right; padding-right:20px">{{vitA}}%</span></td>
 	<td class="_bottom_ ">
 	  <ul class="dots">
-	    <li>Vitamin C {{vitC}}</li>
+	    <li>Vitamin C <span style="float:right">{{vitC}}%</span></li>
 	  </ul> 
 	</td>
       </tr>
       <tr>
-	<td class="_graybottom_" colspan="1">Calcium {{calcium}}
+	<td class="_graybottom_" colspan="1">Calcium <span style="float:right; padding-right:20px">{{calcium}}%</span>
 	<td class="_graybottom_">
 	  <ul class="dots">
-	    <li>Iron {{iron}}</li>
+	    <li>Iron <span style="float:right">{{iron}}%</span></li>
 	  </ul>
 	</td>
       </tr>
