@@ -19,11 +19,21 @@
   background-position: 300 200;
   }
 
-  #list-image {
+  .list-image {
   line-height: 1.5em;
   list-style-image: url("/static/star.png");
   }
 
+  .list-f {
+  line-height: 1.5em;
+  list-style-image: url("/static/num");
+  }
+  
+  .list-u {
+  line-height: 1.5em;
+  list-style-image: url("/static/no");
+  }
+  
   .toggle-e {
   display: none;
   }
@@ -75,14 +85,37 @@
 <div class="rectangle rounded texts">
   <div class="bold big-text">Your favorite recipes:</div>
   <br>
-  <ul id="list-image">
+  <ul class="list-image">
     {% if empty %}
-    Currently, you have no favorite recipes to display! :(
+         Currently, you have no favorite recipes to display! :(
     {% else %}
-    {% for key in favorite %}
-    {{ key }}
-    {% endfor %}
-    {% endif %}
+    <li>
+      {% for key, value in favorites.iteritems() %} </li>
+
+   {% if key == "title" %}
+   {{value}}
+ 
+   {% elif key == "ing" %}
+        Ingredients:
+    <ul>
+        {% for ingi in value %}
+             <li class="list-u">{{ingi}}</li>
+        {% endfor %}
+   </ul>
+   {% elif key == "rec" %}
+   Instructions:
+   <ol>
+   {% for reci in value %}
+   <li class="list-f">{{reci}}</li>
+   {% endfor %}
+   </ol>
+
+   {% endif %}
+   
+      {% endfor %}
+   
+   {% endif %}
+  </ul>
   <li class="trigger">test one</li>
   <div class="toggle-e">stuff one</div>
   <li class="trigger">test two</li>

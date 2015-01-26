@@ -121,17 +121,21 @@ def recipe(tag, num, title):
     else:
         loggedin = False
     if request.method == 'POST':
-        if loggedin: #logged in: add to favorites, redirect to same page, and flash message
-            mongo_input =  {'title': title,
-                             'rec': rec,
-                             'ing': ing }
-            MongoWork.update_favorites(username, mongo_input)
-            print MongoWork.find_favorites(username)
-            flash("Added recipe to Favorites!");
-            return redirect(url_for("recipe", tag = tag, num=num, title=title))
+        if 'searched' in request.form:
+            print "remove me"
+            #############ADDDDDDDDDDDDDDDDDDD STUFFFFF HERRRRREEEEEEEE
         else:
-            flash("Please log in to use the Add to Favorites feature!")
-            return redirect(url_for("recipe", tag = tag, num=num, title=title))
+            if loggedin: #logged in: add to favorites, redirect to same page, and flash message
+                mongo_input =  {'title': title,
+                                'ing': ing,
+                                'rec': rec }
+                MongoWork.update_favorites(username, mongo_input)
+                print MongoWork.find_favorites(username)
+                flash("Added recipe to Favorites!");
+                return redirect(url_for("recipe", tag = tag, num=num, title=title))
+            else:
+                flash("Please log in to use the Add to Favorites feature!")
+                return redirect(url_for("recipe", tag = tag, num=num, title=title))
     else: ##GET METHOD
         return render_template("recipe.html", loggedin=loggedin, title=title, rec = rec, ing = ing)
     
@@ -178,12 +182,13 @@ def favorite():
         if request.form['searched']!= "":
             return redirect(url_for("recipeList", tag = request.form['searched']))
     else:
-        favorite = MongoWork.find_favorites(username)
-        if favorite == None:
+        favorites = MongoWork.find_favorites(username)
+        if favorites == None:
             empty = True
             return render_template("favorite.html", empty=empty)
         else:
-            return render_template("favorite.html", favorite=favorite)
+            print favorites
+            return render_template("favorite.html", favorites=favorites)
         #return render_template("favorite.html",rand=recofday.rand())
     
 @app.route("/random", methods=["POST","GET"])

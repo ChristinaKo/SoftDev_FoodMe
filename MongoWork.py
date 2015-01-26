@@ -35,7 +35,7 @@ def update_password(usr,newpwd):
     users.update({'uname':usr},{'$set':{'password':newpwd}}, upsert=False, multi=False)
 
 def update_favorites(usr,newdic):
-    users.update({'uname':usr}, {'$push': {'favorites': newdic}},  multi=False)
+    users.update({'uname':usr}, {'$set': {'favorites': newdic}},  multi=False)
 
 def find_favorites(usr):
     res = users.find_one({'uname':usr}, {'_id':False})
