@@ -205,7 +205,7 @@ def run():
                            protein-dv = protein-dv,
                            vitA = n["nf_vitamin_a_dv"],x
                            vitC = vitC,
-                           calcium = calcium,
+                           calcium = n["nf_calcium_dv"],
                            iron= iron,
                            allergens = allergen
                            )
