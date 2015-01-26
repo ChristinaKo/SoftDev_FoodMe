@@ -31,6 +31,9 @@ def about():
 
 @app.route("/help", methods=["POST","GET"])
 def help():
+     if request.method == 'POST':
+        if request.form['searched']!= "":
+            return redirect(url_for("recipeList", tag = request.form['searched']))
     if 'username' in session:
         loggedin = True
         username = escape(session['username'])
@@ -58,6 +61,8 @@ def profile():
     username = escape(session['username'])
     #POST METHOD MEANS UPDATING PASSWORD
     if request.method == 'POST':
+        if request.form['searched']!= "":
+            return redirect(url_for("recipeList", tag = request.form['searched']))
         real_pwd = MongoWork.find_pword(username)
         currpwd = request.form.get("curpas")
         if currpwd != real_pwd:
@@ -110,6 +115,8 @@ def recipe(tag, num, title):
 def login():
     error = None
     if request.method == 'POST':
+        if request.form['searched']!= "":
+            return redirect(url_for("recipeList", tag = request.form['searched']))
         userinput = request.form['user']
         pwdinput = request.form['passwd']
         #print MongoWork.check_user_in_db(userinput)
@@ -136,10 +143,16 @@ def login():
 @app.route("/favorite", methods=["POST","GET"])
 @authenticate
 def favorite():
+     if request.method == 'POST':
+        if request.form['searched']!= "":
+            return redirect(url_for("recipeList", tag = request.form['searched']))
     return render_template("favorite.html",rand=recofday.rand())
 
 @app.route("/random", methods=["POST","GET"])
 def random():
+    if request.method == "POST":
+        if request.form['searched']!= "":
+            return redirect(url_for("recipeList", tag = request.form['searched']))
     if 'username' in session:
         loggedin = True
         username = escape(session['username'])
@@ -158,6 +171,8 @@ def logout():
 @app.route("/register", methods=["POST","GET"])
 def register():
     if request.method == "POST":
+        if request.form['searched']!= "":
+            return redirect(url_for("recipeList", tag = request.form['searched']))
         usr = request.form['username']
         passw = request.form['passwd']
         repassw = request.form['repasswd']
