@@ -1,37 +1,23 @@
-SoftDev_Final-FoodMe (temporary name)
+FoodMe!
 =============
 
-##What
-___ is devoted to providing incredible recipes using ingredients as search parameters. 
+##What:
+Foodme! is devoted to providing incredible recipes using ingredients or keywords as search parameters. 
 
 Food: Restaurant and Recipe suggestion website
-Potential APis: yummly, food2fork,calorieking(nutrition), Zomato, grubhub
-food menu api - grubhub
+Potential APis: yummly, food2fork,calorieking(nutrition)
 recipe stuff
-searching stuff ---> LOOK AT APIs first
+
 ###Basic Features:
 ####Search Recipe By
  * by name of food item
  * by ingredients
- * optional for now: breakfast, lunch, dinner
- 
-####Suggestion 
- * by cuisine
- 
+
 ####Log In 
- * Although most of our website will be accessible without the user making an account, we want to make commenting and possibly other features (ratings?) available only if our user has an account with us, so we know who is making comments (in case of inappropriate comments or behavior)
+ * Although most of our website will be accessible without the user making an account, we want to make "Adding to Favorites!" and the Favorite Recipes feature available only if our user has an account with us.
 
-####Random Food Choice (optional)
- * Daily Recipe of the Day on homepage
-
-###Things to do later (optional more features):
- * Free membership
- * oauth for blogging and comments, and ranking
- * Share on facebook
- * Twitter stuff
- * ordering from directly the site
- * add nutritional values
- * recipe of the day home screen
+####Random Recipe Generator:
+ * Our "Random" tab will randomly generate a recipe if you need inspiration for new things to cook!
 
 ##Who:
  * Christina Ko- Leader of Searching Back-End Features
@@ -66,7 +52,3 @@ searching stuff ---> LOOK AT APIs first
     - Bug check
  * January 26th:
     - Double check 
-
-
-
-
