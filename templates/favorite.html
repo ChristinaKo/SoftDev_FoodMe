@@ -76,11 +76,13 @@
   <div class="bold big-text">Your favorite recipes:</div>
   <br>
   <ul id="list-image">
-    {% for key, value in rand.iteritems() %}
-    <dt>{{ key }}</dt>
-    <dd>{{ value }}</dd>
+    {% if empty %}
+    Currently, you have no favorite recipes to display! :(
+    {% else %}
+    {% for key in favorite %}
+    {{ key }}
     {% endfor %}
-
+    {% endif %}
   <li class="trigger">test one</li>
   <div class="toggle-e">stuff one</div>
   <li class="trigger">test two</li>

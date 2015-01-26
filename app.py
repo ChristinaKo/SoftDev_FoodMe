@@ -95,7 +95,6 @@ def profile():
 def recipeList(tag):
     if 'username' in session:
         loggedin = True
-        print "loggedin!!!!!!!!!!!"
         username = escape(session['username'])
     else:
         loggedin = False
@@ -123,14 +122,11 @@ def recipe(tag, num, title):
         loggedin = False
     if request.method == 'POST':
         if loggedin: #logged in: add to favorites, redirect to same page, and flash message
-            #ADD TO MONGO
-            mongo_input = { 'favorites':
-                            {'tag': tag,
-                             'num': num,
-                             'title': title }
-                            }
+            mongo_input =  {'title': title,
+                             'rec': rec,
+                             'ing': ing }
             MongoWork.update_favorites(username, mongo_input)
-            print "favorites:"+ MongoWork.find_favorites(username)
+            print MongoWork.find_favorites(username)
             flash("Added recipe to Favorites!");
             return redirect(url_for("recipe", tag = tag, num=num, title=title))
         else:
@@ -173,11 +169,23 @@ def login():
 @app.route("/favorite", methods=["POST","GET"])
 @authenticate
 def favorite():
+    if 'username' in session:
+        loggedin = True
+        username = escape(session['username'])
+    else:
+        loggedin = False
     if request.method == 'POST':
         if request.form['searched']!= "":
             return redirect(url_for("recipeList", tag = request.form['searched']))
-    return render_template("favorite.html",rand=recofday.rand())
-
+    else:
+        favorite = MongoWork.find_favorites(username)
+        if favorite == None:
+            empty = True
+            return render_template("favorite.html", empty=empty)
+        else:
+            return render_template("favorite.html", favorite=favorite)
+        #return render_template("favorite.html",rand=recofday.rand())
+    
 @app.route("/random", methods=["POST","GET"])
 def random():
     if request.method == "POST":
@@ -218,7 +226,8 @@ def register():
                 mongo_input = { 'uname':usr,
                                 'password':passw, 
                                 'firstname':firstname,
-                                'lastname':lastname } 
+                                'lastname':lastname,
+                                'favorites': {} } 
                 #print mongo_input
                 #print MongoWork.check_user_in_db(usr)
                 if MongoWork.check_user_in_db(usr):
