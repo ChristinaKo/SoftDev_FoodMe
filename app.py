@@ -132,9 +132,12 @@ def recipe(tag, num, title):
                 return redirect(url_for("recipeList", tag = request.form['searched']))
         else:
             if loggedin: #logged in: add to favorites, redirect to same page, and flash message
-                mongo_input =  {'title': title,
+          #      mongo_input =  {'title': title,
+          #                      'ing': ing,
+          #                        'rec': rec }
+                mongo_input = { 'rec': rec,
                                 'ing': ing,
-                                  'rec': rec }
+                                'title': title }
                 MongoWork.update_favorites(username, mongo_input)
                 print MongoWork.find_favorites(username)
                 flash("Added recipe to Favorites!");
