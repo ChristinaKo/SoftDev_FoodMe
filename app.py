@@ -91,23 +91,29 @@ def profile():
         u = user_info['uname']
         return render_template("profile.html",fname=fname, lname=lname,u=u); 
 
-@app.route("/recipes/<tag>")
+@app.route("/recipes/<tag>", methods=['POST','GET'])
 def recipeList(tag):
     if 'username' in session:
         loggedin = True
         username = escape(session['username'])
     else:
         loggedin = False
-    num = 1
-    reclist = []
-    while num <=4:
-        db = recipes.getSearchVal(tag,num)
-        if db['count'] !=  0:
-            reclist = reclist + recipes.getrecipes(db, num)
-            num =  num + 1
-        else:
-            break
-    return render_template("recipes.html", loggedin = loggedin, tag = tag, reclist = reclist)    
+    print "HELLO"
+    if request.method == 'POST':
+        if 'searched' in request.form:
+            if request.form['searched']!= "": #using search bar
+                return redirect(url_for("recipeList", tag = request.form['searched']))   
+    else:
+        num = 1
+        reclist = []
+        while num <=4:
+            db = recipes.getSearchVal(tag,num)
+            if db['count'] !=  0:
+                reclist = reclist + recipes.getrecipes(db, num)
+                num =  num + 1
+            else:
+                break
+        return render_template("recipes.html", loggedin = loggedin, tag = tag, reclist = reclist)    
 
 @app.route("/recipes/<tag>/<num>/<title>", methods=["POST","GET"])
 def recipe(tag, num, title):
@@ -122,8 +128,8 @@ def recipe(tag, num, title):
         loggedin = False
     if request.method == 'POST':
         if 'searched' in request.form:
-            print "remove me"
-            #############ADDDDDDDDDDDDDDDDDDD STUFFFFF HERRRRREEEEEEEE
+            if request.form['searched']!= "": #using search bar
+                return redirect(url_for("recipeList", tag = request.form['searched']))
         else:
             if loggedin: #logged in: add to favorites, redirect to same page, and flash message
                 mongo_input =  {'title': title,
