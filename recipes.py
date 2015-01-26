@@ -5,8 +5,6 @@ import nutrition
 
 rurl = ""
 iurl = ""
-ingredients=[]
-recipe=[] #actual recipe
 
 
 def getSearchVal(tag,num):
@@ -36,6 +34,7 @@ def geturls(db, title):
     return surl
 #returning the recipe
 def retrecipe(rurl):
+    recipe=[]
     res = urllib2.Request(rurl) ##rurl is surl[1] or whatever link is chosen 
     x = urllib2.urlopen(res)
     html = x.read()
@@ -46,6 +45,7 @@ def retrecipe(rurl):
     return recipe
 ##ingredients
 def reting(iurl):
+    ingredients = []
     res = urllib2.Request(iurl)#corresponding f2f url so if rurl = surl[1] then iurl=furl[1]
     x = urllib2.urlopen(res)
     html = x.read()
