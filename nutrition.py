@@ -85,8 +85,6 @@ def search(param, amount, measurement):
     request = nx.search(param,limit=100, offset=0, search_type="usda")
     result = request.json()
     if result["total_hits"] >0:
-        print result["hits"]
-    
         for item in result["hits"]: #is result hits top 10
             #item["fields"]["brand_name"]=="USDA" and  <- some ingredients dont have usda at least if worded differently
             print item["fields"]
@@ -98,7 +96,6 @@ def search(param, amount, measurement):
                 return lists   # list of one element
             
         item = result["hits"][0]
-        print result["hits"][0]
         lists.append(item["fields"]["item_id"])
         lists.append(measurement)
         lists.append(amountfind(item,measurement))
@@ -140,12 +137,14 @@ def parser(ingredlist):
     #start of parsing stuff
         x = ingred.split()
        #ASSUMING that amount is the first element of this split list
+        
         if x[0] == "a":
             f2famount = float(1.0)
         else:
             f2famount= float(fractioncheck(x[0]))
-            
+        print x
         x.pop(0) #popping the amount 
+        print x
         if check(x[0]):
             measurement = x[0]
             x.pop(0)
@@ -174,58 +173,60 @@ def parser(ingredlist):
 # this should go into the search engine part..... im using another html file just just test this out
 
 ##############NOT COMPLETED --- just a template to be completed later###########
-@app.route("/", methods = ["GET", "POST"])
-@app.route("/search", methods = ["GET", "POST"])
-def searches():
-    if request.method == "POST":
-        pass
-    pass
-
-
 @app.route("/nutrition", methods = ["GET"])
 def run():
-    nutrifacts = parser(source)  #
+    source = ["3 skinless, boneless chicken breasts", "1 cup Italian seasoned bread crumbs", "1/2 cup grated Parmesan cheese", "1 teaspoon salt", "1 teaspoon dried thyme", "1 tablespoon dried basil", "1/2 cup butter, melted"]
+    nutrifact = parser(source)
+    n = nutrifact[0]
+    allergen= nutrifact[1]
+    
+    pass
 '''
     return render_template("n.html",
                            sizes = sizes,
                            serverpcont = servercont,
                            amountpserv = amountpserv,
-                           calories = calories,
-                           fatcals = fatcals,
+                           calories = n["nf_calories"],
+                           fatcals = n["nf_calories_from_fat"],
                            fat = fat, 
-                           fat-dv = fat, 
-                           satfat = satfat, 
+                           fat-dv = fat-dv, 
+                           satfat = n["nf_saturated_fat"], 
                            satfat-dv = satfat-dv,
                            transfat = transfat,
                            cholesterol = cholesterol,
                            cholesterol-dv = cholesterol-dv,
-                           sodium = sodium,
+                           sodium =n ["nf_sodium"],
                            sodium-dv = sodium-dv,
-                           carb = carb, 
+                           carb = n["nf_total_carbohydrate"], 
                            carb-dv = carb-dv,
-                           df = df, 
-                           sugar = sugar,
+                           df = n["nf_dietary_fiber"], 
+                           sugar = ["nf_sugars"],
                            protein = protein,
                            protein-dv = protein-dv,
-                           vitA = vitA,
+                           vitA = n["nf_vitamin_a_dv"],x
                            vitC = vitC,
                            calcium = calcium,
                            iron= iron,
+                           allergens = allergen
                            )
+
 '''
 
+'''[{'nf_saturated_fat': 0.06, 'nf_sodium': 9.92, 'nf_dietary_fiber': 0.5, 'nf_vitamin_c_dv': 4.0, 'nf_calories_from_fat': 2.9, 'nf_cholesterol': 0.0, 'nf_sugars': 23.86, 'nf_protein': 0.25, 'nf_total_fat': 0.32, 'nf_iron_dv': 2.0, 'nf_total_carbohydrate': 28.02, 'nf_calories': 114.08, 'nf_calcium_dv': 2.0, 'nf_vitamin_a_dv': 0.0}, []]
+'''
 ##########################################################################
 
-
 ############Testing Section
-test = [' 3 skinless, boneless chicken breasts', ' 1 cup Italian seasoned bread crumbs', ' 1/2 cup grated Parmesan cheese', ' 1 teaspoon salt', ' 1 teaspoon dried thyme', ' 1 tablespoon dried basil', ' 1/2 cup butter, melted'] 
+#print parser(["2 cups of apple juice"])
+#print parser (["1 cup of apple juice"])
 
-#print parser(["1 cup of apple juice"])
+'''
+if __name__ == "__main__":
+    app.debug=True
+    app.run(port:5050)
+'''
 
-#print getAstats(search("Italian seasoned bread crumbs", 1.0, "cup"))
-#print getAstats("54bfe04a435431322afde8c3")
-#skinless, boneless chicken breasts", 3, "serving")
-
+#####Some test output just for reference sake ### 
 '''
 sample output:
  u'allergen_contains_eggs': None,
