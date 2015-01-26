@@ -134,7 +134,7 @@ def recipe(tag, num, title):
             if loggedin: #logged in: add to favorites, redirect to same page, and flash message
                 mongo_input =  {'title': title,
                                 'ing': ing,
-                                'rec': rec }
+                                  'rec': rec }
                 MongoWork.update_favorites(username, mongo_input)
                 print MongoWork.find_favorites(username)
                 flash("Added recipe to Favorites!");
@@ -238,7 +238,7 @@ def register():
                                 'password':passw, 
                                 'firstname':firstname,
                                 'lastname':lastname,
-                                'favorites': {} } 
+                                'favorites': [] } 
                 #print mongo_input
                 #print MongoWork.check_user_in_db(usr)
                 if MongoWork.check_user_in_db(usr):
