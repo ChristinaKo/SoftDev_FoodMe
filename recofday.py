@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 #Key 3: 73fabb20981c227717084598dff04287
 url = "http://food2fork.com/api/search?key=73fabb20981c227717084598dff04287&q=%s&page=%s"
 
-url = "http://food2fork.com/api/search?key=935a5bc621fcb061d17b50ef48278d1d&q=%s&page=%s"
+#url = "http://food2fork.com/api/search?key=935a5bc621fcb061d17b50ef48278d1d&q=%s&page=%s"
 def rand():
     randletter = random.choice("abcdefghijklmnopqrstuvwxyz")
     randnum = random.randint(0,100)
