@@ -166,7 +166,7 @@ def parser(ingredlist):
         #print stats[0]
         nutri = scale(stats[0], scalefactor, nutri)
         allergens = list(set(stats[1]+allergens)) #double-check this to see if it removes duplicates
-    return [nutri, allergens]
+    return [nutri, allergens, measurement]
     #return searchL #we dont need to return the search Lists
 
 ############################FLASK COMMANDS################################
@@ -179,38 +179,37 @@ def run():
     nutrifact = parser(source)
     n = nutrifact[0]
     allergen= nutrifact[1]
+    measurement = nutrifact[2]
+    #amount = nutrifact[3]
     
-    pass
-'''
     return render_template("n.html",
-                           sizes = sizes,
-                           serverpcont = servercont,
-                           amountpserv = amountpserv,
-                           calories = n["nf_calories"],
-                           fatcals = n["nf_calories_from_fat"],
-                           fat = fat, 
-                           fat-dv = fat-dv, 
-                           satfat = n["nf_saturated_fat"], 
-                           satfat-dv = satfat-dv,
-                           transfat = transfat,
-                           cholesterol = cholesterol,
-                           cholesterol-dv = cholesterol-dv,
-                           sodium =n ["nf_sodium"],
-                           sodium-dv = sodium-dv,
-                           carb = n["nf_total_carbohydrate"], 
-                           carb-dv = carb-dv,
-                           df = n["nf_dietary_fiber"], 
-                           sugar = ["nf_sugars"],
-                           protein = protein,
-                           protein-dv = protein-dv,
-                           vitA = n["nf_vitamin_a_dv"],x
-                           vitC = vitC,
-                           calcium = n["nf_calcium_dv"],
-                           iron= iron,
+                           #sizes = sizes,
+                           #serverpcont = servercont,
+                           #amountpserv = amountpserv,
+                           calories = nformat(n,"nf_calories"),
+                           fatcals = nformat(n,"nf_calories_from_fat"),
+                           fat = nformat(n,"nf_total_fat"), 
+                           #fat-dv = fat-dv, 
+                           satfat = nformat(n,"nf_saturated_fat"), 
+                           #satfat-dv = satfat-dv,
+                           #transfat = transfat,
+                           cholesterol = nformat(n,"nf_cholesterol"),
+                           #cholesterol-dv = cholesterol-dv,
+                           sodium =n ["nf_sodium"),
+                           #sodium-dv = sodium-dv,
+                           carb = nformat(n,"nf_total_carbohydrate"), 
+                          # carb-dv = carb-dv,
+                           df = nformat(n,"nf_dietary_fiber"), 
+                           sugar = ["nf_sugars"),
+                           protein = nformat(n,"nf_protein"),
+                           #protein-dv = protein-dv,
+                           vitA = nformat(n,"nf_vitamin_a_dv"),
+                           vitC = nformat(n,"nf_vitamin_a_dv"),
+                           calcium = nformat(n,"nf_calcium_dv"),
+                           iron= nformat(n,"nf_iron_dv"),
                            allergens = allergen
                            )
 
-'''
 
 '''[{'nf_saturated_fat': 0.06, 'nf_sodium': 9.92, 'nf_dietary_fiber': 0.5, 'nf_vitamin_c_dv': 4.0, 'nf_calories_from_fat': 2.9, 'nf_cholesterol': 0.0, 'nf_sugars': 23.86, 'nf_protein': 0.25, 'nf_total_fat': 0.32, 'nf_iron_dv': 2.0, 'nf_total_carbohydrate': 28.02, 'nf_calories': 114.08, 'nf_calcium_dv': 2.0, 'nf_vitamin_a_dv': 0.0}, []]
 '''
@@ -219,12 +218,9 @@ def run():
 ############Testing Section
 #print parser(["2 cups of apple juice"])
 #print parser (["1 cup of apple juice"])
-
-'''
 if __name__ == "__main__":
     app.debug=True
-    app.run(port:5050)
-'''
+    app.run()
 
 #####Some test output just for reference sake ### 
 '''
