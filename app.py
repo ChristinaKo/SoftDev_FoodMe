@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, url_for, session, escape
+from flask import Flask, render_template, request, redirect, session, url_for, session, escape, flash
 from functools import wraps
 import MongoWork, recofday
 import re
@@ -13,7 +13,7 @@ def authenticate(f):
             return f(*args)
         else:
             flash("You must log in to see that page.")
-            return redirect(url_for('index',redirect_user = True))
+            return redirect(url_for('login',redirect_user = True))
     return wrap
 
 @app.route("/about", methods=["POST","GET"])
@@ -50,14 +50,35 @@ def index():
     return render_template("index.html", loggedin=loggedin)
 
 @app.route("/profile", methods=["POST","GET"])
+@authenticate
 def profile():
-    if 'username' in session:
-        loggedin = True
-        username = escape(session['username'])
-        return render_template("profile.html", loggedin=loggedin,username=username)
-    else:
-        loggedin = False
-    return render_template("profile.html", loggedin=loggedin)
+    username = escape(session['username'])
+    #POST METHOD MEANS UPDATING PASSWORD
+    if request.method == 'POST':
+        real_pwd = MongoWork.find_pword(username)
+        currpwd = request.form.get("curpas")
+        if currpwd != real_pwd:
+            flash("Sorry! Please enter the correct current password!")
+            return redirect(url_for("profile"))
+        newpwdinput = request.form.get("newpas")
+        newrepwdinput = request.form.get("newrepas")
+        if newpwdinput == newrepwdinput and check_pword(newpwdinput): #matched successfully, update passwords
+            username = escape(session['username'])
+            MongoWork.update_password(username,newpwdinput)
+            flash("Password was successfully updated.")
+            return redirect(url_for("profile"))
+        elif not check_pword(newpwdinput):
+            flash("Your password must be at least SIX characters long and have an uppercase letter, lowercase letter, and a number!")
+            return redirect(url_for("profile"))
+        else:
+            flash("Passwords did not match. Password was not updated.")
+            return redirect(url_for("profile"))
+    else: #GET METHOD
+        user_info = MongoWork.find_usrinfo(username)
+        fname = user_info['firstname']
+        lname = user_info['lastname']
+        u = user_info['uname']
+        return render_template("profile.html",fname=fname, lname=lname,u=u); 
 
 @app.route("/recipes/<tag>")
 def recipeList(tag):
@@ -73,6 +94,7 @@ def recipeList(tag):
 
             break
     return render_template("recipes.html", tag = tag, reclist = reclist)    
+
 @app.route("/recipes/<tag>/<num>/<title>")
 def recipe(tag, num, title):
     db = recipes.getSearchVal(tag, num)
@@ -80,6 +102,7 @@ def recipe(tag, num, title):
     rec = recipes.retrecipe(nurl[0]) 
     ing = recipes.reting(nurl[1])
     return render_template("recipe.html", title=title, rec = rec, ing = ing)
+
 @app.route("/login", methods=["POST","GET"])
 def login():
     error = None
@@ -93,7 +116,7 @@ def login():
                 redirect_necessary = request.args.get('redirect_user')
                 #redirecting after login
                 if redirect_necessary:
-                    return redirect(url_for("user"))
+                    return redirect(url_for("profile"))
                 else:
                     return redirect(url_for('index',username=userinput))
             else:#incorrect password error
@@ -106,23 +129,11 @@ def login():
     else:#request.method == "GET"
         error = None
         return render_template("login.html")
-'''
-@app.route("/dashboard")
-@authenticate
-def dashboard():
-    username = escape(session['username'])
-    return render_template("dashboard.html",username=username)
-'''
 
 @app.route("/favorite", methods=["POST","GET"])
+@authenticate
 def favorite():
-    if 'username' in session:
-        loggedin = True
-        username = escape(session['username'])
-        return render_template("favorite.html", loggedin=loggedin,username=username)
-    else:
-        loggedin = False
-    return render_template("favorite.html", loggedin=loggedin)
+    return render_template("favorite.html",rand=recofday.rand())
 
 @app.route("/random", methods=["POST","GET"])
 def random():

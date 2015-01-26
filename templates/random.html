@@ -53,7 +53,7 @@
 <div class="search-bar">
   
        <form class="pure-form">
-	 <input type="text" class="pure-input-rounded">
+	 <input type="text" class="pure-input-rounded" placeholder="Search recipes or keywords...">
 	 <button type="submit" class="pure-button">
 	   <img src="/static/search.png" alt="Search Icon"/></button>
        </form>
@@ -90,12 +90,6 @@
   <br><br><br><br>
 
 <a href="#" class="scrollup"></a>
-{% if not loggedin %}
-{% else %}
-<br>
-Currently logged in as {{username}}...
-<br>
-{% endif %}
 <div class="rectangle rounded texts">
    <div class="bold">Random</div>
    {{rand}}

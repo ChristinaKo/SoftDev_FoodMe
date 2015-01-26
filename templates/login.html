@@ -22,16 +22,6 @@
 
 </head>
 
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-<div class=flashes>
-  {% for message in messages %}
-  {{ message }}
-  {% endfor %}
-</div>
-{% endif %}
-{% endwith %}
-
 <div class="help">&nbsp;
   <a href="/help"><img id="help-img" src="/static/help.png" alt="Help Icon"/></a>
 &nbsp;&nbsp;
@@ -39,7 +29,7 @@
 
 <div class="search-bar">  
        <form class="pure-form">
-	 <input type="text" class="pure-input-rounded">
+	 <input type="text" class="pure-input-rounded" placeholder="Search recipes or keywords...">
 	 <button type="submit" class="pure-button">
 	   <img src="/static/search.png" alt="Search Icon"/></button>
        </form>
@@ -65,32 +55,44 @@
     <br><br><br><br>
 
     <div class="rectangle rounded">
+      
       <span><div>
 	  <div class="error">
-	    {% if error %}
-	    Incorrect password! Please try again.<br><br>
-	    {% elif notreg %}
-	    Username was not recognized. Please register.<br><br>
+	  
+	  {% with messages = get_flashed_messages() %}
+	  {% if messages %}
+	  <div class=flashes>
+	    {% for message in messages %}
+	    {{ message }}
+	    {% endfor %}
+	  </div>
+	  {% endif %}
+	  {% endwith %}
+	  
+	  {% if error %}
+	  Incorrect password! Please try again.<br><br>
+	  {% elif notreg %}
+	  Username was not recognized. Please register.<br><br>
 	    {%endif%}
 	  </div>
-	    <form class="pure-form texts center" method="POST">
-	      <div class="bold">Username:</div>
-	      <br> 
-	      <input class="form-stuff center texts" type="text" size="30" placeholder="Username" name="user"></input>
-	      <br><br>
-	      <div class="bold">Password:</div>
-	      <br>
-	      <input class="form-stuff center texts" type="password" size="30" placeholder="Password" name="passwd"></input>
-	      <br><br><button class="pure-button center" name="submit" value="yes">Submit</button>
-	    </form>
+	  <form class="pure-form texts center" method="POST">
+	    <div class="bold">Username:</div>
+	    <br> 
+	    <input class="form-stuff center texts" type="text" size="30" placeholder="Username" name="user"></input>
+	    <br><br>
+	    <div class="bold">Password:</div>
+	    <br>
+	    <input class="form-stuff center texts" type="password" size="30" placeholder="Password" name="passwd"></input>
+	    <br><br><button class="pure-button center" name="submit" value="yes">Submit</button>
+	  </form>
       </span>
       </div>
     </div>
-
-<a href="#" class="scrollup"></a>
+    
+    <a href="#" class="scrollup"></a>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-  
-  
+    
+    
 </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="/static/main.js"></script>
