@@ -91,9 +91,9 @@ def profile():
 
 @app.route("/recipes/<tag>")
 def recipeList(tag):
-    num = 0
+    num = 1
     reclist = []
-    while num <=3:
+    while num <=4:
         db = recipes.getSearchVal(tag,num)
         if db['count'] !=  0:
             reclist = reclist + recipes.getrecipes(db, num)
