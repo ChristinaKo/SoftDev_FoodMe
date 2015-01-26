@@ -27,11 +27,11 @@ def getrecipes(db, num):
             # f2f_url = food 2 fork url
             # image_url = url of the image of the recipe 
     return recipes       
-def getsurl(db, title):
-    surl = ""
+def geturls(db, title):
+    surl = []
     for r in db['recipes']:
         if r['publisher']== "All Recipes" and  r['title']==title:
-            surl = r['source_url']
+            surl = [r['source_url'],r['f2f_url']]
             break
     return surl
 #returning the recipe

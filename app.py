@@ -70,14 +70,16 @@ def recipeList(tag):
             num =  num + 1
 
         else:
+
             break
     return render_template("recipes.html", tag = tag, reclist = reclist)    
 @app.route("/recipes/<tag>/<num>/<title>")
 def recipe(tag, num, title):
     db = recipes.getSearchVal(tag, num)
-    nurl = recipes.getsurl(db, title)
-    rec = recipes.retrecipe(nurl) 
-    return render_template("recipe.html", title=title, rec = rec)
+    nurl = recipes.geturls(db, title)
+    rec = recipes.retrecipe(nurl[0]) 
+    ing = recipes.reting(nurl[1])
+    return render_template("recipe.html", title=title, rec = rec, ing = ing)
 @app.route("/login", methods=["POST","GET"])
 def login():
     error = None
