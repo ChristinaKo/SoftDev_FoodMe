@@ -76,9 +76,29 @@
 <div class="background">
   <br><br><br><br>
 
-<div class="rectangle rounded texts">
+  <div class="rectangle rounded texts">
+     <div class="error">
+	  
+	  {% with messages = get_flashed_messages() %}
+	  {% if messages %}
+	  <div class=flashes>
+	    {% for message in messages %}
+	    {{ message }}
+	    {% endfor %}
+	  </div>
+	  {% endif %}
+	  {% endwith %}
+	  
+	  {% if error %}
+	  Incorrect password! Please try again.<br><br>
+	  {% elif notreg %}
+	  Username was not recognized. Please register.<br><br>
+	    {%endif%}
+	  </div>
   <div class="bold big-text">{{title}}
-    <a title="Add to Favorites!" href="/favorite"><img src="/static/star.png" alt="Favorite Icon"/></a>
+    <form action="" method="POST">
+      <button type="submit"><img src="/static/star.png" alt="Favorite Icon"/></button>
+      </form>
   </div>
   <br>
 
