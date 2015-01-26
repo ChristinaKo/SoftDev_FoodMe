@@ -53,16 +53,7 @@ def reting(iurl):
     for i in html.find_all("li",itemprop="ingredients"):
         ingredients.append(i.get_text())
     return ingredients   
-
-print retrecipe(recipes[0][1]) 
-print reting(recipes[0][2])
-
-
-print recipes[0][0]
-print nutrition.parser(ingredients)
-
 #print retrecipe(recipes[0][1]) 
 #print reting(recipes[0][2])
 #print nutrition.parser(ingredients)
-
 # [u' 3 skinless, boneless chicken breasts', u' 1 cup Italian seasoned bread crumbs', u' 1/2 cup grated Parmesan cheese', u' 1 teaspoon salt', u' 1 teaspoon dried thyme', u' 1 tablespoon dried basil', u' 1/2 cup butter, melted']  --> LISE this is how it should look when it is in the array for "chicken nuggets"
