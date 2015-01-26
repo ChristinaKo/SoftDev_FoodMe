@@ -66,13 +66,18 @@ def recipeList(tag):
     while num <=5:
         db = recipes.getSearchVal(tag,num)
         if db['count'] !=  0:
-            reclist = reclist + recipes.getrecipes(db)
+            reclist = reclist + recipes.getrecipes(db, num)
             num =  num + 1
 
         else:
             break
-    return render_template("recipes.html", reclist = reclist)    
-
+    return render_template("recipes.html", tag = tag, reclist = reclist)    
+@app.route("/recipes/<tag>/<num>/<title>")
+def recipe(tag, num, title):
+    db = recipes.getSearchVal(tag, num)
+    nurl = recipes.getsurl(db, title)
+    rec = recipes.retrecipe(nurl) 
+    return render_template("recipe.html", title=title, rec = rec)
 @app.route("/login", methods=["POST","GET"])
 def login():
     error = None

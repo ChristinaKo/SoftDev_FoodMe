@@ -3,9 +3,9 @@
 RECIPE LIST
 </head>
 <body>
-<ol>
+<ol id="recipeList">
 {% for i in reclist %}
-<li> {{i[0]}} </li>
+<li> <a href= "/recipes/{{tag}}/{{i[4]}}/{{i[0]}}"> {{i[0]}} </li>
 {% endfor %}
 </ol>
 </body>
