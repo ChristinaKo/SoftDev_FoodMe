@@ -91,8 +91,22 @@
 
 <a href="#" class="scrollup"></a>
 <div class="rectangle rounded texts">
-   <div class="bold">Random</div>
-   {{rand}}
+   <div class="bold">Random: {{randtitle}}</div>
+Ingredients:
+<br>
+<ul>
+{% for i in randing %}
+<li> {{i}} </li>
+{% endfor %}
+</ul>
+Directions:
+<br>
+<ol>
+{% for r in randrec %}
+<li> {{r}} </li>
+{% endfor %}
+</ol>
+
 </div>
 <br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

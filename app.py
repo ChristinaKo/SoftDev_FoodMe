@@ -154,13 +154,16 @@ def random():
     if request.method == "POST":
         if request.form['searched']!= "":
             return redirect(url_for("recipeList", tag = request.form['searched']))
+    rand = recofday.rand()
+    randrec = recipes.retrecipe(rand['source_url'])
+    randing = recipes.reting(rand['f2f_url'])
     if 'username' in session:
         loggedin = True
         username = escape(session['username'])
-        return render_template("random.html", loggedin=loggedin,username=username, rand=recofday.rand())
+        return render_template("random.html", loggedin=loggedin,username=username, randrec=randrec, randing=randing, randtitle= rand['title'])
     else:
         loggedin = False
-    return render_template("random.html", loggedin=loggedin, rand=recofday.rand())
+    return render_template("random.html", loggedin=loggedin, randrec=randrec, randing= randing, randtitle=rand['title'])
 
 #must pop off session
 @app.route("/logout")
