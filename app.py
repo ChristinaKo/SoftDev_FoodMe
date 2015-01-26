@@ -84,7 +84,7 @@ def profile():
 def recipeList(tag):
     num = 0
     reclist = []
-    while num <=5:
+    while num <=3:
         db = recipes.getSearchVal(tag,num)
         if db['count'] !=  0:
             reclist = reclist + recipes.getrecipes(db, num)
