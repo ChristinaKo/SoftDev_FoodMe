@@ -1,0 +1,12 @@
+<html>
+<head>
+RECIPE LIST
+</head>
+<body>
+<ol id="recipeList">
+{% for i in reclist %}
+<li> <a href= "/recipes/{{tag}}/{{i[4]}}/{{i[0]}}"> {{i[0]}} </li>
+{% endfor %}
+</ol>
+</body>
+</html> 
