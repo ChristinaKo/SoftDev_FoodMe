@@ -1,4 +1,4 @@
-<!DOCTYPE HTMl>
+<!doctype html>
 <html>
   <div class="pure-skin-pretty">
     
@@ -7,20 +7,29 @@
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
 
 <link rel="stylesheet" href="/static/dropit/dropit.css" type="text/css">
+
+<!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
+<!--<![endif]-->
+
+</head>
+
 <style>
   .background {
+  
   opacity: 0.8;
   filter: alpha(opacity=80); /* For IE8 and earlier */
-  background-image: url("/static/salad.jpg");
+  background-image: url("/static/egg.jpg");
   background-attachment: fixed;    
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: 300 200;
   }
-</style>
-<meta name="viewport" content="width=SITE_MIN_WIDTH, initial-scale=1, maximum-scale=1">
 
-</head>
+  
+</style>
 
 <div class="help">&nbsp;
   <a href="/help"><img id="help-img" src="/static/help.png" alt="Help Icon"/></a>
@@ -31,10 +40,10 @@
 <div class="profile">
   <ul class="menu">
     <li>
-      <a href="#"><img src="/static/user.jpg" alt="Search Icon"/></a>
+      <a href="/profile"><img src="/static/user.jpg" alt="Search Icon"/></a>
       <ul>
 	<li><a href="/profile">Your Profile</a></li>
-        <li><a href="/logout">Logout</a></li>
+	<li><a href="/logout">Logout</a></li>
       </ul>
     </li>
   </ul>
@@ -42,6 +51,7 @@
 {% endif %}
 
 <div class="search-bar">
+  
        <form class="pure-form">
 	 <input type="text" class="pure-input-rounded" placeholder="Search recipes or keywords...">
 	 <button type="submit" class="pure-button">
@@ -51,47 +61,46 @@
 </div>
 
 <div class="pure-menu pure-menu-open pure-menu-horizontal pure-menu-pull-right">
+ 
   <a class="pure-menu-heading" href="/"> 
     <img src="/static/icon.jpg" alt="FoodMe Icon"/>
- </a>
-   <ul class="times-new">
+  </a>
+  <ul class="times-new">
+    {% if not loggedin %}
+    
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li class="pure-menu-selected"><a href="/random">Random</a></li>
+    <li><a href="/login">Sign In</a></li>
+    <li><a href="/register">Register</a></li>	
      
-     {% if not loggedin %}
-     <li><a href="/">Home</a></li>
-     <li class="pure-menu-selected"><a href="/about">About</a></li>
-     <li><a href="/random">Random</a></li>
-     <li><a href="/login">Sign In</a></li>
-     <li><a href="/register">Register</a></li>
- 
-     {% else %}
-     
-     <li><a href="/">Home</a></li>
-     <li class="pure-menu-selected"><a href="/about">About</a></li>
-     <li><a href="/random">Random</a></li>	
-     <li><a href="/favorite">Favorites</a></li>
-     {% endif %}
+    {% else %}
+    
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+<!--JAVASCRIPT TO RANDOMIZE EVERY 10 MINS -->
+    <li class="pure-menu-selected"><a href="/random">Random</a></li>
+    <li><a href="/favorite">Favorites</a></li>	   
+   
+    {% endif %}
    </ul>
 </div>
 
 <div class="background">
   <br><br><br><br>
 
-<div class="rectangle rounded texts">
-  <div class="bold big-text"> About FoodMe!</div>
-  <br>
-  FoodMe! is a simple search engine geared towards --enter more stuff later--
-
-  What tools did we use to create FoodMe?
-  
-  
-  
-</div>
-
 <a href="#" class="scrollup"></a>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div class="rectangle rounded texts">
+   <div class="bold">Random</div>
+   {{rand}}
+</div>
+<br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="/static/main.js"></script>
+
 <script src="/static/dropit/dropit.js"></script>
+
 
 </html>

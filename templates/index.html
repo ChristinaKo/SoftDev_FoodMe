@@ -4,7 +4,8 @@
     
 <head>
 <link rel="stylesheet" href="/static/extras.css">
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+
+<link rel="stylesheet" href="/static/dropit/dropit.css" type="text/css">
 
 <style>
   .background {
@@ -17,7 +18,7 @@
   }
 
 
-@media (max-width: 941px) {
+@media (max-width: 1040px) {
 
   .search-format {
   width: 70%;
@@ -42,29 +43,28 @@
  }
 
   input#main-button {
-  
-  background:url(/static/main-search.png);
+  background:url(/static/main-search-2.png);
+  background-position: center;
   background-repeat: no-repeat;
   -moz-border-radius: 50px;
   -webkit-border-radius: 50px;
   border-radius: 50px;
   background-color: #b6edb1;
   cursor: pointer;
-  width: 100px;
-  height: 100px;
+  width: 70px;
+  height: 70px;
   }
 
 }
 
-@media (min-width: 941px){
+@media (min-width: 1040px){
 
   .search-format {
-  width: 800px;
+  width: 900px;
   margin-right: 15%;
   margin-top: 10%;
   margin-left: 15%;
   }
-
 
   .main-search {
   padding-left: 10%;
@@ -81,8 +81,9 @@
  }
 
   input#main-button {
-  
   background:url(/static/main-search.png);
+  background-position: center;
+ 
   background-repeat: no-repeat;
   -moz-border-radius: 50px;
   -webkit-border-radius: 50px;
@@ -96,18 +97,40 @@
 }
 
 </style>
+
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+
 </head>
+
+<div class="help">&nbsp;
+  <a href="/help"><img id="help-img" src="/static/help.png" alt="Help Icon"/></a>
+&nbsp;&nbsp;
+</div>
+
+{% if loggedin %}
+<div class="profile">
+  <ul class="menu">
+    <li>
+      <a href="/profile"><img src="/static/user.jpg" alt="Search Icon"/></a>
+      <ul>
+	<li><a href="/profile">Your Profile</a></li>
+        <li><a href="/logout">Logout</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+{% endif %}
 
 <div class="pure-menu pure-menu-open pure-menu-horizontal pure-menu-pull-right">
   <a class="pure-menu-heading" href="/"> 
     <img src="/static/icon.jpg" alt="FoodMe Icon"/>
  </a>
-   <ul>
+   <ul class="times-new">
      {% if not loggedin %}
 
      <li class="pure-menu-selected"><a href="/">Home</a></li>
      <li><a href="/about">About</a></li>
-     <li><a href="/help">Help</a></li>
+     <li><a href="/random">Random</a></li>
      <li><a href="/login">Sign In</a></li>
      <li><a href="/register">Register</a></li>
      
@@ -115,33 +138,35 @@
      
      <li class="pure-menu-selected"><a href="/">Home</a></li>
      <li><a href="/about">About</a></li>
-     <li><a href="/help">Help</a></li>		
-     <li><a href="/logout">Logout</a></li>
+     <li><a href="/random">Random</a></li>
+     <li><a href="/favorite">Favorites</a></li>
     
      {% endif %}
      
    </ul>
 </div>
-
+ 
 <div class="background">
-  <br>
+  <br><br><br><br><br>
+
   <a href="#" class="scrollup"></a>
   <div class="search-format">
-    <form class="pure-form">
+    <form class="pure-form" method= "POST">
       <div class="main-search">
-	<input type="text" class="search-input pure-input-rounded" placeholder="Search for...">
+
+	<input type="text" class="search-input pure-input-rounded" placeholder="Search for..." name="searched">
       </div>
-      <input type="submit" class="pure-button" id="main-button" name="submit" value="">
+      <input type="submit" class="pure-button" id="main-button" value="">
+
     </form>
   </div>
 
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  </div>
 
-</div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="/static/main.js"></script>
+<script src="/static/dropit/dropit.js"></script>
+
 
 </html>

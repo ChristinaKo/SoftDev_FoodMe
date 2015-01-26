@@ -5,20 +5,30 @@
 <head>
 <link rel="stylesheet" href="/static/extras.css">
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
-
 <link rel="stylesheet" href="/static/dropit/dropit.css" type="text/css">
+
 <style>
+
   .background {
   opacity: 0.8;
   filter: alpha(opacity=80); /* For IE8 and earlier */
-  background-image: url("/static/salad.jpg");
+  background-image: url("/static/pancake.jpg");
   background-attachment: fixed;    
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 300 200;
   }
+
+  #list-image {
+  line-height: 1.5em;
+  list-style-image: url("/static/star.png");
+  }
+
+  .toggle-e {
+  display: none;
+  }
+
 </style>
-<meta name="viewport" content="width=SITE_MIN_WIDTH, initial-scale=1, maximum-scale=1">
 
 </head>
 
@@ -27,19 +37,17 @@
 &nbsp;&nbsp;
 </div>
 
-{% if loggedin %}
 <div class="profile">
   <ul class="menu">
     <li>
       <a href="#"><img src="/static/user.jpg" alt="Search Icon"/></a>
       <ul>
-	<li><a href="/profile">Your Profile</a></li>
+        <li><a href="/profile">Your Profile</a></li>
         <li><a href="/logout">Logout</a></li>
       </ul>
     </li>
   </ul>
 </div>
-{% endif %}
 
 <div class="search-bar">
        <form class="pure-form">
@@ -54,41 +62,36 @@
   <a class="pure-menu-heading" href="/"> 
     <img src="/static/icon.jpg" alt="FoodMe Icon"/>
  </a>
-   <ul class="times-new">
-     
-     {% if not loggedin %}
+   <ul class="times-new">     
      <li><a href="/">Home</a></li>
-     <li class="pure-menu-selected"><a href="/about">About</a></li>
+     <li><a href="/about">About</a></li>
      <li><a href="/random">Random</a></li>
-     <li><a href="/login">Sign In</a></li>
-     <li><a href="/register">Register</a></li>
- 
-     {% else %}
-     
-     <li><a href="/">Home</a></li>
-     <li class="pure-menu-selected"><a href="/about">About</a></li>
-     <li><a href="/random">Random</a></li>	
-     <li><a href="/favorite">Favorites</a></li>
-     {% endif %}
+     <li class="pure-menu-selected"><a href="/favorite">Favorites</a></li>	
    </ul>
 </div>
 
 <div class="background">
-  <br><br><br><br>
-
+<br><br><br><br>
 <div class="rectangle rounded texts">
-  <div class="bold big-text"> About FoodMe!</div>
+  <div class="bold big-text">Your favorite recipes:</div>
   <br>
-  FoodMe! is a simple search engine geared towards --enter more stuff later--
+  <ul id="list-image">
+    {% for key, value in rand.iteritems() %}
+    <dt>{{ key }}</dt>
+    <dd>{{ value }}</dd>
+    {% endfor %}
 
-  What tools did we use to create FoodMe?
-  
-  
-  
+  <li class="trigger">test one</li>
+  <div class="toggle-e">stuff one</div>
+  <li class="trigger">test two</li>
+  <div class="toggle-e">stuff two</div>
+  <li class="trigger">test three</li>
+<div class="toggle-e">stuff three</div>
+  </ul>
 </div>
 
 <a href="#" class="scrollup"></a>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="/static/main.js"></script>

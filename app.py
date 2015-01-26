@@ -1,8 +1,8 @@
-from flask import Flask, render_template, request, redirect, session, url_for, session, escape
+from flask import Flask, render_template, request, redirect, session, url_for, session, escape, flash
 from functools import wraps
-import MongoWork
+import MongoWork, recofday
 import re
-
+import recipes
 app = Flask(__name__)
 app.secret_key = "Really secret but not really secret." #session usage
 
@@ -13,7 +13,7 @@ def authenticate(f):
             return f(*args)
         else:
             flash("You must log in to see that page.")
-            return redirect(url_for('index',redirect_user = True))
+            return redirect(url_for('login',redirect_user = True))
     return wrap
 
 @app.route("/about", methods=["POST","GET"])
@@ -38,6 +38,9 @@ def help():
 
 @app.route("/", methods=["POST","GET"])
 def index():
+    if request.method == "POST":
+        if request.form['searched']!= "":
+            return redirect(url_for("recipeList", tag = request.form['searched']))
     if 'username' in session:
         loggedin = True
         username = escape(session['username'])
@@ -45,6 +48,60 @@ def index():
     else:
         loggedin = False
     return render_template("index.html", loggedin=loggedin)
+
+@app.route("/profile", methods=["POST","GET"])
+@authenticate
+def profile():
+    username = escape(session['username'])
+    #POST METHOD MEANS UPDATING PASSWORD
+    if request.method == 'POST':
+        real_pwd = MongoWork.find_pword(username)
+        currpwd = request.form.get("curpas")
+        if currpwd != real_pwd:
+            flash("Sorry! Please enter the correct current password!")
+            return redirect(url_for("profile"))
+        newpwdinput = request.form.get("newpas")
+        newrepwdinput = request.form.get("newrepas")
+        if newpwdinput == newrepwdinput and check_pword(newpwdinput): #matched successfully, update passwords
+            username = escape(session['username'])
+            MongoWork.update_password(username,newpwdinput)
+            flash("Password was successfully updated.")
+            return redirect(url_for("profile"))
+        elif not check_pword(newpwdinput):
+            flash("Your password must be at least SIX characters long and have an uppercase letter, lowercase letter, and a number!")
+            return redirect(url_for("profile"))
+        else:
+            flash("Passwords did not match. Password was not updated.")
+            return redirect(url_for("profile"))
+    else: #GET METHOD
+        user_info = MongoWork.find_usrinfo(username)
+        fname = user_info['firstname']
+        lname = user_info['lastname']
+        u = user_info['uname']
+        return render_template("profile.html",fname=fname, lname=lname,u=u); 
+
+@app.route("/recipes/<tag>")
+def recipeList(tag):
+    num = 0
+    reclist = []
+    while num <=5:
+        db = recipes.getSearchVal(tag,num)
+        if db['count'] !=  0:
+            reclist = reclist + recipes.getrecipes(db, num)
+            num =  num + 1
+
+        else:
+
+            break
+    return render_template("recipes.html", tag = tag, reclist = reclist)    
+
+@app.route("/recipes/<tag>/<num>/<title>")
+def recipe(tag, num, title):
+    db = recipes.getSearchVal(tag, num)
+    nurl = recipes.geturls(db, title)
+    rec = recipes.retrecipe(nurl[0]) 
+    ing = recipes.reting(nurl[1])
+    return render_template("recipe.html", title=title, rec = rec, ing = ing)
 
 @app.route("/login", methods=["POST","GET"])
 def login():
@@ -59,7 +116,7 @@ def login():
                 redirect_necessary = request.args.get('redirect_user')
                 #redirecting after login
                 if redirect_necessary:
-                    return redirect(url_for("user"))
+                    return redirect(url_for("profile"))
                 else:
                     return redirect(url_for('index',username=userinput))
             else:#incorrect password error
@@ -72,13 +129,21 @@ def login():
     else:#request.method == "GET"
         error = None
         return render_template("login.html")
-'''
-@app.route("/dashboard")
+
+@app.route("/favorite", methods=["POST","GET"])
 @authenticate
-def dashboard():
-    username = escape(session['username'])
-    return render_template("dashboard.html",username=username)
-'''
+def favorite():
+    return render_template("favorite.html",rand=recofday.rand())
+
+@app.route("/random", methods=["POST","GET"])
+def random():
+    if 'username' in session:
+        loggedin = True
+        username = escape(session['username'])
+        return render_template("random.html", loggedin=loggedin,username=username, rand=recofday.rand())
+    else:
+        loggedin = False
+    return render_template("random.html", loggedin=loggedin, rand=recofday.rand())
 
 #must pop off session
 @app.route("/logout")
@@ -96,7 +161,7 @@ def register():
         firstname = request.form['fname']
         lastname = request.form['lname']
         if passw == repassw and usr!='' and passw!='' and firstname!='' and lastname!='':#checks if everything is filled out
-            #retVals = ' %s , %s, %s, %s , %s ' % (usr, passw, repassw, firstname, lastname)
+        #retVals = ' %s , %s, %s, %s , %s ' % (usr, passw, repassw, firstname, lastname)
             mongo_input = { 'uname':usr,
                             'password':passw, 
                             'firstname':firstname,
@@ -109,6 +174,9 @@ def register():
             elif re.match('''^[~!@#$%^&*()_+{}":;']+$''', usr): #has special characters!
                 special_char = True
                 return render_template("register.html", special_char=special_char)
+            elif not check_pword(passw):
+                bad_pword = True
+                return render_template("register.html", bad_pword = bad_pword)
             else:####SUCCESS!
                 MongoWork.new_user(mongo_input) #put user into our mongodb
                 registered = True
@@ -123,6 +191,29 @@ def register():
     else:#GET method
         return render_template("register.html")
 
+#helper fxn to search for uppercase letter
+def findUpper(word):
+    for a in word:
+        if ord(a) >= ord('A') and ord(a) <= ord('Z'):
+            return True
+    return False
+
+#helper fxn to search for lowercase letter
+def findLower(word):
+    for a in word:
+        if ord(a) >= ord('a') and ord(a) <= ord('z'):
+            return True
+    return False
+
+#helper fxn to search for number
+def findNumber(s):
+    for a in s:
+        if ord(a) >= ord('0') and ord(a) <= ord('9'):
+            return True
+    return False
+
+def check_pword(pword):
+    return findUpper(pword) and findLower(pword) and findNumber(pword) and len(pword) >= 6
 
 if __name__ == '__main__':
 	app.debug = True

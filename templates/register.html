@@ -7,12 +7,6 @@
 <link rel="stylesheet" href="/static/extras.css">
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
 
-<!--[if lte IE 8]>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
-<![endif]-->
-<!--[if gt IE 8]><!-->
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
-<!--<![endif]-->
 
 </head>
 
@@ -37,22 +31,31 @@
 {% endif %}
 {% endwith %}
 
+<div class="help">&nbsp;
+  <a href="/help"><img id="help-img" src="/static/help.png" alt="Help Icon"/></a>
+&nbsp;&nbsp;
+</div>
+
+<div class="search-bar">  
+       <form class="pure-form">
+	 <input type="text" class="pure-input-rounded" placeholder="Search for recipes or keywords...">
+	 <button type="submit" class="pure-button" placeholder="Search recipes or keywords...">
+	   <img src="/static/search.png" alt="Search Icon"/></button>
+       </form>
+
+</div>
+
 <div class="pure-menu pure-menu-open pure-menu-horizontal pure-menu-pull-right">
   <a class="pure-menu-heading" href="/"> 
     <img src="/static/icon.jpg" alt="FoodMe Icon"/>
  </a>
-   <ul>
+   <ul class="times-new">
         <li><a href="/">Home</a></li>
 	<li><a href="/about">About</a></li>
-	<li><a href="/help">Help</a></li>
+	<li><a href="/random">Random</a></li>
 	<li><a href="/login">Sign In</a></li>
 	<li class="pure-menu-selected"><a href="/register">Register</a></li>
-	<li class="search-bar"><form class="pure-form">
-	    <input type="text" class="pure-input-rounded">
-	    <button type="submit" class="pure-button">
-	      <img src="/static/search.png" alt="Search Icon"/></button>
-	  </form>
-	</li>	
+
    </ul>
 </div>
 
@@ -60,7 +63,7 @@
   
   <a href="#" class="scrollup"></a>
 
-  <br><br>
+  <br><br><br><br>
   <div class="bold texts center rectangle rounded">
   {% if empty %}
   <div class="error"> 
@@ -70,6 +73,11 @@
   <div class="error"> 
     Passwords did not match! Please try again. <br>
   </div>
+  {% elif bad_pword %}
+  <div class="error"> 
+    Your password must be at least SIX characters long and have an uppercase letter, lowercase letter, and a number!<br>
+  </div>
+
   {% elif user_taken %}
   <div class="error"> 
     Sorry! Username "{{usr}}" is already taken. Please try again. <br>
@@ -78,6 +86,7 @@
   <div class="error"> 
     Sorry! Your username may NOT include these special characters: ^[~!@#$%^&*()_+{}":;']+$"<br>
    </div>
+
   {% else %}
   Hello, new users! Please fill out this form for your new account:<br>
   {%endif%}

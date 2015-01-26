@@ -7,6 +7,16 @@
     text-align: center;
     font-size: 30px;
     font-weight: bold;
+    font-family: "Times New Roman", Times, serif;
+}
+
+.big-text {
+    font-size: 40px;
+}
+
+.times-new {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 18px;
 }
 
 .texts {
@@ -49,7 +59,25 @@
     text-align: center;
 }
 
+#help-img {
+    opacity: 0.6;
+    filter: alpha(opacity=60); /* For IE8 and earlier */
+}
+
+
+.help {
+    padding-top: 1.5%;
+    float: right;
+}
+
+.profile {
+    padding-top: 1.25%;
+    padding-left: 1%;
+    float: right;
+}
+
 .search-bar {
+    padding-top: 2%;
     float: right;
 }
 
@@ -65,18 +93,6 @@
     text-indent: -9999px;
     background: url('uparrow.png') no-repeat;
 }
-
-/*
-@media all and (max-width: 670px) {
-    ul {
-	height: auto;
-	width: auto;
-    }
-    ul > li {  float: none;
-	       width: 100%;
-	    }
-    }
-*/
 
 /* from PURE buttons-core.css */
 .pure-skin-pretty .pure-button {
@@ -693,7 +709,9 @@ Forms Core
 }
 
 .pure-skin-pretty .pure-menu li {
+/*
     position: relative;
+*/
 }
 
 .pure-skin-pretty .pure-menu a, .pure-skin-pretty .pure-menu .pure-menu-heading {
@@ -708,19 +726,24 @@ Forms Core
 .pure-skin-pretty .pure-menu.pure-menu-horizontal > .pure-menu-heading {
     display: inline-block;
     *display: inline;
+/*
     zoom: 1;
     margin: 0;
     vertical-align: middle;
+    */
 }
 .pure-skin-pretty .pure-menu.pure-menu-horizontal > ul {
     display: inline-block;
     *display: inline;
+    /*
     zoom: 1;
     vertical-align: middle;
-    /* height: 2.4em; removed for Skin Builder */
+    */
 }
 
-.pure-skin-pretty .pure-menu li a { padding: 0.35em 1.4em; }
+.pure-skin-pretty .pure-menu li a {
+    padding: 0.35em 1.4em;
+}
 
 .pure-skin-pretty .pure-menu-can-have-children > .pure-menu-label:after {
     content: '\25B8';
@@ -850,8 +873,6 @@ Forms Core
 /* end from PURE menu-paginator.css ******************************/
 /* from PURE menu.css *******************************************/
 /* MAIN MENU STYLING */
-/*csslint adjoining-classes:false*/
-/*TODO: Remove this lint rule override after a refactor of this code.*/ 
 
 .pure-skin-pretty .pure-menu.pure-menu-open,
 .pure-skin-pretty .pure-menu.pure-menu-horizontal li .pure-menu-children {
