@@ -2,82 +2,83 @@
 <html>
   <div class="pure-skin-pretty">
     
-<head>
-<link rel="stylesheet" href="/static/extras.css">
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+    <head>
+      <link rel="stylesheet" href="/static/extras.css">
+      <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+      <link rel="stylesheet" href="/static/nutritable.css" type="text/css">
+      <link rel="stylesheet" href="/static/dropit/dropit.css" type="text/css">
+      <link rel="stylesheet" href="../static/nutritable.css" type="text/css">
+      <style>
+	.background {
+	opacity: 0.8;
+	filter: alpha(opacity=80); /* For IE8 and earlier */
+	background-image: url("/static/pizza.jpg");
+	background-attachment: fixed;    
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 300 200;
+	}
+      </style>
+      <meta name="viewport" content="width=SITE_MIN_WIDTH, initial-scale=1, maximum-scale=1">
 
-<link rel="stylesheet" href="/static/dropit/dropit.css" type="text/css">
-<style>
-  .background {
-  opacity: 0.8;
-  filter: alpha(opacity=80); /* For IE8 and earlier */
-  background-image: url("/static/pizza.jpg");
-  background-attachment: fixed;    
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 300 200;
-  }
-</style>
-<meta name="viewport" content="width=SITE_MIN_WIDTH, initial-scale=1, maximum-scale=1">
+    </head>
 
-</head>
+    <div class="help">&nbsp;
+      <a href="/help"><img id="help-img" src="/static/help.png" alt="Help Icon"/></a>
+      &nbsp;&nbsp;
+    </div>
 
-<div class="help">&nbsp;
-  <a href="/help"><img id="help-img" src="/static/help.png" alt="Help Icon"/></a>
-&nbsp;&nbsp;
-</div>
-
-{% if loggedin %}
-<div class="profile">
-  <ul class="menu">
-    <li>
-      <a href="#"><img src="/static/user.jpg" alt="Search Icon"/></a>
-      <ul>
-	<li><a href="/profile">Your Profile</a></li>
-        <li><a href="/logout">Logout</a></li>
+    {% if loggedin %}
+    <div class="profile">
+      <ul class="menu">
+	<li>
+	  <a href="#"><img src="/static/user.jpg" alt="Search Icon"/></a>
+	  <ul>
+	    <li><a href="/profile">Your Profile</a></li>
+            <li><a href="/logout">Logout</a></li>
+	  </ul>
+	</li>
       </ul>
-    </li>
-  </ul>
-</div>
-{% endif %}
+    </div>
+    {% endif %}
 
-<div class="search-bar">
-       <form class="pure-form" method="POST">
-	 <input type="text" class="pure-input-rounded" placeholder="Search recipes or keywords..." name="searched">
-	 <button type="submit" class="pure-button">
-	   <img src="/static/search.png" alt="Search Icon"/></button>
-       </form>
+    <div class="search-bar">
+      <form class="pure-form" method="POST">
+	<input type="text" class="pure-input-rounded" placeholder="Search recipes or keywords..." name="searched">
+	<button type="submit" class="pure-button">
+	  <img src="/static/search.png" alt="Search Icon"/></button>
+      </form>
 
-</div>
+    </div>
 
-<div class="pure-menu pure-menu-open pure-menu-horizontal pure-menu-pull-right">
-  <a class="pure-menu-heading" href="/"> 
-    <img src="/static/icon.jpg" alt="FoodMe Icon"/>
- </a>
-   <ul class="times-new">
-     
-     {% if not loggedin %}
-     <li><a href="/">Home</a></li>
-     <li><a href="/about">About</a></li>
-     <li><a href="/random">Random</a></li>
-     <li><a href="/login">Sign In</a></li>
-     <li><a href="/register">Register</a></li>
- 
-     {% else %}
-     
-     <li><a href="/">Home</a></li>
-     <li><a href="/about">About</a></li>
-     <li><a href="/random">Random</a></li>	
-     <li><a href="/favorite">Favorites</a></li>
-     {% endif %}
-   </ul>
-</div>
+    <div class="pure-menu pure-menu-open pure-menu-horizontal pure-menu-pull-right">
+      <a class="pure-menu-heading" href="/"> 
+	<img src="/static/icon.jpg" alt="FoodMe Icon"/>
+      </a>
+      <ul class="times-new">
+	
+	{% if not loggedin %}
+	<li><a href="/">Home</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/random">Random</a></li>
+	<li><a href="/login">Sign In</a></li>
+	<li><a href="/register">Register</a></li>
+	
+	{% else %}
+	
+	<li><a href="/">Home</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/random">Random</a></li>	
+	<li><a href="/favorite">Favorites</a></li>
+	{% endif %}
+      </ul>
+    </div>
 
-<div class="background">
-  <br><br><br><br>
+    <div class="background">
+      <br><br><br><br>
 
-  <div class="rectangle rounded texts">
-     <div class="error">
+      <div class="rectangle rounded texts">
+	<div class="error">
 	  
 	  {% with messages = get_flashed_messages() %}
 	  {% if messages %}
@@ -93,39 +94,163 @@
 	  Incorrect password! Please try again.<br><br>
 	  {% elif notreg %}
 	  Username was not recognized. Please register.<br><br>
-	    {%endif%}
-	  </div>
-  <div class="bold big-text">{{title}}
-    <form action="" method="POST">
-      <button type="submit"><img src="/static/star.png" alt="Favorite Icon"/>Add to Favorites</button>
-    </form>
-  </div>
-  <br>
+	  {%endif%}
+	</div>
+	<div class="bold big-text">{{title}}
+	  <form action="" method="POST">
+	    <button type="submit"><img src="/static/star.png" alt="Favorite Icon"/>Add to Favorites</button>
+	  </form>
+	</div>
+	<br>
+	<div class="times-new-thirty">
+	  Ingredients
+	</div>
+	<ul>
+	  {% for i in ing %}
+	  <li> {{i}} </li>
+	  {% endfor %}
+	</ul>
+	<div class="times-new-thirty"> 
+	  Directions
+	</div>
+	<ol>
+	  {% for i in rec %}
+	  <li> {{i}} </li>
+	  {% endfor %}
+	</ol>
+	<!--Everything below is from n.html-->
+	<div style="padding:20px 50px 10px 50px; font-size:16px">
+	  <table id="tb">
+	    <thead>
+	      <tr>
+		<td colspan="2">
+ 		  <h2 class="nutrition_header">Nutrition Facts</h2></td>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+		<td class="topbar" colspan="2">Serving Size {{sizes}} &nbsp;</td>
+	      </tr>
+	      <tr>
+		<td id="amount" colspan="2">Amount Per Serving</td>
+	      </tr>
+	      <tr>
+		<td class="calbar" colspan="1"><strong>Calories</strong> {{calories}}</td>
+		<td class="calbar" colspan="1"><strong>Calories From Fat</strong> {{fatcals}}</td>
+	      </tr>
+	      <tr>
+ 		<td class="right_align _bottom_" id="dv" colspan="2">% Daily Value*</td>
+	      </tr>
+	      <tr>
+ 		<td class="_bottom_" colspan="1"><strong><DT>Total Fat</strong> {{fat}}g</td>
+ 		<td class="right_align _bottom_" colspan="1">{{fatdv}}%</td>
+	      </tr>
+	      <tr>
+ 		<td class="_bottom_" colspan="1"><DD>Saturated Fat {{satfat}}g</td>
+ 		<td class="right_align _bottom_" colspan="1">{{satfatdv}}%</td>
+	      </tr>
+	      <tr>
+ 		<td class="_bottom_" colspan="2"><DD>Trans Fat {{transfat}}g </td>
+	      </tr>
+	      <tr>
+		<td class="_bottom_" colspan="1"><strong>Cholesterol</strong> {{cholesterol}}mg</td>
+		<td class="right_align _bottom_">{{cholesteroldv}}%</td>
+	      </tr>
+	      <tr>
+		<td class="_bottom_" colspan="1"><strong>Sodium</strong> {{sodium}}mg</td>
+		<td class="right_align _bottom_" colspan="1">{{sodiumdv}}%</td>
+	      </tr>
+	      <tr>
+		<td class="_bottom_" colspan="1"><strong>Total Carbohydrate</strong> {{carb}}g</td>
+		<td class="right_align _bottom_">{{carbdv}}% </td>
+	      </tr>
+	      <tr>
+		<td class="_bottom_" colspan="2"<td class="_bottom_" colspan="1"><DD>Dietary Fiber {{df}}g</DD></td>
+		    </tr>
+	      <tr>
+		<td class="_bottom_" colspan="2"><DD>Sugar {{sugar}}</DD></td>
+	      </tr>
+	      <tr>
+		<td class="topbar" colspan="1"><strong>Protein</strong> {{protein}}g</td>
+		<td class="topbar right_align"> {{proteindv}}%</td>
+	      </tr>
+	      <tr>
+		<td class="_bottom_" colspan="1">Vitamin A <span style="float:right; padding-right:20px">{{vitA}}%</span></td>
+		<td class="_bottom_ " colspan="1"> 
+		  <ul class="dots">
+		    <li>Vitamin C <span style="float:right">{{vitC}}%</span></li>
+		  </ul>
+		</td>
+	      </tr>
+	      <tr>
+		<td class="_graybottom_" colspan="1">Calcium <span style="float:right; padding-right:20px">{{calcium}}%</span>
+		<td class="_graybottom_" colspan="1">
+		  <ul class="dots">
+		    <li>Iron <span style="float:right">{{iron}}%</span></li>
+		  </ul>
+		</td>
+	      </tr>
+	      <tr>
+		<td class="smallinfo" colspan="2"><p>*Percent Daily Values are based on a 2,000 calorie diet. Your daily values may be higher or lower depending on your calorie needs:</p></td>
+	      </tr>
+	      <tr>
+		<td colspan="2">
+		  <table class="smallinfo">
+		    <tr>
+ 		      <td class="_bottom_" colspan="1"></td>
+ 		      <td class="_bottom_">Calories:</td>
+ 		      <td class="_bottom_">2,000</td>
+ 		      <td class="_bottom_">2,500</td>
+		    </tr>
+		    <tr>
+ 		      <td>Total Fat</td>
+ 		      <td>Less than</td>
+ 		      <td>65g</td>
+ 		      <td>80g</td>
+		    </tr>
+		    <tr>
+ 		      <td>Saturated Fat</td>
+ 		      <td>Less than</td>
+ 		      <td>20g</td>
+ 		      <td>25g</td>
+		    </tr>
+		    <tr>
+ 		      <td>Cholesterol</td>
+ 		      <td>Less than</td>
+ 		      <td>300mg</td>
+ 		      <td>300 mg</td>
+		    </tr>
+		    <tr>
+ 		      <td>Sodium</td>
+ 		      <td>Less than</td>
+ 		      <td>2,400mg</td>
+ 		      <td>2,400mg</td>
+		    </tr>
+		    <tr>
+ 		      <td>Total Carbohydrate</td>
+ 		      <td> </td>
+ 		      <td>300g</td>
+ 		      <td>375g</td>
+		    </tr>
+		    <tr>
+ 		      <td>Dietary Fiber</td>
+ 		      <td> </td>
+ 		      <td>25g</td>
+ 		      <td>30g</td>
+		    </tr>
+		  </table>
+		<td>
+	      </tr>
+	  </table>
+	</div>
+      </div>
+      <a href="#" class="scrollup"></a>
 
-  <div class="times-new-thirty">
-    Ingredients
-  </div>
-  <ul>
-    {% for i in ing %}
-    <li> {{i}} </li>
-    {% endfor %}
-  </ul>
-  <div class="times-new-thirty"> 
-    Directions
-  </div>
-  <ol>
-    {% for i in rec %}
-    <li> {{i}} </li>
-    {% endfor %}
-  </ol>
+      <br><br><br><br><br><br><br><br>
 
-</div>
-
-<a href="#" class="scrollup"></a>
-<br><br><br><br><br><br><br><br><br><br><br>
-</div>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="/static/main.js"></script>
-<script src="/static/dropit/dropit.js"></script>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="/static/main.js"></script>
+    <script src="/static/dropit/dropit.js"></script>
 
 </html>

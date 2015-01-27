@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, session, url_for, s
 from functools import wraps
 import MongoWork, recofday
 import re
-import recipes
+import recipes, nutrition
 app = Flask(__name__)
 app.secret_key = "Really secret but not really secret." #session usage
 
@@ -121,6 +121,10 @@ def recipe(tag, num, title):
     nurl = recipes.geturls(db, title)
     rec = recipes.retrecipe(nurl[0]) 
     ing = recipes.reting(nurl[1])
+    nutrifact = nutrition.parser(ing)
+    n = nutrifact[0]
+    allergen= nutrifact[1]
+    measurement = nutrifact[2]
     if 'username' in session:
         loggedin = True
         username = escape(session['username'])
@@ -132,12 +136,9 @@ def recipe(tag, num, title):
                 return redirect(url_for("recipeList", tag = request.form['searched']))
         else:
             if loggedin: #logged in: add to favorites, redirect to same page, and flash message
-          #      mongo_input =  {'title': title,
-          #                      'ing': ing,
-          #                        'rec': rec }
-                mongo_input = { 'rec': rec,
+                mongo_input =  {'atitle': title,
                                 'ing': ing,
-                                'title': title }
+                                'rec': rec }
                 MongoWork.update_favorites(username, mongo_input)
                 print MongoWork.find_favorites(username)
                 flash("Added recipe to Favorites!");
@@ -146,7 +147,36 @@ def recipe(tag, num, title):
                 flash("Please log in to use the Add to Favorites feature!")
                 return redirect(url_for("recipe", tag = tag, num=num, title=title))
     else: ##GET METHOD
-        return render_template("recipe.html", loggedin=loggedin, title=title, rec = rec, ing = ing)
+        return render_template("recipe.html", 
+                               loggedin=loggedin, 
+                               title=title, 
+                               rec = rec, 
+                               ing = ing,  
+                               sizes = "1 meal",
+                               serverpcont = "1" ,
+                               calories = nutrition.nformat(n,"nf_calories"),
+                               fatcals = nutrition.nformat(n,"nf_calories_from_fat"),
+                               fat = nutrition.nformat(n,"nf_total_fat"), 
+                               fatdv = nutrition.nformat(n,"nf_total_fat",65), 
+                               satfat = nutrition.nformat(n,"nf_saturated_fat"), 
+                               satfatdv = nutrition.nformat(n,"nf_saturated_fat",20),
+                               transfat = nutrition.nformat(n,"nf_trans_fatty_acid"),
+                               cholesterol = nutrition.nformat(n,"nf_cholesterol"),
+                               cholesteroldv = nutrition.nformat(n,"nf_cholesterol",300),
+                               sodium = nutrition.nformat(n,"nf_sodium"),
+                               sodiumdv = nutrition.nformat(n,"nf_sodium",2400),
+                               carb = nutrition.nformat(n,"nf_total_carbohydrate"), 
+                               carbdv = nutrition.nformat(n,"nf_total_carbohydrate",300), 
+                               df = nutrition.nformat(n,"nf_dietary_fiber"), 
+                               sugar = nutrition.nformat(n,"nf_sugars"),
+                               protein = nutrition.nformat(n,"nf_protein"),
+                               proteindv = nutrition.nformat(n,"nf_protein",50),
+                               vitA = nutrition.nformat(n,"nf_vitamin_a_dv"),
+                               vitC = nutrition.nformat(n,"nf_vitamin_a_dv"),
+                               calcium = nutrition.nformat(n,"nf_calcium_dv"),
+                               iron= nutrition.nformat(n,"nf_iron_dv"),
+                               allergens = allergen
+                           )
     
 @app.route("/login", methods=["POST","GET"])
 def login():
@@ -202,19 +232,35 @@ def favorite():
     
 @app.route("/random", methods=["POST","GET"])
 def random():
-    if request.method == "POST":
-        if request.form['searched']!= "":
-            return redirect(url_for("recipeList", tag = request.form['searched']))
     rand = recofday.rand()
     randrec = recipes.retrecipe(rand['source_url'])
     randing = recipes.reting(rand['f2f_url'])
     if 'username' in session:
         loggedin = True
         username = escape(session['username'])
-        return render_template("random.html", loggedin=loggedin,username=username, randrec=randrec, randing=randing, randtitle= rand['title'])
     else:
         loggedin = False
-    return render_template("random.html", loggedin=loggedin, randrec=randrec, randing= randing, randtitle=rand['title'])
+    if request.method == "POST":
+        if 'searched' in request.form:
+            if request.form['searched']!= "":
+                return redirect(url_for("recipeList", tag = request.form['searched']))
+        else: ##add to favorites
+            if loggedin: #logged in: add to favorites, redirect to same page, and flash message
+                mongo_input =  {'atitle': title,
+                                'ing': ing,
+                                'rec': rec }
+                MongoWork.update_favorites(username, mongo_input)
+                print MongoWork.find_favorites(username)
+                flash("Added recipe to Favorites!");
+                return redirect(url_for("login"))
+            else:
+                flash("Please log in to use the Add to Favorites feature!")
+                return redirect(url_for("favorite"))
+    else:
+        if loggedin:
+            return render_template("random.html", loggedin=loggedin,username=username, randrec=randrec, randing=randing, randtitle= rand['title'])
+        else:
+            return render_template("random.html", loggedin=loggedin, randrec=randrec, randing= randing, randtitle=rand['title'])
 
 #must pop off session
 @app.route("/logout")
