@@ -98,7 +98,6 @@ def recipeList(tag):
         username = escape(session['username'])
     else:
         loggedin = False
-    print "HELLO"
     if request.method == 'POST':
         if 'searched' in request.form:
             if request.form['searched']!= "": #using search bar
@@ -222,11 +221,11 @@ def favorite():
             return redirect(url_for("recipeList", tag = request.form['searched']))
     else:
         favorites = MongoWork.find_favorites(username)
-        if favorites == None:
+        if favorites == []:
             empty = True
             return render_template("favorite.html", empty=empty)
         else:
-            print favorites
+            #print favorites
             return render_template("favorite.html", favorites=favorites)
         #return render_template("favorite.html",rand=recofday.rand())
     
@@ -247,8 +246,8 @@ def random():
         else: ##add to favorites
             if loggedin: #logged in: add to favorites, redirect to same page, and flash message
                 mongo_input =  {'atitle': title,
-                                'ing': ing,
-                                'rec': rec }
+                                'ing': randing,
+                                'rec': randrec }
                 MongoWork.update_favorites(username, mongo_input)
                 print MongoWork.find_favorites(username)
                 flash("Added recipe to Favorites!");
