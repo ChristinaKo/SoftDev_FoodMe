@@ -65,6 +65,7 @@ def fractioncheck(x):
     if x.find("/") == -1:
         try:
             f = float(x)
+            return x
         except:
             return 0
     else:
