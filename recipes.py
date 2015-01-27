@@ -8,10 +8,10 @@ iurl = ""
 #Angela's key: 935a5bc621fcb061d17b50ef48278d1d
 #Christina's key: 64e7c9ab4a5b566ec0aee5ea832f1ee2
 #Key 3: 73fabb20981c227717084598dff04287
-
+#Key #4:ea433f0fab9479fcdb2601ee80912e5c
 def getSearchVal(tag,num):
-    #url = "http://food2fork.com/api/search?key=73fabb20981c227717084598dff04287&q=%s&page=%s"
-    url = "http://food2fork.com/api/search?key=64e7c9ab4a5b566ec0aee5ea832f1ee2&q=%s&page=%s"
+    url = "http://food2fork.com/api/search?key=ea433f0fab9479fcdb2601ee80912e5c&q=%s&page=%s"
+    #url = "http://food2fork.com/api/search?key=64e7c9ab4a5b566ec0aee5ea832f1ee2&q=%s&page=%s"
     #url = "http://food2fork.com/api/search?key=935a5bc621fcb061d17b50ef48278d1d&q=%s&page=%s"
     url = url%(tag,num)
     request = urllib2.urlopen(url)

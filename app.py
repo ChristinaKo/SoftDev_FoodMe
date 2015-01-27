@@ -136,12 +136,9 @@ def recipe(tag, num, title):
                 return redirect(url_for("recipeList", tag = request.form['searched']))
         else:
             if loggedin: #logged in: add to favorites, redirect to same page, and flash message
-          #      mongo_input =  {'title': title,
-          #                      'ing': ing,
-          #                        'rec': rec }
-                mongo_input = { 'rec': rec,
+                mongo_input =  {'atitle': title,
                                 'ing': ing,
-                                'title': title }
+                                'rec': rec }
                 MongoWork.update_favorites(username, mongo_input)
                 print MongoWork.find_favorites(username)
                 flash("Added recipe to Favorites!");
@@ -249,12 +246,9 @@ def random():
                 return redirect(url_for("recipeList", tag = request.form['searched']))
         else: ##add to favorites
             if loggedin: #logged in: add to favorites, redirect to same page, and flash message
-                #      mongo_input =  {'title': title,
-                #                      'ing': ing,
-                #                        'rec': rec }
-                mongo_input = { 'rec': randrec,
-                                'ing': randing,
-                                'title': rand['title'] }
+                mongo_input =  {'atitle': title,
+                                'ing': ing,
+                                'rec': rec }
                 MongoWork.update_favorites(username, mongo_input)
                 print MongoWork.find_favorites(username)
                 flash("Added recipe to Favorites!");

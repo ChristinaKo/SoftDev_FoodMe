@@ -89,22 +89,22 @@
     {% if empty %}
          Currently, you have no favorite recipes to display! :(
     {% else %}
-     {% for f in favorites %}
-    <li>
-      {% for key, value in f.iteritems() %}
-          {% if key == "title" %}
-             {{value}}
-          {% elif key == "ing" %}
-           Ingredients:
+    {% for f in favorites %}
+      {% for key, value in f|dictsort %}
+          {% if key == "atitle" %}
+             <li class="trigger">{{value}}</li>
+      <div class="toggle-e"><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;{% elif key == "ing" %}
+           <b>Ingredients:</b>
               {% for i in value %}
               <li class="list-u">{{i}}</li>
 	      {% endfor %}
 	  {% elif key == "rec" %}
-	   Instructions:   
+	   <b>Instructions:</b>   
 	      {% for i in value %}
               <li class="list-f">{{i}}</li>
 	      {% endfor %}    
-    </li>
+    </div>
           {% endif %}
      {% endfor %}
     {% endfor %}
