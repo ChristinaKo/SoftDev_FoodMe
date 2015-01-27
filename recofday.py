@@ -3,10 +3,12 @@ import json
 import random
 from bs4 import BeautifulSoup
 
-#Angela's key:935a5bc621fcb061d17b50ef48278d1d
+#Angela's key: 935a5bc621fcb061d17b50ef48278d1d
+#Christina's key: 64e7c9ab4a5b566ec0aee5ea832f1ee2
 #Key 3: 73fabb20981c227717084598dff04287
-url = "http://food2fork.com/api/search?key=73fabb20981c227717084598dff04287&q=%s&page=%s"
 
+#url = "http://food2fork.com/api/search?key=73fabb20981c227717084598dff04287&q=%s&page=%s"
+url = "http://food2fork.com/api/search?key=64e7c9ab4a5b566ec0aee5ea832f1ee2&q=%s&page=%s"
 #url = "http://food2fork.com/api/search?key=935a5bc621fcb061d17b50ef48278d1d&q=%s&page=%s"
 def rand():
     randletter = random.choice("abcdefghijklmnopqrstuvwxyz")
