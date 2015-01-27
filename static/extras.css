@@ -5,29 +5,29 @@
 .error {
     color: red;
     text-align: center;
-    font-size: 30px;
+    font-size: 24px;
     font-weight: bold;
     font-family: "Times New Roman", Times, serif;
 }
 
 .big-text {
-    font-size: 40px;
+    font-size: 30px;
     font-family: "Times New Roman", Times, serif;
    
 }
 
 .times-new-thirty {
     font-family: "Times New Roman", Times, serif;
-    font-size: 30px;
+    font-size: 24px;
 }
 .times-new {
     font-family: "Times New Roman", Times, serif;
-    font-size: 18px;
+    font-size: 14px;
 }
 
 .texts {
     color: black;
-    font-size: 30px;
+    font-size: 24px;
     font-family: "Times New Roman", Times, serif;
     margin-left: auto;
     margin-right: auto;
@@ -40,15 +40,15 @@
 }
 
 .rectangle{
-    padding-top: 5%;
-    padding-bottom: 5%;
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    padding-left: 2%;
+    padding-right: 2%;
     display: block;
     margin-left: auto;
     margin-right: auto;
     position: relative;
-    width: 45%;
+    width: 75%;
     overflow: hidden;
     background: white;
     opacity: 0.8;

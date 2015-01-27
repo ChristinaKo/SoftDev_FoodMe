@@ -2,15 +2,19 @@
     border-spacing:0px;
     border:1px solid black;
     padding:5px;
-    width:450px;
+    width:80%;
+    font-size:16px;
+    border-collapse:separate;
+    table-layout:fixed;
+    display:inline-table;
 }
 #dv{
     font-weight:bold;
-    font-size:.82em;
+    font-size:.62em;
 }
 .nutrition_header{
     text-decoration:none;
-    font-size:1.7em;
+    font-size:1.3em;
     margin:2px;
 }
 
@@ -20,7 +24,7 @@
 }
 #amount{
     font-weight:bold;
-    font-size:.82em;
+    font-size:.62em;
     padding-bottom:4px;
 }
 .calbar{
@@ -38,6 +42,7 @@
 }
 td{
     padding:2px;
+    white-space:nowrap;
 }
 tr{
     padding:2px;
@@ -55,7 +60,7 @@ tr{
 }
 
 .smallinfo{
-    font-size:.82em;
-    width:100%;
+    font-size:.62em;
+    width:70%;
     border-spacing:0px;
 }

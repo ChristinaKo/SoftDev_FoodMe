@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
 <link rel="stylesheet" href="/static/nutritable.css" type="text/css">
 <link rel="stylesheet" href="/static/dropit/dropit.css" type="text/css">
+<link rel="stylesheet" href="/static/nutritable.css" type="text/css">
 <style>
   .background {
   opacity: 0.8;
@@ -24,7 +25,7 @@
 
 <div class="help">&nbsp;
   <a href="/help"><img id="help-img" src="/static/help.png" alt="Help Icon"/></a>
-&nbsp;&nbsp;
+  &nbsp;&nbsp;
 </div>
 
 {% if loggedin %}
@@ -42,99 +43,100 @@
 {% endif %}
 
 <div class="search-bar">
-       <form class="pure-form" method="POST">
-	 <input type="text" class="pure-input-rounded" placeholder="Search recipes or keywords..." name="searched">
-	 <button type="submit" class="pure-button">
-	   <img src="/static/search.png" alt="Search Icon"/></button>
-       </form>
+  <form class="pure-form" method="POST">
+    <input type="text" class="pure-input-rounded" placeholder="Search recipes or keywords..." name="searched">
+    <button type="submit" class="pure-button">
+      <img src="/static/search.png" alt="Search Icon"/></button>
+  </form>
 
 </div>
 
 <div class="pure-menu pure-menu-open pure-menu-horizontal pure-menu-pull-right">
   <a class="pure-menu-heading" href="/"> 
     <img src="/static/icon.jpg" alt="FoodMe Icon"/>
- </a>
-   <ul class="times-new">
-     
-     {% if not loggedin %}
-     <li><a href="/">Home</a></li>
-     <li><a href="/about">About</a></li>
-     <li><a href="/random">Random</a></li>
-     <li><a href="/login">Sign In</a></li>
-     <li><a href="/register">Register</a></li>
- 
-     {% else %}
-     
-     <li><a href="/">Home</a></li>
-     <li><a href="/about">About</a></li>
-     <li><a href="/random">Random</a></li>	
-     <li><a href="/favorite">Favorites</a></li>
-     {% endif %}
-   </ul>
+  </a>
+  <ul class="times-new">
+    
+    {% if not loggedin %}
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/random">Random</a></li>
+    <li><a href="/login">Sign In</a></li>
+    <li><a href="/register">Register</a></li>
+    
+    {% else %}
+    
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/random">Random</a></li>	
+    <li><a href="/favorite">Favorites</a></li>
+    {% endif %}
+  </ul>
 </div>
 
 <div class="background">
   <br><br><br><br>
 
   <div class="rectangle rounded texts">
-     <div class="error">
-	  
-	  {% with messages = get_flashed_messages() %}
-	  {% if messages %}
-	  <div class=flashes>
-	    {% for message in messages %}
-	    {{ message }}
-	    {% endfor %}
-	  </div>
-	  {% endif %}
-	  {% endwith %}
-	  
-	  {% if error %}
-	  Incorrect password! Please try again.<br><br>
-	  {% elif notreg %}
-	  Username was not recognized. Please register.<br><br>
-	    {%endif%}
-	  </div>
-  <div class="bold big-text">{{title}}
-    <form action="" method="POST">
-      <button type="submit"><img src="/static/star.png" alt="Favorite Icon"/>Add to Favorites</button>
-    </form>
-  </div>
-  <br>
-  <div class="times-new-thirty">
-    Ingredients
-  </div>
-  <ul>
-    {% for i in ing %}
-    <li> {{i}} </li>
-    {% endfor %}
-  </ul>
-  <div class="times-new-thirty"> 
-    Directions
-  </div>
-  <ol>
-    {% for i in rec %}
-    <li> {{i}} </li>
-    {% endfor %}
-  </ol>
-<!--Everything below is from n.html-->
- <table id="tb">
-    <thead>
-      <tr>
- 	<td colspan="2">
- 	  <h2 class="nutrition_header">Nutrition Facts</h2></td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
- 	<td class="topbar" colspan="2">Serving Size {{sizes}} &nbsp;</td>
-      </tr>
-      <tr>
- 	<td id="amount" colspan="2">Amount Per Serving</td>
-      </tr>
-      <tr>
- 	<td class="calbar"  colspan="1"><strong>Calories</strong> {{calories}}</td>
- 	<td class="calbar"><strong>Calories From Fat</strong> {{fatcals}}</td>
+    <div class="error">
+      
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <div class=flashes>
+	{% for message in messages %}
+	{{ message }}
+	{% endfor %}
+      </div>
+      {% endif %}
+      {% endwith %}
+      
+      {% if error %}
+      Incorrect password! Please try again.<br><br>
+      {% elif notreg %}
+      Username was not recognized. Please register.<br><br>
+      {%endif%}
+    </div>
+    <div class="bold big-text">{{title}}
+      <form action="" method="POST">
+	<button type="submit"><img src="/static/star.png" alt="Favorite Icon"/>Add to Favorites</button>
+      </form>
+    </div>
+    <br>
+    <div class="times-new-thirty">
+      Ingredients
+    </div>
+    <ul>
+      {% for i in ing %}
+      <li> {{i}} </li>
+      {% endfor %}
+    </ul>
+    <div class="times-new-thirty"> 
+      Directions
+    </div>
+    <ol>
+      {% for i in rec %}
+      <li> {{i}} </li>
+      {% endfor %}
+    </ol>
+    <!--Everything below is from n.html-->
+    <table id="tb">
+      <thead>
+    <tr>
+      <td colspan="2">
+ 	<h2 class="nutrition_header">Nutrition Facts</h2></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="topbar" colspan="2">Serving Size {{sizes}} &nbsp;</td>
+      <td> blank </td>
+    </tr>
+    <tr>
+      <td id="amount" colspan="2">Amount Per Serving</td>
+    </tr>
+    <tr>
+      <td class="calbar" colspan="1"><strong>Calories</strong> {{calories}}</td>
+      <td class="calbar" colspan="1"><strong>Calories From Fat</strong> {{fatcals}}</td>
       </tr>
       <tr>
  	<td class="right_align _bottom_" id="dv" colspan="2">% Daily Value*</td>
@@ -142,11 +144,11 @@
       <tr>
  	<DL>
  	<td class="_bottom_" colspan="1"><strong><DT>Total Fat</strong> {{fat}}g</td>
- 	<td class="right_align _bottom_">{{fatdv}}%</td>
+ 	<td class="right_align _bottom_" colspan="1">{{fatdv}}%</td>
       </tr>
       <tr>
  	<td class="_bottom_" colspan="1"><DD>Saturated Fat {{satfat}}g</td>
- 	<td class="right_align _bottom_">{{satfatdv}}%</td>
+ 	<td class="right_align _bottom_" colspan="1">{{satfatdv}}%</td>
       </tr>
       <tr>
  	<td class="_bottom_" colspan="2"><DD>Trans Fat {{transfat}}g </td>
@@ -158,7 +160,7 @@
       </tr>
       <tr>
  	<td class="_bottom_" colspan="1"><strong>Sodium</strong> {{sodium}}mg</td>
- 	<td class="right_align _bottom_">{{sodiumdv}}%</td>
+ 	<td class="right_align _bottom_" colspan="1">{{sodiumdv}}%</td>
       </tr>
       <tr>
  	<td class="_bottom_" colspan="1"><strong>Total Carbohydrate</strong> {{carb}}g</td>
@@ -176,7 +178,7 @@
       </tr>
       <tr>
  	<td class="_bottom_" colspan="1">Vitamin A <span style="float:right; padding-right:20px">{{vitA}}%</span></td>
- 	<td class="_bottom_ ">
+ 	<td class="_bottom_ " colspan="1"> 
  	  <ul class="dots">
  	    <li>Vitamin C <span style="float:right">{{vitC}}%</span></li>
  	  </ul>
@@ -184,7 +186,7 @@
       </tr>
       <tr>
  	<td class="_graybottom_" colspan="1">Calcium <span style="float:right; padding-right:20px">{{calcium}}%</span>
- 	<td class="_graybottom_">
+ 	<td class="_graybottom_" colspan="1">
  	  <ul class="dots">
  	    <li>Iron <span style="float:right">{{iron}}%</span></li>
  	  </ul>
@@ -241,10 +243,13 @@
  	  </table>
  	<td>
       </tr>
-  </table>
+</table>
 </div>
+
 <a href="#" class="scrollup"></a>
-<br><br><br><br><br><br><br><br><br><br><br>
+
+<br><br><br><br><br><br><br><br>
+
 </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="/static/main.js"></script>
