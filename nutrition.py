@@ -74,10 +74,6 @@ def nformat(dic, s, dv = None):
         dv = 1
         percent = 1
     if s in dic.keys():
-        print s
-        print dic[s]
-        print dv
-        print percent
         return int(dic[s]*percent/dv)
     return 0
 
