@@ -103,6 +103,11 @@ def recipeList(tag):
             if request.form['searched']!= "": #using search bar
                 return redirect(url_for("recipeList", tag = request.form['searched']))   
     else:
+        tagL = tag.split()
+        if len(tagL)>1:
+            tag="%20".join(tagL)
+        else:
+            tag= tagL[0]
         num = 1
         reclist = []
         while num <=4:
