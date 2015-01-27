@@ -134,6 +134,7 @@ def parser(ingredlist):
     searchL = []
     allergens = []
     nutri= {}
+    measurement = ""
     #setting up for searching
     for i in ingredlist:
         ingred = i.strip() 
@@ -163,7 +164,7 @@ def parser(ingredlist):
         except:
             #do nothing....
             pass
-        if check(x[0]):
+        if len(x)>0 and measurement != "" and check(x[0]):
             measurement=x[0]
             x.pop(0)
             searchL= clean(x)
