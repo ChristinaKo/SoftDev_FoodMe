@@ -171,43 +171,46 @@ def parser(ingredlist):
 
 ############################FLASK COMMANDS################################
 # this should go into the search engine part..... im using another html file just just test this out
-@app.route("/nutrition")
-def run():
-######################## This should be replaced with the actual input from f2f
-    source = ["1/2 cup grated Parmesan cheese", "1 teaspoon salt", "1 teaspoon dried thyme", "1 tablespoon dried basil", "1/2 cup butter, melted"]
-###########################
-    nutrifact = parser(source)
-    n = nutrifact[0]
-    allergen= nutrifact[1]
-    return render_template("n.html",
-                           sizes = "1 meal",
-                           serverpcont = "1" ,
-                           calories = nformat(n,"nf_calories"),
-                           fatcals = nformat(n,"nf_calories_from_fat"),
-                           fat = nformat(n,"nf_total_fat"), 
-                           fatdv = nformat(n,"nf_total_fat",65), 
-                           satfat = nformat(n,"nf_saturated_fat"), 
-                           satfatdv = nformat(n,"nf_saturated_fat",20),
-                           transfat = nformat(n,"nf_trans_fatty_acid"),
-                           cholesterol = nformat(n,"nf_cholesterol"),
-                           cholesteroldv = nformat(n,"nf_cholesterol",300),
-                           sodium = nformat(n,"nf_sodium"),
-                           sodiumdv = nformat(n,"nf_sodium",2400),
-                           carb = nformat(n,"nf_total_carbohydrate"), 
-                           carbdv = nformat(n,"nf_total_carbohydrate",300), 
-                           df = nformat(n,"nf_dietary_fiber"), 
-                           sugar = nformat(n,"nf_sugars"),
-                           protein = nformat(n,"nf_protein"),
-                           proteindv = nformat(n,"nf_protein",50),
-                           vitA = nformat(n,"nf_vitamin_a_dv"),
-                           vitC = nformat(n,"nf_vitamin_a_dv"),
-                           calcium = nformat(n,"nf_calcium_dv"),
-                           iron= nformat(n,"nf_iron_dv"),
-                           allergens = allergen
-                           )
 
+##############NOT COMPLETED --- just a template to be completed later###########
+
+# @app.route("/nutrition", methods = ["GET"])
+# def run():
+#     source = ["3 skinless, boneless chicken breasts", "1 cup Italian seasoned bread crumbs", "1/2 cup grated Parmesan cheese", "1 teaspoon salt", "1 teaspoon dried thyme", "1 tablespoon dried basil", "1/2 cup butter, melted"]
+#     nutrifact = parser(source)
+#     n = nutrifact[0]
+#     allergen= nutrifact[1]
+#     measurement = nutrifact[2]
+#     return render_template("n.html",
+#                            sizes = "1 meal",
+                           # serverpcont = "1" ,
+                           # calories = nformat(n,"nf_calories"),
+                           # fatcals = nformat(n,"nf_calories_from_fat"),
+                           # fat = nformat(n,"nf_total_fat"), 
+                           # fatdv = nformat(n,"nf_total_fat",65), 
+                           # satfat = nformat(n,"nf_saturated_fat"), 
+                           # satfatdv = nformat(n,"nf_saturated_fat",20),
+                           # transfat = nformat(n,"nf_trans_fatty_acid"),
+                           # cholesterol = nformat(n,"nf_cholesterol"),
+                           # cholesteroldv = nformat(n,"nf_cholesterol",300),
+                           # sodium = nformat(n,"nf_sodium"),
+                           # sodiumdv = nformat(n,"nf_sodium",2400),
+                           # carb = nformat(n,"nf_total_carbohydrate"), 
+                           # carbdv = nformat(n,"nf_total_carbohydrate",300), 
+                           # df = nformat(n,"nf_dietary_fiber"), 
+                           # sugar = nformat(n,"nf_sugars"),
+                           # protein = nformat(n,"nf_protein"),
+                           # proteindv = nformat(n,"nf_protein",50),
+                           # vitA = nformat(n,"nf_vitamin_a_dv"),
+                           # vitC = nformat(n,"nf_vitamin_a_dv"),
+                           # calcium = nformat(n,"nf_calcium_dv"),
+                           # iron= nformat(n,"nf_iron_dv"),
+                           # allergens = allergen
+                           #)
+                          
 ##########################################################################
 ############Testing Section
-if __name__ == "__main__":
-    app.debug = True
-    app.run()
+
+# if __name__ == "__main__":
+#     app.debug=True
+#     app.run()
