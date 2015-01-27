@@ -63,10 +63,17 @@ def clean (L):
     return " ".join(L)
 def fractioncheck(x):
     if x.find("/") == -1:
-        return x
+        try:
+            f = float(x)
+        except:
+            return x
     else:
         z = x.split('/')
-        return float(z[0])/float(z[1])
+        try:
+            f= float(z[0])/float(z[1])
+            return f
+        except:
+            return 0
 
 def nformat(dic, s, dv = None):
     percent = 100
