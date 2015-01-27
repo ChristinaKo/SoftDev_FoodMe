@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, session, url_for, s
 from functools import wraps
 import MongoWork, recofday
 import re
-import recipes
+import recipes, nutrition
 app = Flask(__name__)
 app.secret_key = "Really secret but not really secret." #session usage
 
@@ -18,6 +18,9 @@ def authenticate(f):
 
 @app.route("/about", methods=["POST","GET"])
 def about():
+    if request.method == "POST":
+        if request.form['searched']!= "":
+            return redirect(url_for("recipeList", tag = request.form['searched']))
     if 'username' in session:
         loggedin = True
         username = escape(session['username'])
@@ -28,13 +31,17 @@ def about():
 
 @app.route("/help", methods=["POST","GET"])
 def help():
+    if request.method == 'POST':
+        if request.form['searched']!= "":
+            return redirect(url_for("recipeList", tag = request.form['searched']))
     if 'username' in session:
         loggedin = True
         username = escape(session['username'])
         return render_template("help.html", loggedin=loggedin,username=username)
     else:
         loggedin = False
-    return render_template("help.html", loggedin=loggedin)
+        return render_template("help.html", loggedin=loggedin)
+    
 
 @app.route("/", methods=["POST","GET"])
 def index():
@@ -55,24 +62,28 @@ def profile():
     username = escape(session['username'])
     #POST METHOD MEANS UPDATING PASSWORD
     if request.method == 'POST':
-        real_pwd = MongoWork.find_pword(username)
-        currpwd = request.form.get("curpas")
-        if currpwd != real_pwd:
-            flash("Sorry! Please enter the correct current password!")
-            return redirect(url_for("profile"))
-        newpwdinput = request.form.get("newpas")
-        newrepwdinput = request.form.get("newrepas")
-        if newpwdinput == newrepwdinput and check_pword(newpwdinput): #matched successfully, update passwords
-            username = escape(session['username'])
-            MongoWork.update_password(username,newpwdinput)
-            flash("Password was successfully updated.")
-            return redirect(url_for("profile"))
-        elif not check_pword(newpwdinput):
-            flash("Your password must be at least SIX characters long and have an uppercase letter, lowercase letter, and a number!")
-            return redirect(url_for("profile"))
+        if 'searched' in request.form:
+            if request.form['searched']!= "":
+                return redirect(url_for("recipeList", tag = request.form['searched']))
         else:
-            flash("Passwords did not match. Password was not updated.")
-            return redirect(url_for("profile"))
+            real_pwd = MongoWork.find_pword(username)
+            currpwd = request.form.get("curpas")
+            if currpwd != real_pwd:
+                flash("Sorry! Please enter the correct current password!")
+                return redirect(url_for("profile"))
+            newpwdinput = request.form.get("newpas")
+            newrepwdinput = request.form.get("newrepas")
+            if newpwdinput == newrepwdinput and check_pword(newpwdinput): #matched successfully, update passwords
+                username = escape(session['username'])
+                MongoWork.update_password(username,newpwdinput)
+                flash("Password was successfully updated.")
+                return redirect(url_for("profile"))
+            elif not check_pword(newpwdinput):
+                flash("Your password must be at least SIX characters long and have an uppercase letter, lowercase letter, and a number!")
+                return redirect(url_for("profile"))
+            else:
+                flash("Passwords did not match. Password was not updated.")
+                return redirect(url_for("profile"))
     else: #GET METHOD
         user_info = MongoWork.find_usrinfo(username)
         fname = user_info['firstname']
@@ -80,52 +91,120 @@ def profile():
         u = user_info['uname']
         return render_template("profile.html",fname=fname, lname=lname,u=u); 
 
-@app.route("/recipes/<tag>")
+@app.route("/recipes/<tag>", methods=['POST','GET'])
 def recipeList(tag):
-    num = 0
-    reclist = []
-    while num <=3:
-        db = recipes.getSearchVal(tag,num)
-        if db['count'] !=  0:
-            reclist = reclist + recipes.getrecipes(db, num)
-            num =  num + 1
+    if 'username' in session:
+        loggedin = True
+        username = escape(session['username'])
+    else:
+        loggedin = False
+    print "HELLO"
+    if request.method == 'POST':
+        if 'searched' in request.form:
+            if request.form['searched']!= "": #using search bar
+                return redirect(url_for("recipeList", tag = request.form['searched']))   
+    else:
+        num = 1
+        reclist = []
+        while num <=4:
+            db = recipes.getSearchVal(tag,num)
+            if db['count'] !=  0:
+                reclist = reclist + recipes.getrecipes(db, num)
+                num =  num + 1
+            else:
+                break
+        return render_template("recipes.html", loggedin = loggedin, tag = tag, reclist = reclist)    
 
-        else:
-
-            break
-    return render_template("recipes.html", tag = tag, reclist = reclist)    
-
-@app.route("/recipes/<tag>/<num>/<title>")
+@app.route("/recipes/<tag>/<num>/<title>", methods=["POST","GET"])
 def recipe(tag, num, title):
     db = recipes.getSearchVal(tag, num)
     nurl = recipes.geturls(db, title)
     rec = recipes.retrecipe(nurl[0]) 
     ing = recipes.reting(nurl[1])
-    return render_template("recipe.html", title=title, rec = rec, ing = ing)
-
+    nutrifact = nutrition.parser(ing)
+    n = nutrifact[0]
+    allergen= nutrifact[1]
+    measurement = nutrifact[2]
+    if 'username' in session:
+        loggedin = True
+        username = escape(session['username'])
+    else:
+        loggedin = False
+    if request.method == 'POST':
+        if 'searched' in request.form:
+            if request.form['searched']!= "": #using search bar
+                return redirect(url_for("recipeList", tag = request.form['searched']))
+        else:
+            if loggedin: #logged in: add to favorites, redirect to same page, and flash message
+                mongo_input =  {'atitle': title,
+                                'ing': ing,
+                                'rec': rec }
+                MongoWork.update_favorites(username, mongo_input)
+                print MongoWork.find_favorites(username)
+                flash("Added recipe to Favorites!");
+                return redirect(url_for("recipe", tag = tag, num=num, title=title))
+            else:
+                flash("Please log in to use the Add to Favorites feature!")
+                return redirect(url_for("recipe", tag = tag, num=num, title=title))
+    else: ##GET METHOD
+        return render_template("recipe.html", 
+                               loggedin=loggedin, 
+                               title=title, 
+                               rec = rec, 
+                               ing = ing,  
+                               sizes = "1 meal",
+                               serverpcont = "1" ,
+                               calories = nutrition.nformat(n,"nf_calories"),
+                               fatcals = nutrition.nformat(n,"nf_calories_from_fat"),
+                               fat = nutrition.nformat(n,"nf_total_fat"), 
+                               fatdv = nutrition.nformat(n,"nf_total_fat",65), 
+                               satfat = nutrition.nformat(n,"nf_saturated_fat"), 
+                               satfatdv = nutrition.nformat(n,"nf_saturated_fat",20),
+                               transfat = nutrition.nformat(n,"nf_trans_fatty_acid"),
+                               cholesterol = nutrition.nformat(n,"nf_cholesterol"),
+                               cholesteroldv = nutrition.nformat(n,"nf_cholesterol",300),
+                               sodium = nutrition.nformat(n,"nf_sodium"),
+                               sodiumdv = nutrition.nformat(n,"nf_sodium",2400),
+                               carb = nutrition.nformat(n,"nf_total_carbohydrate"), 
+                               carbdv = nutrition.nformat(n,"nf_total_carbohydrate",300), 
+                               df = nutrition.nformat(n,"nf_dietary_fiber"), 
+                               sugar = nutrition.nformat(n,"nf_sugars"),
+                               protein = nutrition.nformat(n,"nf_protein"),
+                               proteindv = nutrition.nformat(n,"nf_protein",50),
+                               vitA = nutrition.nformat(n,"nf_vitamin_a_dv"),
+                               vitC = nutrition.nformat(n,"nf_vitamin_a_dv"),
+                               calcium = nutrition.nformat(n,"nf_calcium_dv"),
+                               iron= nutrition.nformat(n,"nf_iron_dv"),
+                               allergens = allergen
+                           )
+    
 @app.route("/login", methods=["POST","GET"])
 def login():
     error = None
     if request.method == 'POST':
-        userinput = request.form['user']
-        pwdinput = request.form['passwd']
-        #print MongoWork.check_user_in_db(userinput)
-        if MongoWork.check_user_in_db(userinput) != None:
-            if MongoWork.find_pword(userinput) == pwdinput: ##SUCCESSFULLY LOGGED IN
-                session['username'] = userinput
-                redirect_necessary = request.args.get('redirect_user')
-                #redirecting after login
-                if redirect_necessary:
-                    return redirect(url_for("profile"))
-                else:
-                    return redirect(url_for('index',username=userinput))
-            else:#incorrect password error
-                error = True
-                return render_template("login.html" ,error=error)
+        if 'searched' in request.form:
+            if request.form['searched']!= "": #using search bar
+                return redirect(url_for("recipeList", tag = request.form['searched']))
         else:
-            #print "not in users"
-            notreg = True
-            return render_template("login.html", notreg = notreg)
+            userinput = request.form['user']
+            pwdinput = request.form['passwd']
+            #print MongoWork.check_user_in_db(userinput)
+            if MongoWork.check_user_in_db(userinput) != None:
+                if MongoWork.find_pword(userinput) == pwdinput: ##SUCCESSFULLY LOGGED IN
+                    session['username'] = userinput
+                    redirect_necessary = request.args.get('redirect_user')
+                    #redirecting after login
+                    if redirect_necessary:
+                        return redirect(url_for("profile"))
+                    else:
+                        return redirect(url_for('index',username=userinput))
+                else:#incorrect password error
+                    error = True
+                    return render_template("login.html" ,error=error)
+            else:
+                #print "not in users"
+                notreg = True
+                return render_template("login.html", notreg = notreg)
     else:#request.method == "GET"
         error = None
         return render_template("login.html")
@@ -133,17 +212,55 @@ def login():
 @app.route("/favorite", methods=["POST","GET"])
 @authenticate
 def favorite():
-    return render_template("favorite.html",rand=recofday.rand())
-
-@app.route("/random", methods=["POST","GET"])
-def random():
     if 'username' in session:
         loggedin = True
         username = escape(session['username'])
-        return render_template("random.html", loggedin=loggedin,username=username, rand=recofday.rand())
     else:
         loggedin = False
-    return render_template("random.html", loggedin=loggedin, rand=recofday.rand())
+    if request.method == 'POST':
+        if request.form['searched']!= "":
+            return redirect(url_for("recipeList", tag = request.form['searched']))
+    else:
+        favorites = MongoWork.find_favorites(username)
+        if favorites == None:
+            empty = True
+            return render_template("favorite.html", empty=empty)
+        else:
+            print favorites
+            return render_template("favorite.html", favorites=favorites)
+        #return render_template("favorite.html",rand=recofday.rand())
+    
+@app.route("/random", methods=["POST","GET"])
+def random():
+    rand = recofday.rand()
+    randrec = recipes.retrecipe(rand['source_url'])
+    randing = recipes.reting(rand['f2f_url'])
+    if 'username' in session:
+        loggedin = True
+        username = escape(session['username'])
+    else:
+        loggedin = False
+    if request.method == "POST":
+        if 'searched' in request.form:
+            if request.form['searched']!= "":
+                return redirect(url_for("recipeList", tag = request.form['searched']))
+        else: ##add to favorites
+            if loggedin: #logged in: add to favorites, redirect to same page, and flash message
+                mongo_input =  {'atitle': title,
+                                'ing': ing,
+                                'rec': rec }
+                MongoWork.update_favorites(username, mongo_input)
+                print MongoWork.find_favorites(username)
+                flash("Added recipe to Favorites!");
+                return redirect(url_for("login"))
+            else:
+                flash("Please log in to use the Add to Favorites feature!")
+                return redirect(url_for("favorite"))
+    else:
+        if loggedin:
+            return render_template("random.html", loggedin=loggedin,username=username, randrec=randrec, randing=randing, randtitle= rand['title'])
+        else:
+            return render_template("random.html", loggedin=loggedin, randrec=randrec, randing= randing, randtitle=rand['title'])
 
 #must pop off session
 @app.route("/logout")
@@ -155,39 +272,44 @@ def logout():
 @app.route("/register", methods=["POST","GET"])
 def register():
     if request.method == "POST":
-        usr = request.form['username']
-        passw = request.form['passwd']
-        repassw = request.form['repasswd']
-        firstname = request.form['fname']
-        lastname = request.form['lname']
-        if passw == repassw and usr!='' and passw!='' and firstname!='' and lastname!='':#checks if everything is filled out
+        if 'searched' in request.form:
+            if request.form['searched']!= "":
+                return redirect(url_for("recipeList", tag = request.form['searched']))
+        else:
+            usr = request.form['username']
+            passw = request.form['passwd']
+            repassw = request.form['repasswd']
+            firstname = request.form['fname']
+            lastname = request.form['lname']
+            if passw == repassw and usr!='' and passw!='' and firstname!='' and lastname!='':#checks if everything is filled out
         #retVals = ' %s , %s, %s, %s , %s ' % (usr, passw, repassw, firstname, lastname)
-            mongo_input = { 'uname':usr,
-                            'password':passw, 
-                            'firstname':firstname,
-                            'lastname':lastname } 
-            #print mongo_input
-            #print MongoWork.check_user_in_db(usr)
-            if MongoWork.check_user_in_db(usr):
-                user_taken = True
-                return render_template("register.html",user_taken=user_taken, usr=usr)
-            elif re.match('''^[~!@#$%^&*()_+{}":;']+$''', usr): #has special characters!
-                special_char = True
-                return render_template("register.html", special_char=special_char)
-            elif not check_pword(passw):
-                bad_pword = True
-                return render_template("register.html", bad_pword = bad_pword)
-            else:####SUCCESS!
-                MongoWork.new_user(mongo_input) #put user into our mongodb
-                registered = True
-                return redirect(url_for("index",registered=registered)) 
-        else: #aka passwd !=repassw OR not all filled out
-            if passw != repassw:#pwd and re-type pwd fields do not match
-                reg_error = True
-                return render_template("register.html", reg_error=reg_error)
-            else:#missing field error
-                empty=True
-                return render_template("register.html", empty=empty)
+                mongo_input = { 'uname':usr,
+                                'password':passw, 
+                                'firstname':firstname,
+                                'lastname':lastname,
+                                'favorites': [] } 
+                #print mongo_input
+                #print MongoWork.check_user_in_db(usr)
+                if MongoWork.check_user_in_db(usr):
+                    user_taken = True
+                    return render_template("register.html",user_taken=user_taken, usr=usr)
+                elif re.match('''^[~!@#$%^&*()_+{}":;']+$''', usr): #has special characters!
+                    special_char = True
+                    return render_template("register.html", special_char=special_char)
+                elif not check_pword(passw):
+                    bad_pword = True
+                    return render_template("register.html", bad_pword = bad_pword)
+                else:####SUCCESS!
+                    MongoWork.new_user(mongo_input) #put user into our mongodb
+                    registered = True
+                    return redirect(url_for("index",registered=registered)) 
+            else: #aka passwd !=repassw OR not all filled out
+                if passw != repassw:#pwd and re-type pwd fields do not match
+                    reg_error = True
+                    return render_template("register.html", reg_error=reg_error)
+                else:#missing field error
+                    empty=True
+                    return render_template("register.html", empty=empty)
     else:#GET method
         return render_template("register.html")
 

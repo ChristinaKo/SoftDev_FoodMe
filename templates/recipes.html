@@ -42,8 +42,8 @@
 {% endif %}
 
 <div class="search-bar">
-       <form class="pure-form">
-	 <input type="text" class="pure-input-rounded" placeholder="Search recipes or keywords...">
+       <form class="pure-form" method="POST">
+	 <input type="text" class="pure-input-rounded" placeholder="Search recipes or keywords..." name="searched">
 	 <button type="submit" class="pure-button">
 	   <img src="/static/search.png" alt="Search Icon"/></button>
        </form>
@@ -58,7 +58,7 @@
      
      {% if not loggedin %}
      <li><a href="/">Home</a></li>
-     <li class="pure-menu-selected"><a href="/about">About</a></li>
+     <li><a href="/about">About</a></li>
      <li><a href="/random">Random</a></li>
      <li><a href="/login">Sign In</a></li>
      <li><a href="/register">Register</a></li>
@@ -66,7 +66,7 @@
      {% else %}
      
      <li><a href="/">Home</a></li>
-     <li class="pure-menu-selected"><a href="/about">About</a></li>
+     <li><a href="/about">About</a></li>
      <li><a href="/random">Random</a></li>	
      <li><a href="/favorite">Favorites</a></li>
      {% endif %}

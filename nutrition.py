@@ -1,13 +1,15 @@
 import urllib2
 import json
-from fractions import Fraction
-from decimal import Decimal
 from nutritionix import Nutritionix
 
-###################KEY INFO HERE FOR API ACCESS##################################
+###################KEY INFO HERE FOR API ACCESS#################################
+
 #you need to place an API key for Nutritionix here - provide one here below
-nx = Nutritionix (api_key = "c61a0fa95a3d990372245f601358afe3",
-                  app_id = "1634d1d7")
+#nx = Nutritionix (api_key = "daee2f4c8cc606f01466792b71d9a431", app_id = "1634d1d7")
+### this is the second api key cuz, the first got overused
+#nx = Nutritionix(app_id="3df3337e", api_key="cff8d58ebc11131a0cd7f28a5432a60f")
+###third api
+nx = Nutritionix(app_id = "249937bb", api_key="5cfcf8a5dd2fcfa9f21200c6bf1c6906")
 ################################################################################
 
 ####### Helper Functions #######
@@ -66,34 +68,35 @@ def fractioncheck(x):
         z = x.split('/')
         print x
         return float(z[0])/float(z[1])
-      
-#print fractioncheck("1/2")
-#print fractioncheck("12312")
-        
-###############################API CALL FUNCTION#######################################
-#'''''''''''''''''''''''''''''''''''''''''SEARCHING''''''''''''''''''''''''''''''''''''''''''''''''''''#
 
+def nformat(dic, s, dv = None):
+    percent = 100
+    if dv == None:
+        dv = 1
+        percent = 1
+    if s in dic.keys():
+        return int(dic[s]*percent/dv)
+    return 0
+
+############################### API CALL FUNCTIONS #######################################
+#'''''''''''''''''''''''''''''''''''''''''SEARCHING''''''''''''''''''''''''''''''''''''''''''''''''''''#
 #returns one result of a search of params (using amounts and measurements as qualifiers)
-#checks measurement and amounts
 def search(param, amount, measurement):
-    print param
     lists=[] # list of one element id
     request = nx.search(param,limit=100, offset=0, search_type="usda")
     result = request.json()
     if result["total_hits"] >0:
         for item in result["hits"]: #is result hits top 10
-            #item["fields"]["brand_name"]=="USDA" and  <- some ingredients dont have usda at least if worded differently 
-            if (item["fields"]["nf_serving_size_unit"] == measurement or compare(item, measurement)):
+            if (item["fields"]["nf_serving_size_unit"] == measurement or item["fields"]["nf_serving_size_unit"] == measurement+"s" or compare(item, measurement)):
                 lists.append(item["fields"]["item_id"])
                 lists.append(measurement)
                 lists.append(amountfind(item,measurement))
                 return lists   # list of one element
-    item = result["hits"][1]
-    lists.append(item["fields"]["item_id"])
-    lists.append(measurement)
-    lists.append(amountfind(item,measurement))
-    return lists
-            
+        item = result["hits"][0]
+        lists.append(item["fields"]["item_id"])
+        lists.append(measurement)
+        lists.append(amountfind(item,measurement))
+        return lists
             
 #parses through list of item_ids and searches for nutrition facts     
 def getAstats(item_id):
@@ -108,15 +111,13 @@ def getAstats(item_id):
                 LT.append(n[18:])
         except:
             print n + "  ___   key DNE in this set"
-
-    NF = ['nf_calories','nf_calories_from_fat','nf_total_fat','nf_saturated_fat','nf_trans_fatty_acid','nf_cholesterol','nf_sodium','nf_total_carbohydrate','nf_dietary_fiber','nf_sugars','nf_protein','nf_vitamin_a_dv','nf_vitamin_c_dv','nf_calcium_dv','nf_iron_dv']
+    NF = ["nf_calories","nf_calories_from_fat","nf_total_fat","nf_saturated_fat","nf_trans_fatty_acid","nf_cholesterol","nf_sodium","nf_total_carbohydrate","nf_dietary_fiber","nf_sugars","nf_protein","nf_vitamin_a_dv","nf_vitamin_c_dv","nf_calcium_dv","nf_iron_dv"]
     fact = {}
     for f in NF:
         try:
             fact[f] = nutrifacts[f]
         except:
             print "key error: " + f
-            
     return [fact, LT]
 
 #''''''''''''''''''''''''''''''''''''''''''' Main Function  ''''''''''''''''''''''''''''''''''''#
@@ -159,87 +160,6 @@ def parser(ingredlist):
     #get nutri/allergen facts
         stats = getAstats(resultid)  #list of nutri facts, allergens
         #combine
-        #print stats[0]
         nutri = scale(stats[0], scalefactor, nutri)
         allergens = list(set(stats[1]+allergens)) #double-check this to see if it removes duplicates
-    print [nutri, allergens]
-    return searchL
-
-
-############Testing Section
-test = [' 3 skinless, boneless chicken breasts', ' 1 cup Italian seasoned bread crumbs', ' 1/2 cup grated Parmesan cheese', ' 1 teaspoon salt', ' 1 teaspoon dried thyme', ' 1 tablespoon dried basil', ' 1/2 cup butter, melted'] 
-
-#print parser(["1 cup of apple juice"])
-
-#print getAstats(search("Italian seasoned bread crumbs", 1.0, "cup"))
-#print getAstats("54bfe04a435431322afde8c3")
-#skinless, boneless chicken breasts", 3, "serving")
-
-'''
-sample output:
- u'allergen_contains_eggs': None,
- u'allergen_contains_fish': None,
- u'allergen_contains_gluten': None,
- u'allergen_contains_milk': None,
- u'allergen_contains_peanuts': None,
- u'allergen_contains_shellfish': None,
- u'allergen_contains_tree_nuts': None,
- u'allergen_contains_wheat': None,
- u'allergen_contains_soybeans': None, 
-
- u'brand_id': u'513fbc1283aa2dc80c000055',
- u'item_description': u'',
- u'item_id': u'529e7dd2f9655f6d35001d85',
- u'item_name': u'Cheese',
-u'leg_loc_id': 116,
-
- u'nf_serving_size_qty': 1,
- u'nf_serving_size_unit': u'serving',
- u'nf_servings_per_container': None,
-
-u'nf_serving_weight_grams': None, 
-
-u'nf_calories': 60,
-    nf_calories_from_fat': 40,
-u'nf_total_fat': 4.5,
-     u'nf_saturated_fat': 3,
-     u'nf_trans_fatty_acid': None,
-u'nf_cholesterol': 15,
-u'nf_sodium': 90,
-u'nf_total_carbohydrate': 1,
-     u'nf_dietary_fiber': 0,
-     u'nf_sugars': 0,
-u'nf_protein': 4,
-
-u'nf_vitamin_a_dv': 4,
- u'nf_vitamin_c_dv': 0,
-  u'nf_calcium_dv': 10,
- u'nf_iron_dv': 0,
-
-
-u'nf_monounsaturated_fat': None,
-u'nf_polyunsaturated_fat': None,
- 
-u'nf_refuse_pct': None,
-
- 
- u'nf_water_grams': None,
- u'old_api_id': None,
- u'updated_at': u'2012-04-18T04:05:59.000Z',
- u'usda_fields': None,
- u'brand_name': u'Desert Moon Grille', 
-u'
-{u'nf_ingredient_statement': None, 
-'''
-
-'''
-dictionary fields of the api:
-{   _score, _type, _id, fields{
-          item_id,
-          item_name,
-          nf_serving_size_unit
-            brand_name,
-            nf_serving_size_qty,
-          }
-    _index
-'''
+    return [nutri, allergens, measurement]
