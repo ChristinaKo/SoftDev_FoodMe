@@ -3,8 +3,8 @@ import json
 from nutritionix import Nutritionix
 
 ##################### Flask Header ############################
-app = Flask(__name__)
-app.secret_key = "SEcRet KeY"
+#app = Flask(__name__)
+#app.secret_key = "SEcRet KeY"
 ###################KEY INFO HERE FOR API ACCESS#################################
 
 #you need to place an API key for Nutritionix here - provide one here below
@@ -41,11 +41,7 @@ def scale (dic, factor, orig):
     for key in x:
         try:
             ans[key] = dic[key]*factor
-<<<<<<< HEAD
         except: #if not num / == None, then skip
-=======
-        else: #if not num / == None, then skip
->>>>>>> lh
             pass
         if len(orig) > 0: #if something in orig
             try:
@@ -186,7 +182,7 @@ def parser(ingredlist):
                            # serverpcont = "1" ,
                            # calories = nformat(n,"nf_calories"),
                            # fatcals = nformat(n,"nf_calories_from_fat"),
-                           # fat = nformat(n,"nf_total_fat"), 
+                           # fat = nformat(n,"nf_total_fat"),
                            # fatdv = nformat(n,"nf_total_fat",65), 
                            # satfat = nformat(n,"nf_saturated_fat"), 
                            # satfatdv = nformat(n,"nf_saturated_fat",20),
