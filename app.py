@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, session, url_for, s
 from functools import wraps
 import MongoWork, recofday
 import re
-import recipes
+import recipes, nutrition
 app = Flask(__name__)
 app.secret_key = "Really secret but not really secret." #session usage
 
@@ -121,6 +121,10 @@ def recipe(tag, num, title):
     nurl = recipes.geturls(db, title)
     rec = recipes.retrecipe(nurl[0]) 
     ing = recipes.reting(nurl[1])
+    nutrifact = nutrition.parser(ing)
+    n = nutrifact[1]
+    allergen= nutrifact[1]
+    measurement = nutrifact[2]
     if 'username' in session:
         loggedin = True
         username = escape(session['username'])
@@ -143,7 +147,36 @@ def recipe(tag, num, title):
                 flash("Please log in to use the Add to Favorites feature!")
                 return redirect(url_for("recipe", tag = tag, num=num, title=title))
     else: ##GET METHOD
-        return render_template("recipe.html", loggedin=loggedin, title=title, rec = rec, ing = ing)
+        return render_template("recipe.html", 
+                               loggedin=loggedin, 
+                               title=title, 
+                               rec = rec, 
+                               ing = ing,  
+                               sizes = "1 meal",
+                               serverpcont = "1" ,
+                               calories = nutrition.nformat(n,"nf_calories"),
+                               fatcals = nutrition.nformat(n,"nf_calories_from_fat"),
+                               fat = nutrition.nformat(n,"nf_total_fat"), 
+                               fatdv = nutrition.nformat(n,"nf_total_fat",65), 
+                               satfat = nutrition.nformat(n,"nf_saturated_fat"), 
+                               satfatdv = nutrition.nformat(n,"nf_saturated_fat",20),
+                               transfat = nutrition.nformat(n,"nf_trans_fatty_acid"),
+                               cholesterol = nutrition.nformat(n,"nf_cholesterol"),
+                               cholesteroldv = nutrition.nformat(n,"nf_cholesterol",300),
+                               sodium = nutrition.nformat(n,"nf_sodium"),
+                               sodiumdv = nutrition.nformat(n,"nf_sodium",2400),
+                               carb = nutrition.nformat(n,"nf_total_carbohydrate"), 
+                               carbdv = nutrition.nformat(n,"nf_total_carbohydrate",300), 
+                               df = nutrition.nformat(n,"nf_dietary_fiber"), 
+                               sugar = nutrition.nformat(n,"nf_sugars"),
+                               protein = nutrition.nformat(n,"nf_protein"),
+                               proteindv = nutrition.nformat(n,"nf_protein",50),
+                               vitA = nutrition.nformat(n,"nf_vitamin_a_dv"),
+                               vitC = nutrition.nformat(n,"nf_vitamin_a_dv"),
+                               calcium = nutrition.nformat(n,"nf_calcium_dv"),
+                               iron= nutrition.nformat(n,"nf_iron_dv"),
+                               allergens = allergen
+                           )
     
 @app.route("/login", methods=["POST","GET"])
 def login():
