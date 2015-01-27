@@ -243,6 +243,16 @@
 	      </tr>
 	  </table>
 	</div>
+	<br>
+	{% if allergens|length > 0 %}
+	  <br>
+	  Be careful if you are allergic to:
+          <ul style="margin:1px;">
+          {% for a in allergens %} 
+	    <li>{{a}}</li>
+	    {%endfor%}
+	  </ul>
+	  {% endif %}
       </div>
       <a href="#" class="scrollup"></a>
 

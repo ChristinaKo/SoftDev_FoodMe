@@ -5,11 +5,11 @@ from nutritionix import Nutritionix
 ###################KEY INFO HERE FOR API ACCESS#################################
 
 #you need to place an API key for Nutritionix here - provide one here below
-#nx = Nutritionix (api_key = "daee2f4c8cc606f01466792b71d9a431", app_id = "1634d1d7")
+nx = Nutritionix (api_key = "daee2f4c8cc606f01466792b71d9a431", app_id = "1634d1d7")
 ### this is the second api key cuz, the first got overused
 #nx = Nutritionix(app_id="3df3337e", api_key="cff8d58ebc11131a0cd7f28a5432a60f")
 ###third api
-nx = Nutritionix(app_id = "249937bb", api_key="5cfcf8a5dd2fcfa9f21200c6bf1c6906")
+#nx = Nutritionix(app_id = "249937bb", api_key="5cfcf8a5dd2fcfa9f21200c6bf1c6906")
 ################################################################################
 
 ####### Helper Functions #######
@@ -26,11 +26,9 @@ def amountfind (item, measureu):
     temp = item["fields"]["item_name"].split()
     if measureu in temp:
         try:
-            print "from USDA NAME"
             return float(temp[temp.index(measureu)-1])
         except:
             print "ARRAY ERROR"
-    print "from nutritionix database"
     return float(item["fields"]["nf_serving_size_qty"])
         
 ##Scales nutrition facts and combines with the passed original info
@@ -66,7 +64,6 @@ def fractioncheck(x):
         return x
     else:
         z = x.split('/')
-        print x
         return float(z[0])/float(z[1])
 
 def nformat(dic, s, dv = None):
@@ -101,10 +98,8 @@ def search(param, amount, measurement):
 #parses through list of item_ids and searches for nutrition facts     
 def getAstats(item_id):
     allergen= ["allergen_contains_eggs","allergen_contains_fish","allergen_contains_gluten","allergen_contains_milk","allergen_contains_peanuts","allergen_contains_shellfish","allergen_contains_tree_nuts","allergen_contains_wheat", "allergen_contains_soybeans"]
-    print item_id[0]
     nutrifacts= nx.item(id=item_id).json()
     LT = [] #List of allergens
-    print nutrifacts
     for n in allergen:
         try:
             if nutrifacts[n] != None:
@@ -132,14 +127,19 @@ def parser(ingredlist):
         ingred = i.strip() 
     #start of parsing stuff
         x = ingred.split()
-       #ASSUMING that amount is the first element of this split list
-        print x[0]
+    #ASSUMING that amount is the first element of this split list
         if x[0] == "a":
             f2famount = float(1.0)
         else:
             f2famount= float(fractioncheck(x[0]))
             
-        x.pop(0) #popping the amount 
+        x.pop(0) #popping the first amount 
+        try: # check to see if second amount is valid
+            f2famount= f2famount + float(fractioncheck(x[0]))
+            x.pop(0)
+        except:
+            #do nothing....
+            pass
         if check(x[0]):
             measurement=x[0]
             x.pop(0)
@@ -147,9 +147,6 @@ def parser(ingredlist):
         else:
             measurement="serving"
             searchL=clean(x)
-        print searchL
-        print measurement
-        print f2famount
     #search using the search params
         results = search(searchL, f2famount, measurement)
         #print results
