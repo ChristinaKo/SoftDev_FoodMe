@@ -142,11 +142,21 @@ def parser(ingredlist):
     #ASSUMING that amount is the first element of this split list
         if x[0] == "a":
             f2famount = float(1.0)
+            x.pop(0) #popping the first amount 
         else:
-            print fractioncheck(x[0])
-            f2famount= float(fractioncheck(x[0]))
-            
-        x.pop(0) #popping the first amount 
+            try:
+                f2famount= float(fractioncheck(x[0]))
+                x.pop(0) #popping the first amount 
+            except:
+                f2famount= 1
+                if check(x[0]):
+                    measurement = x[0]
+                    x.pop(0)
+                    searchL=clean(x)
+                else:
+                    measurement="serving"
+                    searchL=clean(x)            
+       
         try: # check to see if second amount is valid
             f2famount= f2famount + float(fractioncheck(x[0]))
             x.pop(0)
