@@ -235,19 +235,38 @@ def favorite():
     
 @app.route("/random", methods=["POST","GET"])
 def random():
-    if request.method == "POST":
-        if request.form['searched']!= "":
-            return redirect(url_for("recipeList", tag = request.form['searched']))
     rand = recofday.rand()
     randrec = recipes.retrecipe(rand['source_url'])
     randing = recipes.reting(rand['f2f_url'])
     if 'username' in session:
         loggedin = True
         username = escape(session['username'])
-        return render_template("random.html", loggedin=loggedin,username=username, randrec=randrec, randing=randing, randtitle= rand['title'])
     else:
         loggedin = False
-    return render_template("random.html", loggedin=loggedin, randrec=randrec, randing= randing, randtitle=rand['title'])
+    if request.method == "POST":
+        if 'searched' in request.form:
+            if request.form['searched']!= "":
+                return redirect(url_for("recipeList", tag = request.form['searched']))
+        else: ##add to favorites
+            if loggedin: #logged in: add to favorites, redirect to same page, and flash message
+                #      mongo_input =  {'title': title,
+                #                      'ing': ing,
+                #                        'rec': rec }
+                mongo_input = { 'rec': randrec,
+                                'ing': randing,
+                                'title': rand['title'] }
+                MongoWork.update_favorites(username, mongo_input)
+                print MongoWork.find_favorites(username)
+                flash("Added recipe to Favorites!");
+                return redirect(url_for("login"))
+            else:
+                flash("Please log in to use the Add to Favorites feature!")
+                return redirect(url_for("favorite"))
+    else:
+        if loggedin:
+            return render_template("random.html", loggedin=loggedin,username=username, randrec=randrec, randing=randing, randtitle= rand['title'])
+        else:
+            return render_template("random.html", loggedin=loggedin, randrec=randrec, randing= randing, randtitle=rand['title'])
 
 #must pop off session
 @app.route("/logout")
