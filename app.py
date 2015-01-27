@@ -251,10 +251,10 @@ def random():
                 MongoWork.update_favorites(username, mongo_input)
                 print MongoWork.find_favorites(username)
                 flash("Added recipe to Favorites!");
-                return redirect(url_for("login"))
+                return redirect(url_for("favorite"))
             else:
                 flash("Please log in to use the Add to Favorites feature!")
-                return redirect(url_for("favorite"))
+                return redirect(url_for("login"))
     else:
         if loggedin:
             return render_template("random.html", loggedin=loggedin,username=username, randrec=randrec, randing=randing, randtitle= rand['title'])
