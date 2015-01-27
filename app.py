@@ -122,6 +122,13 @@ def recipeList(tag):
 
 @app.route("/recipes/<tag>/<num>/<title>", methods=["POST","GET"])
 def recipe(tag, num, title):
+    title= title.replace("%20"," ")
+    tagL = tag.split()
+    if len(tagL)>1:
+        oldtag = tag
+        tag="%20".join(tagL)
+    else:
+        tag = tagL[0]
     db = recipes.getSearchVal(tag, num)
     nurl = recipes.geturls(db, title)
     rec = recipes.retrecipe(nurl[0]) 
