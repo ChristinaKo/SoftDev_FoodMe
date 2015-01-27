@@ -122,7 +122,7 @@ def recipe(tag, num, title):
     rec = recipes.retrecipe(nurl[0]) 
     ing = recipes.reting(nurl[1])
     nutrifact = nutrition.parser(ing)
-    n = nutrifact[1]
+    n = nutrifact[0]
     allergen= nutrifact[1]
     measurement = nutrifact[2]
     if 'username' in session:
