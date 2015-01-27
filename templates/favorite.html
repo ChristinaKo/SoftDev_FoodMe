@@ -96,14 +96,18 @@
       <div class="toggle-e"><br>
           &nbsp;&nbsp;&nbsp;&nbsp;{% elif key == "ing" %}
            <b>Ingredients:</b>
+	   <ul class="list-u">
               {% for i in value %}
               <li class="list-u">{{i}}</li>
 	      {% endfor %}
+	   </ul>
 	  {% elif key == "rec" %}
-	   <b>Instructions:</b>   
+	   &nbsp;&nbsp;&nbsp;&nbsp;<b>Instructions:</b> 
+	   <ol>
 	      {% for i in value %}
               <li class="list-f">{{i}}</li>
-	      {% endfor %}    
+	      {% endfor %}  
+	   </ol>
     </div>
           {% endif %}
      {% endfor %}
@@ -111,19 +115,10 @@
 
    {% endif %}
 
-  </ul>
-  <li class="trigger">test one</li>
-  <div class="toggle-e">stuff one</div>
-  <li class="trigger">test two</li>
-  <div class="toggle-e">stuff two</div>
-  <li class="trigger">test three</li>
-<div class="toggle-e">stuff three</div>
-  </ul>
 </div>
 
 <a href="#" class="scrollup"></a>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="/static/main.js"></script>
 <script src="/static/dropit/dropit.js"></script>
