@@ -7,9 +7,11 @@ from nutritionix import Nutritionix
 #you need to place an API key for Nutritionix here - provide one here below
 #nx = Nutritionix (api_key = "daee2f4c8cc606f01466792b71d9a431", app_id = "1634d1d7")
 ### this is the second api key cuz, the first got overused
-nx = Nutritionix(app_id="3df3337e", api_key="cff8d58ebc11131a0cd7f28a5432a60f")
+#nx = Nutritionix(app_id="3df3337e", api_key="cff8d58ebc11131a0cd7f28a5432a60f")
 ###third api
 #nx = Nutritionix(app_id = "249937bb", api_key="5cfcf8a5dd2fcfa9f21200c6bf1c6906")
+###fourth api
+nx = Nutritionix(app_id = "4e647fd6", api_key="cc628ece2798dcaa546f55a929dc7e82")
 ################################################################################
 
 ####### Helper Functions #######

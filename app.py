@@ -105,9 +105,10 @@ def recipeList(tag):
     else:
         tagL = tag.split()
         if len(tagL)>1:
+            oldtag = tag
             tag="%20".join(tagL)
         else:
-            tag= tagL[0]
+            tag = tagL[0]
         num = 1
         reclist = []
         while num <=4:
@@ -117,7 +118,7 @@ def recipeList(tag):
                 num =  num + 1
             else:
                 break
-        return render_template("recipes.html", loggedin = loggedin, tag = tag, reclist = reclist)    
+        return render_template("recipes.html", loggedin = loggedin, tag = oldtag, reclist = reclist)    
 
 @app.route("/recipes/<tag>/<num>/<title>", methods=["POST","GET"])
 def recipe(tag, num, title):
