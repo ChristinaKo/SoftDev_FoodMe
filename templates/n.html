@@ -50,7 +50,7 @@
 	<td class="_bottom_" colspan="2"<td class="_bottom_" colspan="1"><DD>Dietary Fiber {{df}}g</DD></td>
 	</tr>
       <tr>
-	<td class="_bottom_" colspan="2"><DD>Sugar {{sugar}}</DD></td>
+	<td class="_bottom_" colspan="2"><DD>Sugar {{sugar}}g</DD></td>
       </tr>
       <tr>
 	<td class="topbar" colspan="1"><strong>Protein</strong> {{protein}}g</td>
@@ -123,5 +123,14 @@
 	  </table>
 	<td>
       </tr>     
-  </table>
+</table>
+{% if allergens|length > 0 %}
+<br>
+	  Be careful if you are allergic to:
+          <ul style="margin:1px;">
+          {% for a in allergens %} 
+	    <li>{{a}}</li>
+	    {%endfor%}
+	  </ul>
+	  {% endif %}
 </html>
