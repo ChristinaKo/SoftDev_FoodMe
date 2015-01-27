@@ -245,7 +245,7 @@ def random():
                 return redirect(url_for("recipeList", tag = request.form['searched']))
         else: ##add to favorites
             if loggedin: #logged in: add to favorites, redirect to same page, and flash message
-                mongo_input =  {'atitle': title,
+                mongo_input =  {'atitle': rand['title'],
                                 'ing': randing,
                                 'rec': randrec }
                 MongoWork.update_favorites(username, mongo_input)
