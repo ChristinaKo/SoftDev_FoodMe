@@ -6,7 +6,6 @@ from nutritionix import Nutritionix
 ##################### Flask Header ############################
 app = Flask(__name__)
 app.secret_key = "SEcRet KeY"
-
 ###################KEY INFO HERE FOR API ACCESS#################################
 #you need to place an API key for Nutritionix here - provide one here below
 #nx = Nutritionix (api_key = "daee2f4c8cc606f01466792b71d9a431", app_id = "1634d1d7")
@@ -76,16 +75,11 @@ def nformat(dic, s, dv = None):
         dv = 1
         percent = 1
     if s in dic.keys():
-        print s
-        print dic[s]
-        print dv
-        print percent
         return int(dic[s]*percent/dv)
     return 0
 
 ############################### API CALL FUNCTIONS #######################################
 #'''''''''''''''''''''''''''''''''''''''''SEARCHING''''''''''''''''''''''''''''''''''''''''''''''''''''#
-
 #returns one result of a search of params (using amounts and measurements as qualifiers)
 def search(param, amount, measurement):
     lists=[] # list of one element id
