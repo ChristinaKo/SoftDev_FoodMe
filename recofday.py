@@ -11,8 +11,8 @@ from bs4 import BeautifulSoup
 
 #url = "http://food2fork.com/api/search?key=73fabb20981c227717084598dff04287&q=%s&page=%s"
 #url = "http://food2fork.com/api/search?key=64e7c9ab4a5b566ec0aee5ea832f1ee2&q=%s&page=%s"
-url = "http://food2fork.com/api/search?key=c6c725b11b322d241aea51a4038c990a&q=%s&page=%s"
-#url = "http://food2fork.com/api/search?key=935a5bc621fcb061d17b50ef48278d1d&q=%s&page=%s"
+#url = "http://food2fork.com/api/search?key=c6c725b11b322d241aea51a4038c990a&q=%s&page=%s"
+url = "http://food2fork.com/api/search?key=935a5bc621fcb061d17b50ef48278d1d&q=%s&page=%s"
 def rand():
     randletter = random.choice("abcdefghijklmnopqrstuvwxyz")
     randnum = random.randint(0,100)

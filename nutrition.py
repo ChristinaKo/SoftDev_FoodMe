@@ -166,7 +166,10 @@ def parser(ingredlist):
         resultid = results[0] #Nutritionix id of the search element
         measurement = results[1] #measurement used by the id which has been checked with measurement used in the passed recipe
         amount = results[2] #amount from Nutritionix database
-        scalefactor = 1.0*amount/f2famount 
+        if f2famount != 0:
+            scalefactor = 1.0*amount/f2famount
+        else:
+            scalefactor = 0
     #get nutri/allergen facts
         stats = getAstats(resultid)  #list of nutri facts, allergens
         #combine
