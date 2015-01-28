@@ -108,7 +108,7 @@ def recipeList(tag):
             oldtag = tag
             tag="%20".join(tagL)
         else:
-            tag = tagL[0]
+            oldtag = tagL[0]
         num = 1
         reclist = []
         while num <=4:

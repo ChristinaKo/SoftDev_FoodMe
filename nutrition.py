@@ -66,7 +66,7 @@ def fractioncheck(x):
         try:
             f = float(x)
         except:
-            return x
+            return 0
     else:
         z = x.split('/')
         try:
@@ -140,6 +140,7 @@ def parser(ingredlist):
         if x[0] == "a":
             f2famount = float(1.0)
         else:
+            print fractioncheck(x[0])
             f2famount= float(fractioncheck(x[0]))
             
         x.pop(0) #popping the first amount 
