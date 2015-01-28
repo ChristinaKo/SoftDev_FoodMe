@@ -12,6 +12,8 @@ from nutritionix import Nutritionix
 #nx = Nutritionix(app_id = "249937bb", api_key="5cfcf8a5dd2fcfa9f21200c6bf1c6906")
 ###fourth api
 nx = Nutritionix(app_id = "4e647fd6", api_key="cc628ece2798dcaa546f55a929dc7e82")
+###fifth api
+nx = Nutritionix(app_id = "4e647fd6", api_key="3c88e9d79929999f619fe935ceda1fb1")
 ################################################################################
 
 ####### Helper Functions #######
