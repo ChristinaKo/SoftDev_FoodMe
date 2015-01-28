@@ -1,6 +1,12 @@
 FoodMe!
 =============
 
+##VIDEO:
+https://www.youtube.com/watch?v=0YdvAtKFVnc
+
+##DIGITALOCEAN LINK:
+foodme.chickenkiller.com 
+
 ##What:
 Foodme! is devoted to providing incredible recipes using ingredients or keywords as search parameters. 
 
