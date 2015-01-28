@@ -13,9 +13,9 @@ def getSearchVal(tag,num):
 
     #url = "http://food2fork.com/api/search?key=ea433f0fab9479fcdb2601ee80912e5c&q=%s&page=%s"
 
-    url = "http://food2fork.com/api/search?key=c6c725b11b322d241aea51a4038c990a&q=%s&page=%s"
+#    url = "http://food2fork.com/api/search?key=c6c725b11b322d241aea51a4038c990a&q=%s&page=%s"
 
-    #url = "http://food2fork.com/api/search?key=935a5bc621fcb061d17b50ef48278d1d&q=%s&page=%s"
+    url = "http://food2fork.com/api/search?key=935a5bc621fcb061d17b50ef48278d1d&q=%s&page=%s"
 
     url = url%(tag,num)
     request = urllib2.urlopen(url)
